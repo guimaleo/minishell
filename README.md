@@ -74,8 +74,8 @@ should expand to their values.
 [Back to top](#index)
 | Library   | Functions |
 |-----------|-----------|
-| **unistd.h**  | [access](#access), [fork](#fork), read, write, open, close, wait, waitpid, getcwd, chdir, unlink, execve, dup, dup2, pipe, isatty, ttyname, ttyslot |
-| **wait.h** |wait3, wait4|
+| **unistd.h**  | [access](#access), [fork](#fork), read, write, open, close, [getcwd](#getcwd), [chdir](#chdir), unlink, execve, dup, dup2, pipe, isatty, ttyname, ttyslot |
+| **wait.h** |[wait](#wait), waitpid, wait3, wait4|
 | **stdio.h**| printf, readline |
 | **stdlib.h** | malloc, free, exit, getenv |
 | **dirent.h** | opendir, readdir, closedir |
@@ -154,6 +154,64 @@ int	main()
 ![out](./functions/prints/fork1.png)
 ___
 
+#### chdir
+
+[Back to top](#index)
+
+**change working directory**
+int	chdir(const char *path);
+> The chdir() function shall cause the directory named by the pathname pointed to by the path argument to become the current working directory; that is, the starting point for  path  searches for pathnames not beginning with '/'.
+
+```c
+int	main()
+{
+	int		i;
+	int		ret[3];
+	char	*dir = "/tmp";
+	ret[0] = chdir(dir);
+	ret[1] = chdir("");
+	ret[2] = chdir(NULL);
+	for(i=0; i<3; i++)
+		printf("chdir return: %i\n", ret[i]);
+}
+```
+![chdir](./functions/prints/chdir.png)
+
+#### getcwd
+
+[Back to top](#index)
+
+**get current working directory**
+>The getcwd() function copies an absolute pathname of the current working directory to the array pointed to by buf, which is of length size.
+> If the length of the absolute pathname of the current working directory, including  the  terminating null byte, exceeds size bytes, NULL is returned, and errno is set to ERANGE; an application should check for this error, and allocate a larger buffer if necessary.
+
+```c
+int	main()
+{
+	char	cwd[256];
+
+	if (chdir("/tmp") != 0)
+		perror("chdir() error()");
+	else
+	{
+		if (getcwd(cwd, sizeof(cwd)) == NULL)
+			perror("getcwd() error()");
+		else
+			printf("Current working directory is: %s\n", cwd);
+	}
+}
+```
+![getcwd](./functions/prints/getcwd.png)
+
+
+### wait.h
+
+
+#### wait
+
+[Back to top](#index)
+
+**wait for a child process to stop or terminate**
 ```c
 int	main()
 {
@@ -171,12 +229,6 @@ int	main()
 }
 ```
 ![fork2](./functions/prints/fork2.png)
-
-
-
-### wait.h
-[Back to top](#index)
-
 wait3, wait4
 
 
