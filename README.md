@@ -62,18 +62,15 @@ should expand to their values.
 [Back to top](#index)
 | Library   | Functions |
 |-----------|-----------|
-| unistd.h  | access, read, close, fork, wait, waitpid, getcwd, chdir, unlink, execve, dup, dup2, pipe, isatty, ttyname, ttyslot |
-| readline  | rl_replace_line, rl_redisplay, add_history |
-| stdio.h   | printf |
-| stdlib.h  | malloc, free, getenv |
-| unistd.h  | write, access, open, read, close, fork, wait, waitpid, wait3, wait4, execve, dup, dup2, pipe |
-| dirent.h  | opendir, readdir, closedir |
-| string.h  | strerror, perror |
-| termios.h | tcsetattr, tcgetattr |
-| term.h    | tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs |
-| signal.h  | signal, sigaction, sigemptyset, sigaddset, kill |
-| sys/stat.h| stat, lstat, fstat |
-| sys/ioctl.h| ioctl |
+| **unistd.h**  | [access](#access), [fork](#fork), read, close, wait, waitpid, getcwd, chdir, unlink, execve, dup, dup2, pipe, isatty, ttyname, ttyslot |
+| **stdio.h**| printf, readline |
+| **stdlib.h** | malloc, free, getenv |
+| **dirent.h** | opendir, readdir, closedir |
+| **string.h** | strerror, perror |
+| **termios.h** | tcsetattr, tcgetattr |
+| **term.h**| tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs |
+| **signal.h**  | signal, sigaction, sigemptyset, sigaddset, kill |
+| **sys/stat.h**| stat, lstat, fstat |
 
 
 readline, rl_clear_history, rl_on_new_line,
