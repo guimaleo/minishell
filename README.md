@@ -76,6 +76,45 @@ access, read, close, fork, wait, waitpid
 getcwd, chdir, unlink, execve, dup, dup2
 pipe, isatty, ttyname, ttyslot
 
+
+
+*access*
+
+***access definition in unistd.h***
+```c
+/* Values for the second argument to access.
+   These may be OR'd together.  */
+#define	R_OK	4		/* Test for read permission.  */
+#define	W_OK	2		/* Test for write permission.  */
+#define	X_OK	1		/* Test for execute permission.  */
+#define	F_OK	0		/* Test for existence.  */
+
+/* Test for access to NAME using the real UID and real GID.  */
+extern int access (const char *__name, int __type) __THROW __nonnull ((1));
+
+```
+```c
+
+
+int		main(void)
+{
+	int		res[3];
+	int		i;
+
+	res[0] = access("/bin/ls", 0);
+	res[1] = access("ls", 0);
+	res[2] = access("/bin/cd", 0);
+	for(i = 0; i < 3; i++)
+		printf("Access return: %i\n", res[i]);
+}
+```
+__
+```bash
+ $> cc unistd.c -o test_unix; ./test_unix
+Access return: 0
+Access return: -1
+Access return: -1
+  ```
 </details>
 
 <details>
@@ -129,5 +168,5 @@ pipe, isatty, ttyname, ttyslot
 		tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 </details>
 
-
+</details>
 
