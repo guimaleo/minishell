@@ -1,7 +1,9 @@
 # Minishell
+___
 
-<details>
-<summary>Mandatory</summary>
+## Mandatory
+___
+
 
   Your shell should:
 
