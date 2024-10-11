@@ -1,11 +1,11 @@
 # Minishell
-___
+
 
 ## Mandatory
-___
 
 
-  Your shell should:
+
+  **Your shell should:**
 
 • Display a prompt when waiting for a new command.
 
@@ -15,8 +15,12 @@ ___
 
 • Avoid using more than one global variable to indicate a received signal. Consider the implications: this approach ensures that your signal handler will not access your main data structures.
 
+>**Be careful. This global variable cannot provide any other
+information or data access than the number of a received signal.
+Therefore, using "norm" type structures in the global scope is
+forbidden.
+• Not interpret unclosed quotes or special characters which are not required by the subject such as \ (backslash) or ; (semicolon).**
 
-• Not interpret unclosed quotes or special characters which are not required by the subject such as \ (backslash) or ; (semicolon).
 
 • Handle ’ (single quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence.
 
@@ -55,7 +59,7 @@ should expand to their values.
 
 <details>
 <summary>Functions</summary>
-		readline, rl_clear_history, rl_on_new_line,
+readline, rl_clear_history, rl_on_new_line,
 rl_replace_line, rl_redisplay, add_history,
 printf, malloc, free, write, access, open, read,
 close, fork, wait, waitpid, wait3, wait4, signal,
