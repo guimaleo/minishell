@@ -1,19 +1,14 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <wait.h>
-// int access(const char *path, int amode)
+#include <stdlib.h>
 
-int	main()
+int	main(int ac, char **av, char **env)
 {
-	char	cwd[256];
+	int	ret;
 
-	if (chdir("/tmp") != 0)
-		perror("chdir() error()");
-	else
-	{
-		if (getcwd(cwd, sizeof(cwd)) == NULL)
-			perror("getcwd() error()");
-		else
-			printf("Current working directory is: %s\n", cwd);
-	}
+	if (ac == 1)
+		exit(EXIT_FAILURE);
+	ret = execve("/bin/ls", av, env);
+	printf("%i\n", ret);
 }

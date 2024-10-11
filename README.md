@@ -71,10 +71,11 @@ should expand to their values.
 ## Functions
 
 
-[Back to top](#index)
+[Back to Index](#index)
 | Library   | Functions |
 |-----------|-----------|
-| **unistd.h**  | [access](#access), [fork](#fork), read, write, open, close, [getcwd](#getcwd), [chdir](#chdir), unlink, execve, dup, dup2, pipe, isatty, ttyname, ttyslot |
+| **unistd.h**  | [access](#access), [fork](#fork), read, write,  [getcwd](#getcwd), [chdir](#chdir), execve, dup, dup2, pipe, isatty, ttyname, ttyslot |
+| **fcntl.h**|open, close, unlink|
 | **wait.h** |[wait](#wait), waitpid, wait3, wait4|
 | **stdio.h**| printf, readline |
 | **stdlib.h** | malloc, free, exit, getenv |
@@ -91,9 +92,9 @@ should expand to their values.
 
 
 #### access
-[Back to top](#index)
+[Back to top](#functions)
 
-**determine accessibility of a file descriptor**
+**detefunctions accessibility of a file descriptor**
 
 ***access definition in unistd.h***
 ```c
@@ -126,9 +127,9 @@ int		main(void)
 ___
 
 #### fork
-[Back to top](#index)
+[Back to top](#functions)
 
-**create a new process**
+**creafunctionsnew process**
 
 ***fork definition in the unistd.h***
 ```c
@@ -156,7 +157,7 @@ ___
 
 #### chdir
 
-[Back to top](#index)
+[Back to top](#functions)
 
 **change working directory**
 int	chdir(const char *path);
@@ -167,8 +168,8 @@ int	main()
 {
 	int		i;
 	int		ret[3];
-	char	*dir = "/tmp";
-	ret[0] = chdir(dir);
+
+	ret[0] = chdir("/tmp");
 	ret[1] = chdir("");
 	ret[2] = chdir(NULL);
 	for(i=0; i<3; i++)
@@ -179,7 +180,7 @@ int	main()
 
 #### getcwd
 
-[Back to top](#index)
+[Back to top](#functions)
 
 **get current working directory**
 >The getcwd() function copies an absolute pathname of the current working directory to the array pointed to by buf, which is of length size.
@@ -204,14 +205,23 @@ int	main()
 ![getcwd](./functions/prints/getcwd.png)
 
 
+#### execve
+
+[Back to top](#functions)
+
+**execute a file**
+int	execve(const char *path, char *const argv[], char *const envp[]);
+
+```c
+```
 ### wait.h
 
 
 #### wait
 
-[Back to top](#index)
+[Back to top](#functions)
 
-**wait for a child process to stop or terminate**
+**wait a child process to stop or terminate**
 ```c
 int	main()
 {
@@ -234,56 +244,56 @@ wait3, wait4
 
 
 ### signal.h
-[Back to top](#index)
+[Back to topfunctionsdex)
 	signal, sigaction, sigemptyset, sigaddset, kill
 
 
 
 ### stdlib.h
-[Back to top](#index)
+[Back to topfunctionsdex)
 	exit, getenv
 
 
 
 
 ### stat.h
-[Back to top](#index)
+[Back to top](#functions)
 		stat, lstat, fstat
 
 
 
 ### dirent.h
-[Back to top](#index)
+[Back to top](#functions)
 		opendir, readdir, closedir
 
 
 
 ### string.h
-[Back to top](#index)
+[Back to top](#functions)
 		strerror
 
 
 
 ### stdio.h
-[Back to top](#index)
+[Back to top](#functions)
 		readline, perror, printf
 
 
 
 ### stropts.h
-[Back to top](#index)
+[Back to top](#functions)
 		ioctl
 
 
 
 ### termios.h
-[Back to top](#index)
+[Back to top](#functions)
 		tcgetattr, tcsetattr,
 
 
 
 ### curses.h / term.h
-[Back to top](#index)
+[Back to top](#functions)
 		tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
 
