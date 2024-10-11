@@ -1,5 +1,7 @@
 # Minishell
 
+##### Index
+###### [Functions](#functions)
 
 ## Mandatory
 
@@ -55,10 +57,25 @@ should expand to their values.
 ◦ env with no options or arguments
 ◦ exit with no options
 
-</details>
 
-<details>
-<summary>Functions</summary>
+## Functions
+[Back to top](#index)
+| Library   | Functions |
+|-----------|-----------|
+| unistd.h  | access, read, close, fork, wait, waitpid, getcwd, chdir, unlink, execve, dup, dup2, pipe, isatty, ttyname, ttyslot |
+| readline  | rl_replace_line, rl_redisplay, add_history |
+| stdio.h   | printf |
+| stdlib.h  | malloc, free, getenv |
+| unistd.h  | write, access, open, read, close, fork, wait, waitpid, wait3, wait4, execve, dup, dup2, pipe |
+| dirent.h  | opendir, readdir, closedir |
+| string.h  | strerror, perror |
+| termios.h | tcsetattr, tcgetattr |
+| term.h    | tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs |
+| signal.h  | signal, sigaction, sigemptyset, sigaddset, kill |
+| sys/stat.h| stat, lstat, fstat |
+| sys/ioctl.h| ioctl |
+
+
 readline, rl_clear_history, rl_on_new_line,
 rl_replace_line, rl_redisplay, add_history,
 printf, malloc, free, write, access, open, read,
@@ -70,15 +87,17 @@ strerror, perror, isatty, ttyname, ttyslot, ioctl,
 getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 tgetnum, tgetstr, tgoto, tputs
 
-<details>
-	<summary>unistd.h</summary>
+
+### unistd.h
 access, read, close, fork, wait, waitpid
 getcwd, chdir, unlink, execve, dup, dup2
 pipe, isatty, ttyname, ttyslot
 
 
 
-*access*
+#### access
+
+**determine accessibility of a file descriptor**
 
 ***access definition in unistd.h***
 ```c
@@ -108,63 +127,123 @@ int		main(void)
 ```
 __
 ```bash
- $> cc unistd.c -o test_unix; ./test_unix
+$ > cc unistd.c -o test_unix; ./test_unix
 Access return: 0
 Access return: -1
 Access return: -1
   ```
-</details>
+___
 
-<details>
-	<summary>wait.h</summary>
+#### fork
+
+**create a new process**
+
+***fork definition in the unistd.h***
+```c
+/* Clone the calling process, creating an exact copy.
+   Return -1 for errors, 0 to the new process,
+   and the process ID of the new process to the old process.  */
+extern __pid_t fork (void) __THROWNL;
+```
+
+```c
+int	main()
+{
+	pid_t	pid;
+
+	printf("Fork no wait call\n\n");
+	pid = fork();
+	if (pid == 0) // If it's the child proccess
+		printf("I'm the child!\n");
+	else
+		printf("I'm the parent!\n");
+}
+```
+```bash
+$ > cc unistd.c -o test_unix; ./test_unix
+Fork no wait call
+
+I'm the parent!
+I'm the child!
+```
+___
+
+```c
+int	main()
+{
+	pid_t	pid;
+
+	printf("Fork wait for child call\n\n");
+	pid = fork();
+	if (pid != 0) // If it's not the child
+	{
+		wait(NULL);
+		printf("I've been waiting my child!\n");
+	}
+	else
+		printf("Parent process will wait for me!\n");
+}
+```
+```bash
+$ > cc unistd.c -o test_unix; ./test_unix
+Fork wait for child call
+
+Parent process will wait for me!
+I've been waiting my child!
+```
+
+
+
+### wait.h
 		wait3, wait4
-</details>
 
-<details>
-<summary>signal.h</summary>
+
+
+### signal.h
 	signal, sigaction, sigemptyset, sigaddset, kill
-</details>
 
-<details>
-<summary>stdlib.h</summary>
+
+
+### stdlib.h
 	exit, getenv
 
-</details>
 
-<details>
-	<summary>stat.h</summary>
+
+
+### stat.h
 		stat, lstat, fstat
-</details>
 
-<details>
-	<summary>dirent.h</summary>
+
+
+### dirent.h
 		opendir, readdir, closedir
-</details>
 
-<details>
-	<summary>string.h</summary>
+
+
+### string.h
 		strerror
-</details>
 
-<details>
-	<summary>stdio.h</summary>
+
+
+### stdio.h
 		readline, perror, printf
-</details>
 
-<details>
-	<summary>stropts.h</summary>
+
+
+### stropts.h
 		ioctl
-</details>
 
-<details>
-	<summary>termios.h</summary>
+
+
+### termios.h
 		tcgetattr, tcsetattr,
-</details>
 
-<details>
-	<summary>curses.h / term.h</summary>
+
+
+### curses.h / term.h
 		tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-</details>
 
-</details>
+
+
+
 
