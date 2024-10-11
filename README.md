@@ -72,33 +72,20 @@ should expand to their values.
 [Back to top](#index)
 | Library   | Functions |
 |-----------|-----------|
-| **unistd.h**  | [access](#access), [fork](#fork), read, close, wait, waitpid, getcwd, chdir, unlink, execve, dup, dup2, pipe, isatty, ttyname, ttyslot |
+| **unistd.h**  | [access](#access), [fork](#fork), read, write, open, close, wait, waitpid, getcwd, chdir, unlink, execve, dup, dup2, pipe, isatty, ttyname, ttyslot |
+| **wait.h** |wait3, wait4|
 | **stdio.h**| printf, readline |
-| **stdlib.h** | malloc, free, getenv |
+| **stdlib.h** | malloc, free, exit, getenv |
 | **dirent.h** | opendir, readdir, closedir |
 | **string.h** | strerror, perror |
 | **termios.h** | tcsetattr, tcgetattr |
 | **term.h**| tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs |
 | **signal.h**  | signal, sigaction, sigemptyset, sigaddset, kill |
 | **sys/stat.h**| stat, lstat, fstat |
-
-
-readline, rl_clear_history, rl_on_new_line,
-rl_replace_line, rl_redisplay, add_history,
-printf, malloc, free, write, access, open, read,
-close, fork, wait, waitpid, wait3, wait4, signal,
-sigaction, sigemptyset, sigaddset, kill, exit,
-getcwd, chdir, stat, lstat, fstat, unlink, execve,
-dup, dup2, pipe, opendir, readdir, closedir,
-strerror, perror, isatty, ttyname, ttyslot, ioctl,
-getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
-tgetnum, tgetstr, tgoto, tputs
+|**stropts.h**| ioctl|
 
 
 ### unistd.h
-access, read, close, fork, wait, waitpid
-getcwd, chdir, unlink, execve, dup, dup2
-pipe, isatty, ttyname, ttyslot
 
 
 #### access
@@ -143,6 +130,7 @@ ___
 
 #### fork
 [Back to top](#index)
+
 **create a new process**
 
 ***fork definition in the unistd.h***
@@ -203,7 +191,8 @@ I've been waiting my child!
 
 ### wait.h
 [Back to top](#index)
-		wait3, wait4
+
+wait3, wait4
 
 
 
