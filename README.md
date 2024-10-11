@@ -1,8 +1,18 @@
 # Minishell
 
+**42 Introduction:**
+>The existence of shells is linked to the very existence of IT.
+At the time, all developers agreed that communicating with a computer using aligned 1/0 switches was seriously irritating.
+It was only logical that they came up with the idea of creating a software to communicate with a computer using interactive lines of commands in a language somewhat close to the human language.
+Thanks to Minishell, you’ll be able to travel through time and come back to problems people faced when Windows didn’t exist.
+
+
+
 ##### Index
 ###### [Functions](#functions)
 
+
+___
 ## Mandatory
 
 
@@ -91,8 +101,8 @@ getcwd, chdir, unlink, execve, dup, dup2
 pipe, isatty, ttyname, ttyslot
 
 
-
 #### access
+[Back to top](#index)
 
 **determine accessibility of a file descriptor**
 
@@ -132,7 +142,7 @@ Access return: -1
 ___
 
 #### fork
-
+[Back to top](#index)
 **create a new process**
 
 ***fork definition in the unistd.h***
@@ -192,52 +202,62 @@ I've been waiting my child!
 
 
 ### wait.h
+[Back to top](#index)
 		wait3, wait4
 
 
 
 ### signal.h
+[Back to top](#index)
 	signal, sigaction, sigemptyset, sigaddset, kill
 
 
 
 ### stdlib.h
+[Back to top](#index)
 	exit, getenv
 
 
 
 
 ### stat.h
+[Back to top](#index)
 		stat, lstat, fstat
 
 
 
 ### dirent.h
+[Back to top](#index)
 		opendir, readdir, closedir
 
 
 
 ### string.h
+[Back to top](#index)
 		strerror
 
 
 
 ### stdio.h
+[Back to top](#index)
 		readline, perror, printf
 
 
 
 ### stropts.h
+[Back to top](#index)
 		ioctl
 
 
 
 ### termios.h
+[Back to top](#index)
 		tcgetattr, tcsetattr,
 
 
 
 ### curses.h / term.h
+[Back to top](#index)
 		tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
 
