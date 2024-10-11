@@ -119,13 +119,8 @@ int		main(void)
 		printf("Access return: %i\n", res[i]);
 }
 ```
-__
-```bash
-$ > cc unistd.c -o test_unix; ./test_unix
-Access return: 0
-Access return: -1
-Access return: -1
-  ```
+
+![access](./functions/prints/access.png)
 ___
 
 #### fork
@@ -154,13 +149,7 @@ int	main()
 		printf("I'm the parent!\n");
 }
 ```
-```bash
-$ > cc unistd.c -o test_unix; ./test_unix
-Fork no wait call
-
-I'm the parent!
-I'm the child!
-```
+![out](./functions/prints/fork1.png)
 ___
 
 ```c
@@ -179,13 +168,7 @@ int	main()
 		printf("Parent process will wait for me!\n");
 }
 ```
-```bash
-$ > cc unistd.c -o test_unix; ./test_unix
-Fork wait for child call
-
-Parent process will wait for me!
-I've been waiting my child!
-```
+![fork2](./functions/prints/fork2.png)
 
 
 
