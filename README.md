@@ -12,7 +12,7 @@ Thanks to Minishell, you’ll be able to travel through time and come back to pr
 ###### [Functions](#functions)
 
 
-___
+
 ## Mandatory
 
 
