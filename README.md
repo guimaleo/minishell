@@ -77,7 +77,7 @@ should expand to their values.
 | **unistd.h**  | [access](#access), [fork](#fork), read, write,  [getcwd](#getcwd), [chdir](#chdir), execve, dup, dup2, pipe, isatty, ttyname, ttyslot |
 | **fcntl.h**|open, close, unlink|
 | **wait.h** |[wait](#wait), waitpid, wait3, wait4|
-| **stdio.h**| printf, readline |
+| **stdio.h**| printf, [readline](#readline) |
 | **stdlib.h** | malloc, free, exit, getenv |
 | **dirent.h** | opendir, readdir, closedir |
 | **string.h** | strerror, perror |
@@ -276,13 +276,13 @@ wait3, wait4
 
 
 ### stdio.h
-[Back to top](#functions)
 
 
 #### readline
 ```c
 char	*readline (const char* prompt)
 ```
+[Back to top](#functions)
 **get a line from a user with editing**
 
 >readline will read a line from the terminal and return it, using prompt as a prompt.  If prompt is NULL or the empty string, no prompt is issued.  The line returned  is  allocated  with  malloc(3);  the  caller  must  free it when finished.  The line returned has the final newline removed, so only the text of the line remains.
