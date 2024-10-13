@@ -239,18 +239,19 @@ int	main()
 }
 ```
 ![fork2](./functions/prints/fork2.png)
+
 wait3, wait4
 
 
 
 ### signal.h
-[Back to topfunctionsdex)
+[Back to top](#functions)
 	signal, sigaction, sigemptyset, sigaddset, kill
 
 
 
 ### stdlib.h
-[Back to topfunctionsdex)
+[Back to top](#functions)
 	exit, getenv
 
 
@@ -276,7 +277,45 @@ wait3, wait4
 
 ### stdio.h
 [Back to top](#functions)
-		readline, perror, printf
+
+
+#### readline
+```c
+char	*readline (const char* prompt)
+```
+**get a line from a user with editing**
+
+>readline will read a line from the terminal and return it, using prompt as a prompt.  If prompt is NULL or the empty string, no prompt is issued.  The line returned  is  allocated  with  malloc(3);  the  caller  must  free it when finished.  The line returned has the final newline removed, so only the text of the line remains.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <string.h>
+
+int	main(int ac, char **av)
+{
+	char	*input;
+	char	*prompt;
+
+	(void)ac;
+	prompt = calloc(strlen(av[0] + 5), sizeof(char *)); // +5 to add the extra chars to look more like an terminal emulator
+	if (!prompt)
+		return (1);
+	strcpy(prompt, (av[0] + 2)); // +2 to get rid of "./"
+	strcat(prompt, "$ > ");
+	input = readline(prompt);
+	if (input){
+		printf("Input was: %s\n", input);
+		free(input);
+	}
+	free(prompt);
+}
+```
+![prompt](./functions/prints/prompt.png)
+
+perror, printf
 
 
 
