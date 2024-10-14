@@ -14,6 +14,7 @@
 typedef struct s_env{
 //
     char **env;
+	char **paths;
 }t_env;
 
 typedef struct s_tree {
