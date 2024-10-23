@@ -313,6 +313,16 @@ int	main(int ac, char **av)
 	free(prompt);
 }
 ```
+
+```bash
+	-- bash $PS  (Prompt String) complete version:
+
+	echo $PS1= \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$
+	echo $PS2= >
+	echo $PS3= '\n'
+	echo $PS4= +
+
+```
 ![prompt](./functions/prints/prompt.png)
 
 perror, printf

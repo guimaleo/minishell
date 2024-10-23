@@ -34,7 +34,10 @@ void	term_emulator(t_tty *term)
 	}
 	start = tgetstr("cl", NULL); // to check capabilities
 	if (start)
+	{
 		tputs(start, 1, putchar);
+		printf("HEY\n\n");
+	}
 }
 
 int	open_tty(t_tty *term)
@@ -47,9 +50,9 @@ int	open_tty(t_tty *term)
 		exit(EXIT_FAILURE);
 	}
 	if (isatty(term->fd)){
-		printf("minishell is a tty!\n");
 		terminal_configs(term);
 		term_emulator(term);
+		printf("minishell is a tty!\n");
 		printf("Terminal configured\n");
 	}
 	else
@@ -64,4 +67,5 @@ int	main()
 
 	term.fd = open_tty(&term);
 	printf("%i\n", term.fd);
+	close(term.fd);
 }
