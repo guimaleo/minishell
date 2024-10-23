@@ -5,7 +5,7 @@ size_t  ft_strlen(char *str)
     int i;
 
     i = 0;
-    if (!str)
+    if (!str) // if(!str ||!*str)
         return (0);
     while (str[i])
         i++;
