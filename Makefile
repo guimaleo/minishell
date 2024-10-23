@@ -7,11 +7,11 @@ INC= -I./inc
 
 CC= cc
 CFLAGS= -g -Wall -Werror -Wextra
-RL_FLAGS = -lreadline -lncurses -L .brew/opt/readline/lib -I .brew/opt/readline/include
-FLAGS= $(CFLAGS) $(RL_FLAGS) $(INC)
+RL_FLAGS = -lreadline -lncurses -ltermcap
+FLAGS= $(CFLAGS) $(INC)
 VAL= --leak-check=full --show-leak-kinds=all --track-origins=yes --show-reachable=yes -s
 
-SRC_FILES= main.c
+SRC_FILES= open_tty.c
 
 SRC= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ= $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
@@ -20,7 +20,7 @@ OBJ= $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME) $(RL_FLAGS)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)

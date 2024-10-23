@@ -10,6 +10,16 @@
 # include <string.h>
 # include <errno.h>
 # include <sys/wait.h>
+# include <termios.h>
+# include <term.h>
+
+typedef struct s_tty
+{
+	int		fd;
+	char	buff[2048]; //to check
+	char	*type;
+	struct termios termios;
+}		t_tty;
 
 typedef struct s_env{
 //
@@ -22,6 +32,9 @@ typedef struct s_tree {
 	struct s_tree	*left;
 	struct s_tree	*right;
 } t_tree;
+
+/*Terminal emulator*/
+int		open_tty(t_tty *term);
 
 /*Trees functions*/
 t_tree	*new_node(int value);
