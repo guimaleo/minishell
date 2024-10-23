@@ -12,6 +12,9 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <term.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "colors.h"
 
 typedef struct s_tty
 {
