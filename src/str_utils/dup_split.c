@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:21 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/24 22:49:20 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/24 23:30:15 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**ft_split(char *str, char c)
 	j = 0;
 	if (!str || !str[0])
 		return (NULL);
-	split = (char **)ft_calloc(ft_countwords(str, c) + 1, sizeof(char *));
+	split = (char **)ft_calloc(1, ft_countwords(str, c) + 1 * sizeof(char *));
 	while (str[i])
 	{
 		while (str[i] == c)
