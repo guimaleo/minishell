@@ -3,6 +3,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -18,11 +19,13 @@
 
 typedef struct s_tty
 {
+	char	*name;
 	char	*prompt;
 	char	*input;
 	char	**split_input;
 	char	*commands;
 	char	*args;
+	bool	env;
 }		t_tty;
 
 typedef struct s_env{

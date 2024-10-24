@@ -9,7 +9,7 @@ CC= cc
 CFLAGS= -g -Wall -Werror -Wextra
 RL_FLAGS = -lreadline -lncurses -ltermcap
 FLAGS= $(CFLAGS) $(INC)
-VAL= --leak-check=full --show-leak-kinds=all --track-origins=yes --show-reachable=yes -s
+VAL= --leak-check=full --show-leak-kinds=all --track-origins=yes --show-reachable=yes  --suppressions=.readline.supp --quiet
 
 ## Memory functions directory and build
 MEM_DIR= src/mem_alloc

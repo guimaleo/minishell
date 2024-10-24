@@ -1,50 +1,76 @@
 #include "minishell.h"
 
-int main(int ac, char *av[], char **env)
+t_tty	*init_tty(void)
 {
-	int i;
-	t_env *vars;
+	static t_tty	init;
 
-	if (!env || !*env) //teste env-i só funcionou a partir dessa adição
-	// TODO	no_env(); // Não podemos dar exit, o programa deve rodar mesmo sem env
-	vars = (t_env *)calloc(1, sizeof(t_env));
-	if (!vars)
-		return (1);
-	i = 0;
-	while (env[i])
-		i++;
-	vars->env = (char **)calloc(1, (i + 1) * sizeof(char *));
-	if (!vars->env)
-		exit(1);
-	i = 0;
-	while (env[i])
-	{
-		vars->env[i] = ft_strdup(env[i]);
-		// if (!vars->env[i])
-		// {
-		//	 while (i)
-		//		 free(vars->env[i--]);
-		// }
-		if (!ft_strncmp(vars->env[i], "PATH=", 5))
-			vars->paths = ft_split(vars->env[i], ':');
-		i++;
-	}
-	vars->env[i] = NULL;
-	i = 0;
-	while (vars->env[i])
-	{
-		//printf("%s\n", vars->env[i]);
-		//ft_putstrfd(vars->env[i], 1);
-		free(vars->env[i++]);
-	}
-	i = 0;
-	while (vars->paths[i])
-	{
-		//printf("%s\n", vars->env[i]);
-		ft_putstrfd(vars->paths[i], 1);
-		free(vars->paths[i++]);
-	}
-	free(vars->paths);
-	free(vars->env);
-	free(vars);
+	return (&init);
 }
+
+void	input_looking(t_tty *term)
+{
+	term->input = readline(GREEN"minishell"CIAN" $> " ESCCLR);
+	term->split_input = ft_split(term->input, ' ');
+}
+
+int		main(int ac, char **av, char **env)
+{
+	t_tty	*term;
+
+	(void)ac;
+	(void)av;
+	term = init_tty();
+	if (*env)
+		term->env = true;
+	input_looking(term);
+}
+
+
+// int main(int ac, char *av[], char **env)
+// {
+// 	int i;
+// 	t_env *vars;
+
+// 	if (!env || !*env) //teste env-i só funcionou a partir dessa adição
+// 	// TODO	no_env(); // Não podemos dar exit, o programa deve rodar mesmo sem env
+// 	vars = (t_env *)calloc(1, sizeof(t_env));
+// 	if (!vars)
+// 		return (1);
+// 	i = 0;
+// 	while (env[i])
+// 		i++;
+// 	vars->env = (char **)calloc(1, (i + 1) * sizeof(char *));
+// 	if (!vars->env)
+// 		exit(1);
+// 	i = 0;
+// 	while (env[i])
+// 	{
+// 		vars->env[i] = ft_strdup(env[i]);
+// 		// if (!vars->env[i])
+// 		// {
+// 		//	 while (i)
+// 		//		 free(vars->env[i--]);
+// 		// }
+// 		if (!ft_strncmp(vars->env[i], "PATH=", 5))
+// 			vars->paths = ft_split(vars->env[i], ':');
+// 		i++;
+// 	}
+// 	vars->env[i] = NULL;
+// 	i = 0;
+// 	while (vars->env[i])
+// 	{
+// 		//printf("%s\n", vars->env[i]);
+// 		//ft_putstrfd(vars->env[i], 1);
+// 		free(vars->env[i++]);
+// 	}
+// 	i = 0;
+// 	while (vars->paths[i])
+// 	{
+// 		//printf("%s\n", vars->env[i]);
+// 		ft_putstrfd(vars->paths[i], 1);
+// 		free(vars->paths[i++]);
+// 	}
+// 	free(vars->paths);
+// 	free(vars->env);
+// 	free(vars);
+// }
