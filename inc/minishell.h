@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
+/*   Updated: 2024/10/24 22:54:46 by lede-gui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -29,7 +41,7 @@ typedef struct s_tty
 }		t_tty;
 
 typedef struct s_env{
-//
+
 	char **env;
 	char **paths;
 }t_env;
@@ -50,7 +62,7 @@ void	ft_putcharfd(char c, int fd);
 int		ft_strncmp(char *s1, char *s2, int n);
 char	*ft_strdup(char *str);
 char	*ft_strndup(char *str, int  n);
-size_t  ft_strlen(char *str);
+size_t	ft_strlen(char *str);
 
 
 /*Memory Functions*/
