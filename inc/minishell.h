@@ -18,15 +18,16 @@
 
 typedef struct s_tty
 {
-	int		fd;
-	char	buff[2048]; //to check
-	char	*type;
-	struct termios termios;
+	char	*prompt;
+	char	*input;
+	char	**split_input;
+	char	*commands;
+	char	*args;
 }		t_tty;
 
 typedef struct s_env{
 //
-    char **env;
+	char **env;
 	char **paths;
 }t_env;
 
@@ -38,6 +39,20 @@ typedef struct s_tree {
 
 /*Terminal emulator*/
 int		open_tty(t_tty *term);
+
+/*Strings Utils*/
+char	**ft_split(char *str, char c);
+void	ft_putstrfd(char *str, int fd);
+void	ft_putcharfd(char c, int fd);
+int		ft_strncmp(char *s1, char *s2, int n);
+char	*ft_strdup(char *str);
+char	*ft_strndup(char *str, int  n);
+size_t  ft_strlen(char *str);
+
+
+/*Memory Functions*/
+void	*ft_calloc(size_t len, size_t size);
+void	free_doubles(void **ptr);
 
 /*Trees functions*/
 t_tree	*new_node(int value);
