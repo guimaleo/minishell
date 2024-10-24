@@ -6,7 +6,7 @@
 #    By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 22:38:45 by lede-gui          #+#    #+#              #
-#    Updated: 2024/10/24 22:55:50 by lede-gui         ###   ########.fr        #
+#    Updated: 2024/10/24 23:03:04 by lede-gui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CC= cc
 CFLAGS= -g -Wall -Werror -Wextra
 RL_FLAGS = -lreadline -lncurses -ltermcap
 FLAGS= $(CFLAGS) $(INC)
-VAL= --leak-check=full --show-leak-kinds=all --track-origins=yes --show-reachable=yes  --suppressions=.readline.supp
+VAL= --leak-check=full --show-leak-kinds=all --track-origins=yes --show-reachable=yes --suppressions=.readline.supp
 
 ## FDS functions directory and build
 FDS_DIR= src/fd

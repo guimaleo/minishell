@@ -1,5 +1,18 @@
+
 {
-   readline_suppressions
+   readline supression
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:readline_internal_teardown
+   fun:readline
+   fun:input_looking
+   fun:main
+}
+
+{
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -13,7 +26,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -28,74 +41,7 @@
 }
 
 {
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:__add_to_environ
-   fun:setenv
-   fun:sh_set_lines_and_columns
-   fun:_rl_get_screen_size
-   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
-   fun:rl_expand_prompt
-   fun:rl_set_prompt
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:__add_to_environ
-   fun:setenv
-   fun:_rl_get_screen_size
-   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
-   fun:rl_expand_prompt
-   fun:rl_set_prompt
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:strdup
-   fun:_nl_load_locale_from_archive
-   fun:_nl_find_locale
-   fun:setlocale
-   fun:setlocale
-   fun:_rl_init_locale
-   fun:_rl_init_eightbit
-   fun:rl_initialize
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:strdup
-   fun:setlocale
-   fun:setlocale
-   fun:_rl_init_locale
-   fun:_rl_init_eightbit
-   fun:rl_initialize
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -108,7 +54,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:realloc
@@ -125,7 +71,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -143,7 +89,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -158,7 +104,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -169,7 +115,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -184,42 +130,7 @@
 }
 
 {
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:tsearch
-   fun:__add_to_environ
-   fun:setenv
-   fun:sh_set_lines_and_columns
-   fun:_rl_get_screen_size
-   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
-   fun:rl_expand_prompt
-   fun:rl_set_prompt
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:tsearch
-   fun:__add_to_environ
-   fun:setenv
-   fun:_rl_get_screen_size
-   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
-   fun:rl_expand_prompt
-   fun:rl_set_prompt
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -237,7 +148,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -255,23 +166,7 @@
 }
 
 {
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:calloc
-   fun:__wcsmbs_load_conv
-   fun:get_gconv_fcts
-   fun:mbrtowc
-   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
-   fun:rl_redisplay
-   fun:readline_internal_setup
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -283,7 +178,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -297,7 +192,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:realloc
@@ -315,7 +210,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -330,7 +225,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:calloc
@@ -347,7 +242,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -362,7 +257,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -380,7 +275,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -398,7 +293,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -415,24 +310,7 @@
 }
 
 {
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:_nl_load_locale_from_archive
-   fun:_nl_find_locale
-   fun:setlocale
-   fun:setlocale
-   fun:_rl_init_locale
-   fun:_rl_init_eightbit
-   fun:rl_initialize
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:realloc
@@ -450,7 +328,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:calloc
@@ -467,61 +345,7 @@
 }
 
 {
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:new_composite_name
-   fun:setlocale
-   fun:setlocale
-   fun:_rl_init_locale
-   fun:_rl_init_eightbit
-   fun:rl_initialize
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:__gconv_lookup_cache
-   fun:__gconv_find_transform
-   fun:__wcsmbs_getfct
-   fun:__wcsmbs_load_conv
-   fun:get_gconv_fcts
-   fun:mbrtowc
-   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
-   fun:rl_redisplay
-   fun:readline_internal_setup
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:__gconv_lookup_cache
-   fun:__gconv_find_transform
-   fun:__wcsmbs_getfct
-   fun:__wcsmbs_load_conv
-   fun:get_gconv_fcts
-   fun:mbrtowc
-   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
-   fun:rl_redisplay
-   fun:readline_internal_setup
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -533,23 +357,7 @@
 }
 
 {
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:realloc
-   fun:__add_to_environ
-   fun:setenv
-   fun:_rl_get_screen_size
-   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
-   fun:rl_expand_prompt
-   fun:rl_set_prompt
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:calloc
@@ -567,7 +375,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -582,7 +390,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:calloc
@@ -596,7 +404,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -614,7 +422,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -629,7 +437,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -644,7 +452,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -659,7 +467,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -674,7 +482,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -688,7 +496,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -702,7 +510,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -716,7 +524,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -730,7 +538,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:realloc
@@ -744,7 +552,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -762,7 +570,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -775,7 +583,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -789,25 +597,7 @@
 }
 
 {
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:_nl_intern_locale_data
-   fun:_nl_load_locale_from_archive
-   fun:_nl_find_locale
-   fun:setlocale
-   fun:setlocale
-   fun:_rl_init_locale
-   fun:_rl_init_eightbit
-   fun:rl_initialize
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:realloc
@@ -825,7 +615,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -840,7 +630,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -853,24 +643,7 @@
 }
 
 {
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:_IO_file_doallocate
-   fun:_IO_doallocbuf
-   fun:_IO_file_overflow@@GLIBC_2.2.5
-   fun:_IO_new_file_xsputn
-   fun:_IO_file_xsputn@@GLIBC_2.2.5
-   fun:fwrite
-   fun:rl_prep_terminal
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -887,7 +660,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -904,7 +677,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -921,7 +694,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -938,7 +711,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -954,7 +727,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -970,7 +743,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -986,7 +759,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:calloc
@@ -1001,7 +774,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1018,7 +791,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1035,7 +808,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1052,7 +825,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1069,7 +842,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1086,7 +859,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1102,7 +875,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1118,7 +891,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1134,7 +907,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1149,7 +922,7 @@
 }
 
 {
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1164,23 +937,7 @@
 }
 
 {
-   readline_suppressions
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:rl_bind_keyseq_if_unbound_in_map
-   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
-   fun:rl_initialize
-   fun:readline
-   fun:input_looking
-   fun:main
-}
-
-{
-   readline_suppressions
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -1196,7 +953,23 @@
 }
 
 {
-   readline_suppressions
+   readline supression
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+   fun:rl_initialize
+   fun:readline
+   fun:input_looking
+   fun:main
+}
+
+{
+   readline supression
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
