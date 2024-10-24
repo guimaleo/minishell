@@ -124,9 +124,7 @@ char    **ft_split(char *str, char c)
         split[j] = ft_strndup(str + i, end);
         j++;
         i += end;
-        i++;
     }
-    split[j] = NULL;
     return (split);
 }
 
