@@ -6,11 +6,13 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:47:15 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/24 22:47:48 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/25 00:28:11 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
 
 size_t	ft_strlen(char *str)
 {
@@ -34,4 +36,26 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	if (i == n)
 		return (0);
 	return (1);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*ptr;
+	int		len[2];
+	int		i;
+
+	if (!s2)
+		return (NULL);
+	len[0] = ft_strlen(s1);
+	len[1] = ft_strlen(s2);
+	ptr = ft_calloc((len[0] + len[1] + 1), sizeof(char *));
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while(s2[i])
+	{
+		ptr[len[0]+ i] = s2[i];
+		i++;
+	}
+	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/24 23:46:55 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/25 00:32:51 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ void	lexer(t_tty *term)
 		j = 0;
 		while (path_arr[j])
 		{
-			abs_path = ft_strjoin(path_arr, term->split_input[i]);
+			abs_path = ft_strjoin(path_arr[j], term->split_input[i]);
 			if (access(abs_path, F_OK | X_OK) == 0)
 			{
-				printf("arg", term->split_input[i]);
+				printf("É um comando!\n");
+				printf("arg: %s\n", term->split_input[i]);
 				term->commands++;
 				break ;
 			}
+			free(abs_path);
 			j++;
 		}
 		i++;
