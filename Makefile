@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/24 22:38:45 by lede-gui          #+#    #+#              #
+#    Updated: 2024/10/24 22:50:57 by lede-gui         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME= minishell
 
 OBJ_DIR= obj
@@ -9,7 +21,12 @@ CC= cc
 CFLAGS= -g -Wall -Werror -Wextra
 RL_FLAGS = -lreadline -lncurses -ltermcap
 FLAGS= $(CFLAGS) $(INC)
-VAL= --leak-check=full --show-leak-kinds=all --track-origins=yes --show-reachable=yes  --suppressions=.readline.supp --quiet
+VAL= --leak-check=full --show-leak-kinds=all --track-origins=yes --show-reachable=yes  --suppressions=.readline.supp
+
+## FDS functions directory and build
+FDS_DIR= src/fd
+FDS_FILES= put_fd.c
+SRC_FDS= $(addprefix $(FDS_DIR)/, $(FDS_FILES))
 
 ## Memory functions directory and build
 MEM_DIR= src/mem_alloc
@@ -18,7 +35,7 @@ SRC_MEM= $(addprefix $(MEM_DIR)/, $(MEM_FILES))
 
 ## Strings functions directory and build
 STR_DIR= src/str_utils
-STR_FILES= dup_split.c
+STR_FILES= str_basic.c dup_split.c
 SRC_STR= $(addprefix $(STR_DIR)/, $(STR_FILES))
 
 SRC_FILES= main.c

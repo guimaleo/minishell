@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
+/*   Updated: 2024/10/24 22:40:03 by lede-gui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_tty	*init_tty(void)
@@ -13,7 +25,7 @@ void	input_looking(t_tty *term)
 	term->split_input = ft_split(term->input, ' ');
 }
 
-int		main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	t_tty	*term;
 
@@ -24,7 +36,6 @@ int		main(int ac, char **av, char **env)
 		term->env = true;
 	input_looking(term);
 }
-
 
 // int main(int ac, char *av[], char **env)
 // {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   alloc.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/24 22:38:39 by lede-gui          #+#    #+#             */
+/*   Updated: 2024/10/24 22:40:52 by lede-gui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /**
@@ -21,6 +33,7 @@ void	free_doubles(void **ptr)
  * @param len
  * @param size
  */
+
 void	*ft_calloc(size_t len, size_t size)
 {
 	size_t			i;
@@ -39,6 +52,3 @@ void	*ft_calloc(size_t len, size_t size)
 		byte[i++] = 0;
 	return (ptr);
 }
-
-
-
