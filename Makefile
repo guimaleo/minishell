@@ -6,7 +6,7 @@
 #    By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 22:38:45 by lede-gui          #+#    #+#              #
-#    Updated: 2024/10/24 22:50:57 by lede-gui         ###   ########.fr        #
+#    Updated: 2024/10/24 22:55:50 by lede-gui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,9 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: $(FDS_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(FLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(STR_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(FLAGS) -c $< -o $@
