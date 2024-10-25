@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+         #
+#    By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 22:38:45 by lede-gui          #+#    #+#              #
-#    Updated: 2024/10/24 23:03:04 by lede-gui         ###   ########.fr        #
+#    Updated: 2024/10/25 22:59:33 by lede-gui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,13 @@ STR_DIR= src/str_utils
 STR_FILES= str_basic.c dup_split.c
 SRC_STR= $(addprefix $(STR_DIR)/, $(STR_FILES))
 
+LEX_DIR= src/lexer
+LEX_FILES= lexer.c
+SRC_LEX= $(addprefix $(LEX_DIR)/, $(LEX_FILES))
+
 SRC_FILES= main.c
 
-SRC= $(SRC_FILES) $(SRC_MEM) $(SRC_STR)
+SRC= $(SRC_FILES) $(SRC_MEM) $(SRC_STR) $(SRC_LEX)
 
 OBJ= $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
@@ -60,6 +64,9 @@ $(OBJ_DIR)/%.o: $(STR_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(FLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(MEM_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(FLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(LEX_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(FLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)

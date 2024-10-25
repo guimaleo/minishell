@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open_tty.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:32 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/24 22:38:33 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:40:23 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	terminal_configs(t_tty *term)
+// void	terminal_configs(t_terminal *term)
 // {
 // 	if (term->fd < 0)
 // 		return ;
@@ -29,7 +29,7 @@
 // 	}
 // }
 
-// void	term_emulator(t_tty *term)
+// void	term_emulator(t_terminal *term)
 // {
 // 	char	*start;
 
@@ -52,7 +52,7 @@
 // 	}
 // }
 
-// int	open_tty(t_tty *term)
+// int	open_tty(t_terminal *term)
 // {
 
 // 	term->fd = open("/dev/tty", O_RDWR, 0666);
@@ -75,7 +75,7 @@
 
 // int	main()
 // {
-// 	t_tty	term;
+// 	t_terminal	term;
 
 // 	term.fd = open_tty(&term);
 // 	printf("%i\n", term.fd);

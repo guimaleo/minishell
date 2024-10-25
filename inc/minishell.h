@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/25 13:04:36 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:47:59 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,14 @@
 # include <readline/history.h>
 # include "colors.h"
 
-typedef struct s_lexer
-{
-	enum token
-	{
-		HERE_DOC = 0,	// <<
-		INFILE = 1,		// <
-		PIPE = 2,		// |
-		OUTFILE = 3,	// >
-		APPEND = 4,		// >>
-		S_QUOTE = 5,	// ''
-		D_QUOTE = 6,	// ""
-		EXPAND = 7		// $
-	};
-}		t_lexer;
-
 typedef struct s_tty
 {
 	char	*name;
 	char	*prompt;
 	char	*input;
 	char	**split_input;
-	bool	env;
-	t_lexer	*lex;
-}		t_tty;
+	char	**env;
+}		t_terminal;
 
 typedef struct s_env{
 
@@ -66,8 +50,13 @@ typedef struct s_tree {
 	struct s_tree	*right;
 } t_tree;
 
+/*Lexical functions*/
+void    lexer(char *input);
+
 /*Terminal emulator*/
-int		open_tty(t_tty *term);
+int		open_tty(t_terminal *term);
+t_terminal		*terminal(void);
+
 
 /*Strings Utils*/
 void	ft_putstrfd(char *str, int fd);
