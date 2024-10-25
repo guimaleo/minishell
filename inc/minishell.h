@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/25 00:27:29 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:04:36 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,29 @@
 # include <readline/history.h>
 # include "colors.h"
 
+typedef struct s_lexer
+{
+	enum token
+	{
+		HERE_DOC = 0,	// <<
+		INFILE = 1,		// <
+		PIPE = 2,		// |
+		OUTFILE = 3,	// >
+		APPEND = 4,		// >>
+		S_QUOTE = 5,	// ''
+		D_QUOTE = 6,	// ""
+		EXPAND = 7		// $
+	};
+}		t_lexer;
+
 typedef struct s_tty
 {
 	char	*name;
 	char	*prompt;
 	char	*input;
 	char	**split_input;
-	char	*commands;
-	char	*args;
 	bool	env;
+	t_lexer	*lex;
 }		t_tty;
 
 typedef struct s_env{

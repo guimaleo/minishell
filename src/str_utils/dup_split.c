@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:21 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/25 00:35:24 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:54:46 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	ft_countwords(char *str, char c)
 	int	i;
 
 	// count = (str[0] != c);
+	count = 0;
 	i = 0;
-	i++;
 	while (str[i])
 	{
 		if (str[i] != c && (i == 0 || str[i - 1] == c))

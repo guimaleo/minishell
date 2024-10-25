@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/25 00:32:51 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:55:22 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,34 +21,39 @@ t_tty	*init_tty(void)
 
 void	lexer(t_tty *term)
 {
-	int		i;
-	int		j;
-	char	*path;
-	char	**path_arr;
-	char	*abs_path;
+	
+	term->split_input = ft_split(term->input, ' ');
+	// for (int i  = 0; term->split_input[i]; i++)
+	// 	printf("%s\n", term->split_input[i]);
+	
+	
+	/*EXECUTION*/
+	// char	*path;
+	// char	**path_arr;
+	// char	*abs_path;
 
-	if (term->env)
-		path = getenv("PATH");
-	path_arr = ft_split(path, ':');
-	i = 0;
-	while (term->split_input[i])
-	{
-		j = 0;
-		while (path_arr[j])
-		{
-			abs_path = ft_strjoin(path_arr[j], term->split_input[i]);
-			if (access(abs_path, F_OK | X_OK) == 0)
-			{
-				printf("É um comando!\n");
-				printf("arg: %s\n", term->split_input[i]);
-				term->commands++;
-				break ;
-			}
-			free(abs_path);
-			j++;
-		}
-		i++;
-	}
+	// if (term->env)
+	// 	path = getenv("PATH");
+	// path_arr = ft_split(path, ':');
+	// i = 0;
+	// while (term->split_input[i])
+	// {
+	// 	j = 0;
+	// 	while (path_arr[j])
+	// 	{
+	// 		abs_path = ft_strjoin(path_arr[j], term->split_input[i]);
+	// 		if (access(abs_path, F_OK | X_OK) == 0)
+	// 		{
+	// 			printf("É um comando!\n");
+	// 			printf("arg: %s\n", term->split_input[i]);
+	// 			term->commands++;
+	// 			break ;
+	// 		}
+	// 		free(abs_path);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
 }
 
 void	input_looking(t_tty *term)
