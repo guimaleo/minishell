@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/25 22:44:36 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/26 11:52:32 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static void	input_looking()
 	while (1)
 	{
 		terminal()->input = readline(GREEN"minishell"CIAN" $> " ESCCLR);
+		add_history(terminal()->input);
+		if (!ft_strncmp(terminal()->input, "exit", 5))
+			break ;
 		lexer(terminal()->input);
 		free(terminal()->input);
 	}
