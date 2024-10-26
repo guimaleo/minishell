@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:44:54 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/26 12:16:05 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:52:49 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,24 @@ static int	redirections(char *str, char **input, size_t *i)
 	if ((input[0][0] == '<' && input[0][1] == '<') || ((input[0][0] == '>' \
 	&& input[0][1] == '>')))
 	{
-		str[(*i)++] = '2';
+		str[(*i)++] = '\2';
 		str[(*i)++] =  (**input);
 		str[(*i)++] =  (**input);
-		str[(*i)++] = '2';
+		str[(*i)++] = '\2';
 		(*input) += 2;
 		return (1);
 	}
 	else if ((input[0][0] == '>') || (input[0][0] == '<'))
 	{
-		str[(*i)++] = '2';
+		str[(*i)++] = '\2';
 		str[(*i)++] =  (**input);
-		str[(*i)++] = '2';
+		str[(*i)++] = '\2';
 		(*input)++;
 		return (1);
 	}
 	else if (input[0][0] == '|')
 	{
-		str[(*i)++] =  '3';
+		str[(*i)++] =  '\3';
 		(*input)++;
 		return (1);
 	}
@@ -54,7 +54,7 @@ static int	redirections(char *str, char **input, size_t *i)
  * @param input -> fetched from readline
  * @param str -> the new string 3x bigger than the original input
  */
-static void	tokenization(char *str, char *input)
+static char	*tokenization(char *str, char *input)
 {
 	char	flag;
 	size_t	 i;
@@ -68,10 +68,11 @@ static void	tokenization(char *str, char *input)
 		else if (flag == *input)
 			flag = 0;
 		if (flag == 0 && *input == ' ')
-			*input = '2';
+			*input = '\2';
 		if (!(flag == 0 && redirections(str, &input, &i)))
 			str[i++] = *input++;
 	}
+	return (str);
 }
 /**
  * @brief Takes the input and allocates a string 3x bigger to inject
@@ -81,11 +82,22 @@ static void	tokenization(char *str, char *input)
 void	lexer(char *input)
 {
 	char	*str;
+	char	**pipes;
+	char	**args;
 
 	str = ft_calloc(ft_strlen(input), 3);
 	if (!str)
 		return ;
-	tokenization(str, input);
-	printf("str: %s\n", str);
+	str = tokenization(str, input);
+	pipes = ft_split(str, '\3');
+	for(int i = 0; pipes[i]; i++)
+	{	
+		printf("cmd: %s\n", pipes[i]);
+		args = ft_split(pipes[i], '\2');
+		for(int j = 0; args[j]; j++)
+			printf("	Args: %s\n", args[j]);
+		free_doubles((void **) args);
+	}
+	free_doubles((void **) pipes);
 	free(str);
 }

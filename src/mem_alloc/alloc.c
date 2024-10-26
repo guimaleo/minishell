@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:39 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/24 22:40:52 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:51:35 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	*ft_calloc(size_t len, size_t size)
 	if (!ptr)
 		return (NULL);
 	byte = (unsigned char *)ptr;
-	while (i < len)
+	while (i < (len * size))
 		byte[i++] = 0;
 	return (ptr);
 }
