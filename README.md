@@ -7,7 +7,7 @@ It was only logical that they came up with the idea of creating a software to co
 Thanks to Minishell, you’ll be able to travel through time and come back to problems people faced when Windows didn’t exist.
 
 
-
+[!Evaluation sheet] (https://github.com/HTOMAS-D/school21-checklists/blob/master/ng_3_minishell.pdf)
 ##### Index
 - [Functions](#functions)
 

@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:44:54 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/26 17:52:49 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/26 21:05:05 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static char	*tokenization(char *str, char *input)
 
 	flag = 0;
 	i = 0;
+	if (!str)
+		return (str);
 	while(*input)
 	{
 		if (flag == 0 && (*input == '\"' || *input == '\''))
@@ -84,19 +86,23 @@ void	lexer(char *input)
 	char	*str;
 	char	**pipes;
 	char	**args;
+	size_t	i;
+	t_cmd	*end;
+	t_cmd	*tmp;
 
-	str = ft_calloc(ft_strlen(input), 3);
-	if (!str)
-		return ;
-	str = tokenization(str, input);
+	end = NULL;
+	str = tokenization(ft_calloc(ft_strlen(input), 3), input);
 	pipes = ft_split(str, '\3');
-	for(int i = 0; pipes[i]; i++)
-	{	
-		printf("cmd: %s\n", pipes[i]);
-		args = ft_split(pipes[i], '\2');
-		for(int j = 0; args[j]; j++)
-			printf("	Args: %s\n", args[j]);
-		free_doubles((void **) args);
+	i = 0;
+	while (pipes && pipes[i])
+	{
+		tmp = new_cmd(ft_split(pipes[i], '\2'));
+		if (terminal()->cmd == NULL)
+			terminal()->cmd = tmp;
+		else 
+			end->next = tmp;
+		end = tmp;
+		i++;
 	}
 	free_doubles((void **) pipes);
 	free(str);
