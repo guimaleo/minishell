@@ -6,7 +6,7 @@
 #    By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 22:38:45 by lede-gui          #+#    #+#              #
-#    Updated: 2024/10/26 17:55:23 by lede-gui         ###   ########.fr        #
+#    Updated: 2024/10/26 18:05:35 by lede-gui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ STR_DIR= src/str_utils
 STR_FILES= str_basic.c dup_split.c
 SRC_STR= $(addprefix $(STR_DIR)/, $(STR_FILES))
 
+## Lexer functions directory and build
 LEX_DIR= src/lexer
 LEX_FILES= lexer.c
 SRC_LEX= $(addprefix $(LEX_DIR)/, $(LEX_FILES))
