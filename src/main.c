@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/26 11:52:32 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/26 12:20:21 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	input_looking()
 		terminal()->input = readline(GREEN"minishell"CIAN" $> " ESCCLR);
 		add_history(terminal()->input);
 		if (!ft_strncmp(terminal()->input, "exit", 5))
-			break ;
+			break ; // implement the exit function to free all and exit(EXIT_SUCCES)
 		lexer(terminal()->input);
 		free(terminal()->input);
 	}
