@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:44:54 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/26 21:05:05 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:54:02 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	lexer(char *input)
 {
 	char	*str;
 	char	**pipes;
-	//char	**args;
 	size_t	i;
 	t_cmd	*end;
 	t_cmd	*tmp;
@@ -93,13 +92,23 @@ void	lexer(char *input)
 	end = NULL;
 	str = tokenization(ft_calloc(ft_strlen(input), 3), input);
 	pipes = ft_split(str, '\3');
+	/*prints importantes para visualização do lexer,
+	substituir o \3 por 3 e \2 por 2 para facilitar a visualização*/
+	// for (int j = 0; pipes[j]; j++)
+	// {
+	// 	printf("cmd: %s\n", pipes[j]);
+	// 	char **args = ft_split(str, '\3');
+	// 	for (int k = 0; args[k]; k++)
+	// 		printf("\tArgs: %s\n", args[k]);
+	// 	free_doubles((void **)args);
+	// }
 	i = 0;
 	while (pipes && pipes[i])
 	{
 		tmp = new_cmd(ft_split(pipes[i], '\2'));
 		if (terminal()->cmd == NULL)
 			terminal()->cmd = tmp;
-		else 
+		else
 			end->next = tmp;
 		end = tmp;
 		i++;

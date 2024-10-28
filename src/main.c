@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/26 12:20:21 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:47:36 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static void	input_looking()
 		lexer(terminal()->input);
 		free(terminal()->input);
 	}
-	// printf("%s\n", term->input);
-	// for(int i = 0; term->split_input[i]; i++)
-	// 	printf("%s\n", term->split_input[i]);
+	printf("%s\n", terminal()->input);
+	for(int i = 0; terminal()->split_input[i]; i++)
+		printf("%s\n", terminal()->split_input[i]);
 }
 
 int	main(int ac, char **av, char **env)
