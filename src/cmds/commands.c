@@ -2,14 +2,14 @@
 
 
 
-t_cmd   *new_cmd(char **agrs)
+t_cmd   *new_cmd(char **args)
 {
     t_cmd   *init;
 
     init = ft_calloc(sizeof(t_cmd), 1);
-    init->args = agrs;
+    init->args = args;
     init->in = -1;
     init->out = -1;
-    return (&init);
+    return (init);
 }
 

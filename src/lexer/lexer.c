@@ -85,7 +85,7 @@ void	lexer(char *input)
 {
 	char	*str;
 	char	**pipes;
-	char	**args;
+	//char	**args;
 	size_t	i;
 	t_cmd	*end;
 	t_cmd	*tmp;

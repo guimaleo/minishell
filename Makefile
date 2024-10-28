@@ -43,9 +43,14 @@ LEX_DIR= src/lexer
 LEX_FILES= lexer.c
 SRC_LEX= $(addprefix $(LEX_DIR)/, $(LEX_FILES))
 
+## Command functions directory and build
+CMD_DIR= src/cmds
+CMD_FILES= commands.c
+SRC_CMD= $(addprefix $(CMD_DIR)/, $(CMD_FILES))
+
 SRC_FILES= main.c
 
-SRC= $(SRC_FILES) $(SRC_MEM) $(SRC_STR) $(SRC_LEX)
+SRC= $(SRC_FILES) $(SRC_MEM) $(SRC_STR) $(SRC_LEX) $(SRC_CMD)
 
 OBJ= $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
@@ -57,6 +62,9 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: $(CMD_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(FLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(FDS_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(FLAGS) -c $< -o $@
@@ -72,6 +80,8 @@ $(OBJ_DIR)/%.o: $(LEX_DIR)/%.c | $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(FLAGS) -c $< -o $@
+
+
 
 clean:
 	rm -rf $(OBJ_DIR)

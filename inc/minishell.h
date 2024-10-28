@@ -73,7 +73,7 @@ typedef struct s_tty
 
 /*Lexical functions*/
 void    lexer(char *input);
-t_cmd   *new_cmd(void);
+t_cmd   *new_cmd(char **args);
 
 /*Terminal emulator*/
 int		open_tty(t_terminal *term);
