@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/26 21:03:28 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:23:20 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ typedef struct s_tty
 // 	struct s_tree	*right;
 // } t_tree;
 
+/*Execution*/
+void	exeggutor(t_cmd *cmd);
+
 /*Lexical functions*/
 void    lexer(char *input);
 t_cmd   *new_cmd(char **args);
@@ -94,6 +97,7 @@ size_t	ft_strlen(char *str);
 /*Memory Functions*/
 void	*ft_calloc(size_t len, size_t size);
 void	free_doubles(void **ptr);
+void	free_list(t_cmd **list);
 
 // /*Trees functions*/
 // t_tree	*new_node(int value);

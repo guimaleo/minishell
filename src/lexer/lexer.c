@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:44:54 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/28 13:54:02 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:24:14 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,14 @@ void	lexer(char *input)
 			terminal()->cmd = tmp;
 		else
 			end->next = tmp;
+		/*Program received signal SIGSEGV, Segmentation fault.
+0x0000555555555d06 in lexer (input=0x555555571e00 "workd") at src/lexer/lexer.c:112
+112				end->next = tmp;
+*/
 		end = tmp;
 		i++;
 	}
 	free_doubles((void **) pipes);
 	free(str);
+	exeggutor(terminal()->cmd);
 }

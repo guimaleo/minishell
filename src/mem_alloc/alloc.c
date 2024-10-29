@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   alloc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:39 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/26 17:51:35 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:22:33 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_list(t_cmd **list)
+{
+	t_cmd	*cur;
+	t_cmd	*next;
+
+	cur = *list;
+	while (cur)
+	{
+		next = cur->next;
+		free(cur);
+		cur = next;
+	}
+	*list = NULL;
+}
+
 
 /**
  * @brief frees any double pointer variable if it is typecasted as a void **
