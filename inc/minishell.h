@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/29 09:23:20 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:53:06 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <readline/history.h>
 # include "colors.h"
 
+# define MIN_PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
 typedef struct s_env
 {
 	char **env;
@@ -46,6 +48,7 @@ typedef struct s_redirect
 typedef struct s_cmd
 {
 	char			**args;
+	char			**abs_build;
 	char			*path;
 	int				in;
 	int				out;
@@ -89,6 +92,7 @@ void	ft_putcharfd(char c, int fd);
 int		ft_strncmp(char *s1, char *s2, int n);
 char	*ft_strdup(char *str);
 char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin_char(char *s1, char *s2);
 char	*ft_strndup(char *str, int  n);
 char	**ft_split(char *str, char c);
 size_t	ft_strlen(char *str);
