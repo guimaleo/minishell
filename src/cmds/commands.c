@@ -55,5 +55,7 @@ void	exeggutor(t_cmd *cmd)
 			cmd = cmd->next;
 		}
 	}
+	else
+		wait(NULL);
 	free_list(&cmd);
 }

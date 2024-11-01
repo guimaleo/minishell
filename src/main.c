@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/28 13:47:36 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/11/01 18:25:35 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	input_looking()
 		if (!ft_strncmp(terminal()->input, "exit", 4))
 			break ; // implement the exit function to free all and exit(EXIT_SUCCES)
 		lexer(terminal()->input);
-		free(terminal()->input);
+
+		//free(terminal()->input);
 	}
 	printf("%s\n", terminal()->input);
 	for(int i = 0; terminal()->split_input[i]; i++)
