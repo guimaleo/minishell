@@ -120,4 +120,5 @@ void	lexer(char *input)
 	free_doubles((void **) pipes);
 	free(str);
 	exeggutor(terminal()->cmd);
+	terminal()->cmd = NULL;
 }
