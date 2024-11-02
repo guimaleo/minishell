@@ -1,0 +1,40 @@
+#include "../inc/minishell.h"
+
+void    pipex(t_cmd *cmd)
+{
+    int fd[2];
+    pid_t   pid;
+    char    *tmp;
+    int     fd_in = 0;
+    int i;
+
+    i = 0;
+    while(cmd)
+    {
+        pipe(fd);
+        pid = fork();
+        if (pid == 0)
+        {
+            dup2(fd_in, STDIN_FILENO);
+            if (cmd->next)
+                dup2(fd[1], STDOUT_FILENO);
+            close(fd[0]);
+            if (cmd->next)
+                close(fd[1]);
+            while (cmd->abs_build[i])
+            {
+                tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
+                execve(tmp, cmd->args, NULL);
+                free(tmp);
+                i++;
+            }
+        }
+        else
+        {
+            wait(NULL);
+            close(fd[1]);
+            fd_in = fd[0];
+            cmd = cmd->next;
+        }
+    }
+}
