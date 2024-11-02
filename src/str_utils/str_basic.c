@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   str_basic.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:47:15 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/29 20:52:55 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:10:17 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
 
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (0);
+}
 
 size_t	ft_strlen(char *str)
 {

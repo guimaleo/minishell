@@ -6,7 +6,7 @@
 #    By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 22:38:45 by lede-gui          #+#    #+#              #
-#    Updated: 2024/10/26 18:11:30 by lede-gui         ###   ########.fr        #
+#    Updated: 2024/11/02 15:18:01 by lede-gui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SRC_LEX= $(addprefix $(LEX_DIR)/, $(LEX_FILES))
 
 ## Command functions directory and build
 CMD_DIR= src/cmds
-CMD_FILES= commands.c
+CMD_FILES= commands.c builtins.c
 SRC_CMD= $(addprefix $(CMD_DIR)/, $(CMD_FILES))
 
 SRC_FILES= main.c

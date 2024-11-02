@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/29 20:53:06 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:54:07 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include "colors.h"
 
 # define MIN_PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+# define BUILTIN {"cd", "echo", "exit", "export", "unset", "pwd", "env" };
 
 typedef struct s_env
 {
@@ -50,6 +51,7 @@ typedef struct s_cmd
 	char			**args;
 	char			**abs_build;
 	char			*path;
+	char			**env;
 	int				in;
 	int				out;
 	t_redirect		*redir;
@@ -77,6 +79,15 @@ typedef struct s_tty
 /*Execution*/
 void	exeggutor(t_cmd *cmd);
 
+/*Built-ins*/
+
+void    check_builtin(t_cmd *cmd);
+void    exec_builtin(t_cmd *cmd);
+void    cd_builtin(t_cmd *cmd);
+void    echo_builtin(t_cmd *cmd);
+void    env_builtin(t_cmd *cmd);
+void   unset_builtin(t_cmd *cmd);
+
 /*Lexical functions*/
 void    lexer(char *input);
 t_cmd   *new_cmd(char **args);
@@ -89,6 +100,7 @@ t_terminal		*terminal(void);
 /*Strings Utils*/
 void	ft_putstrfd(char *str, int fd);
 void	ft_putcharfd(char c, int fd);
+int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(char *s1, char *s2, int n);
 char	*ft_strdup(char *str);
 char	*ft_strjoin(char *s1, char *s2);

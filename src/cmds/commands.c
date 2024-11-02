@@ -11,7 +11,10 @@ t_cmd	*new_cmd(char **args)
 	if (!terminal()->env)
 		init->path = MIN_PATH;//IF UNSET PATH = NULL; && FREE
 	else
-		init->path = getenv("PATH");
+		{
+			init->path = getenv("PATH");
+			init->env = terminal()->env;
+		}
 	init->abs_build = ft_split(init->path, ':');
 	if (!init->abs_build)
 		perror("Split cmd struct error\n");
@@ -30,6 +33,7 @@ void	exeggutor(t_cmd *cmd)
 	pid_t	pid;
 
 	printf("PATH=%s\n", cmd->path);
+	check_builtin(cmd);
 	pid = fork();
 	if (pid == 0)
 	{

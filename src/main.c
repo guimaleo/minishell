@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/11/01 18:25:35 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:28:35 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void	input_looking()
 		//free(terminal()->input);
 	}
 	printf("%s\n", terminal()->input);
-	for(int i = 0; terminal()->split_input[i]; i++)
-		printf("%s\n", terminal()->split_input[i]);
+	// for(int i = 0; terminal()->split_input[i]; i++)
+	// 	printf("%s\n", terminal()->split_input[i]);
 }
 
 int	main(int ac, char **av, char **env)
