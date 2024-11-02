@@ -34,32 +34,37 @@ void	exeggutor(t_cmd *cmd)
 
 	printf("PATH=%s\n", cmd->path);
 	check_builtin(cmd);
-	pid = fork();
-	if (pid == 0)
-	{
-		while (cmd)
-		{
-			i = 0;
-			while (cmd->abs_build[i])
-			{
-				//split path
-				//args + flags
-				printf("Arg to be executed: %s\n", cmd->args[0]);
-				// tmp = abs_path(cmd);
-				i++;
-				/*construir as possibilidades de PATH para o execve, chamar num loop, executar*/
-				/*execve("PATH, ARGS + FLAGS, ENVP")*/
-				tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
-				printf("tmp: %s\n", tmp);
-				printf("abs_build: %s\n", cmd->abs_build[i]);
-				execve(tmp, cmd->args, NULL);
-				// execve(tmp, cmd->args, NULL);
-				free(tmp);
-			}
-			cmd = cmd->next;
-		}
-	}
+	if (cmd->next)
+		pipex(cmd);
 	else
-		wait(NULL);
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			while (cmd)
+			{
+				i = 0;
+				while (cmd->abs_build[i])
+				{
+					//split path
+					//args + flags
+					printf("Arg to be executed: %s\n", cmd->args[0]);
+					// tmp = abs_path(cmd);
+					i++;
+					/*construir as possibilidades de PATH para o execve, chamar num loop, executar*/
+					/*execve("PATH, ARGS + FLAGS, ENVP")*/
+					tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
+					printf("tmp: %s\n", tmp);
+					printf("abs_build: %s\n", cmd->abs_build[i]);
+					execve(tmp, cmd->args, NULL);
+					// execve(tmp, cmd->args, NULL);
+					free(tmp);
+				}
+				cmd = cmd->next;
+			}
+		}
+		else
+			wait(NULL);
+	}
 	free_list(&cmd);
 }
