@@ -1,6 +1,9 @@
 #include "../inc/minishell.h"
 
-
+void    check_acess(t_cmd *cmd)
+{
+    
+}
 
 
 
