@@ -1,5 +1,9 @@
 #include "../inc/minishell.h"
 
+
+
+
+
 void    pipex(t_cmd *cmd)
 {
     int fd[2];
@@ -28,6 +32,7 @@ void    pipex(t_cmd *cmd)
                 free(tmp);
                 i++;
             }
+             exit(1);
         }
         else
         {
