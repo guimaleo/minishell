@@ -16,6 +16,7 @@ void    check_acess(t_cmd *cmd)
         free(tmp);
         i++;
     }
+    perror(cmd->args[0]);
 }
 
 
