@@ -48,6 +48,7 @@ void    pipex(t_cmd *cmd)
         {
             wait(NULL);
             close(fd[1]);
+            //close(fd[0]);
             fd_in = fd[0];
             cmd = cmd->next;
         }
