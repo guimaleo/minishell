@@ -40,8 +40,7 @@ void    pipex(t_cmd *cmd)
             if (cmd->next)
                 dup2(fd[1], STDOUT_FILENO);
             close(fd[0]);
-            if (cmd->next)
-                close(fd[1]);
+            close(fd[1]);
             check_acess(cmd);
             exit(1);
         }
@@ -49,9 +48,12 @@ void    pipex(t_cmd *cmd)
         {
             wait(NULL);
             close(fd[1]);
-            //close(fd[0]);
+            if (fd_in != 0)
+                close(fd_in);
             fd_in = fd[0];
             cmd = cmd->next;
         }
     }
+    if (fd_in != 0)
+        close(fd_in);
 }
