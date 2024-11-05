@@ -88,6 +88,8 @@ void    echo_builtin(t_cmd *cmd);
 void    env_builtin(t_cmd *cmd);
 void   unset_builtin(t_cmd *cmd);
 void    pipex(t_cmd *cmd);
+void    check_acess(t_cmd *cmd);
+
 
 /*Lexical functions*/
 void    lexer(char *input);
