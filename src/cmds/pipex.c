@@ -19,7 +19,25 @@ void    check_acess(t_cmd *cmd)
     perror(cmd->args[0]);
 }
 
+void    child_process(t_cmd *cmd, int *fd, int *fd_in)
+{
+    dup2(*fd_in, STDIN_FILENO);
+    if (cmd->next)
+        dup2(fd[1], STDOUT_FILENO);
+    close(fd[0]);
+    close(fd[1]);
+    check_acess(cmd);
+    exit(1);
+}
 
+void    parent_process(int *fd, int *fd_in)
+{
+    wait(NULL);
+    close(fd[1]);
+    if (*fd_in != 0)
+    close(*fd_in);
+    *fd_in = fd[0];
+}
 
 void    pipex(t_cmd *cmd)
 {
@@ -35,22 +53,10 @@ void    pipex(t_cmd *cmd)
         pipe(fd);
         pid = fork();
         if (pid == 0)
-        {
-            dup2(fd_in, STDIN_FILENO);
-            if (cmd->next)
-                dup2(fd[1], STDOUT_FILENO);
-            close(fd[0]);
-            close(fd[1]);
-            check_acess(cmd);
-            exit(1);
-        }
+            child_process(cmd, fd, &fd_in);
         else
         {
-            wait(NULL);
-            close(fd[1]);
-            if (fd_in != 0)
-                close(fd_in);
-            fd_in = fd[0];
+            parent_process(fd, &fd_in);
             cmd = cmd->next;
         }
     }
