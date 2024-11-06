@@ -2,7 +2,7 @@
 
 t_cmd	*new_cmd(char **args)
 {
-	t_cmd	*init;
+	static t_cmd	*init;
 
 	init = ft_calloc(sizeof(t_cmd), 1);
 	init->args = args;
@@ -48,6 +48,6 @@ void	exeggutor(t_cmd *cmd)
 			else
 				wait(NULL);
 		}
-		free_list(&cmd);
+		clean_exit(terminal()->cmd, 0);
 	}
 }
