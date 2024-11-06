@@ -1,35 +1,51 @@
 #include "minishell.h"
 
-void    check_builtin(t_cmd *cmd)
+int    check_builtin(t_cmd *cmd)
 {
     int     i;
     int     j;
     char    *tmp[8] = BUILTIN;
+    int     check;
 
     i = 0;
+    check = 0;
     while (cmd->args[i])
     {
         j = 0;
         while(tmp[j])
         {
             if (!ft_strcmp(cmd->args[i], tmp[j]))
-                exec_builtin(cmd);
+                check = exec_builtin(cmd);
             j++;
         }
         i++;
     }
+    return (check);
 }
 
-void    exec_builtin(t_cmd *cmd)
+int    exec_builtin(t_cmd *cmd)
 {
     if (!ft_strcmp(cmd->args[0], "cd"))
+    {
         cd_builtin(cmd);
-    if (!ft_strcmp(cmd->args[0], "echo"))
+        return  (1);
+    }
+    else if (!ft_strcmp(cmd->args[0], "echo"))
+    {
         echo_builtin(cmd);
-    if (!ft_strcmp(cmd->args[0], "env"))
+        return (1);
+    }
+    else if (!ft_strcmp(cmd->args[0], "env"))
+    {
         env_builtin(cmd);
-    if (!ft_strcmp(cmd->args[0], "unset"))
+        return (1);
+    }
+    else if (!ft_strcmp(cmd->args[0], "unset"))
+    {
         unset_builtin(cmd);
+        return (1);
+    }
+    return (0);
 }
 
 void    echo_builtin(t_cmd *cmd)

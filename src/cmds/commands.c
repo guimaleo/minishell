@@ -30,22 +30,24 @@ void	exeggutor(t_cmd *cmd)
 {
 	pid_t	pid;
 
-	check_builtin(cmd);
-	if (cmd->next)
-		pipex(cmd);
-	else
+	if (!check_builtin(cmd))
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			while (cmd)
-			{
-				check_acess(cmd);
-				cmd = cmd->next;
-			}
-		}
+		if (cmd->next)
+			pipex(cmd);
 		else
-			wait(NULL);
+		{
+			pid = fork();
+			if (pid == 0)
+			{
+				while (cmd)
+				{
+					check_acess(cmd);
+					cmd = cmd->next;
+				}
+			}
+			else
+				wait(NULL);
+		}
+		free_list(&cmd);
 	}
-	free_list(&cmd);
 }

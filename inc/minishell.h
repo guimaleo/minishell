@@ -81,8 +81,8 @@ void	exeggutor(t_cmd *cmd);
 
 /*Built-ins*/
 
-void    check_builtin(t_cmd *cmd);
-void    exec_builtin(t_cmd *cmd);
+int    check_builtin(t_cmd *cmd);
+int    exec_builtin(t_cmd *cmd);
 void    cd_builtin(t_cmd *cmd);
 void    echo_builtin(t_cmd *cmd);
 void    env_builtin(t_cmd *cmd);
