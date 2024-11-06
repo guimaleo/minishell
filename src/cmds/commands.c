@@ -48,6 +48,6 @@ void	exeggutor(t_cmd *cmd)
 			else
 				wait(NULL);
 		}
-		clean_exit(terminal()->cmd, 0);
 	}
+	clean_exit(terminal()->cmd, 0);
 }

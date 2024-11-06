@@ -7,6 +7,8 @@ int    check_builtin(t_cmd *cmd)
     char    *tmp[8] = BUILTIN;
     int     check;
 
+    if (!cmd)
+        return (-1);
     i = 0;
     check = 0;
     while (cmd->args[i])
@@ -50,10 +52,12 @@ int    exec_builtin(t_cmd *cmd)
 
 void    echo_builtin(t_cmd *cmd)
 {
-    if (cmd->args[1])
+    if (cmd->args[1] && !cmd->args[2])
         printf("%s", cmd->args[1]);
-    if (ft_strcmp(cmd->args[0], "-n") || !cmd->args[1])
+    if (ft_strncmp(cmd->args[1], "-n", 2) || !cmd->args[2])
         printf("\n");
+    else if (cmd->args[2])
+        printf("%s", cmd->args[2]);
 }
 
 void    cd_builtin(t_cmd *cmd)

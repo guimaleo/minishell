@@ -28,7 +28,7 @@ static void	input_looking()
 		terminal()->input = readline(GREEN"minishell"CIAN" $> " ESCCLR);
 		add_history(terminal()->input);
 		if (!ft_strcmp(terminal()->input, "exit"))
-			exit(0);//clean_exit(terminal()->cmd, 1); // implement the exit function to free all and exit(EXIT_SUCCES)
+			clean_exit(terminal()->cmd, 1); // implement the exit function to free all and exit(EXIT_SUCCES)
 		lexer(terminal()->input);
 
 		//free(terminal()->input);
