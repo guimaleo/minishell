@@ -43,11 +43,8 @@ void    pipex(t_cmd *cmd)
 {
     int fd[2];
     pid_t   pid;
-    //char    *tmp;
     int     fd_in = 0;
-    //int i;
 
-    //i = 0;
     while(cmd)
     {
         pipe(fd);

@@ -28,11 +28,8 @@ char	*abs_path(char *arg, char *path)
 
 void	exeggutor(t_cmd *cmd)
 {
-	//int		i;
-	//char	*tmp;
 	pid_t	pid;
 
-	printf("PATH=%s\n", cmd->path);
 	check_builtin(cmd);
 	if (cmd->next)
 		pipex(cmd);
