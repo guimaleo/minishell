@@ -117,6 +117,7 @@ void	lexer(char *input)
 		end = tmp;
 		i++;
 	}
+	check_redir(terminal()->cmd);
 	free_doubles((void **) pipes);
 	free(str);
 	exeggutor(terminal()->cmd);

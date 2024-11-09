@@ -18,6 +18,7 @@ t_cmd	*new_cmd(char **args)
 	init->abs_build = ft_split(init->path, ':');
 	if (!init->abs_build)
 		perror("Split cmd struct error\n");
+	
 	return (init);
 }
 
