@@ -16,6 +16,7 @@ void    check_acess(t_cmd *cmd)
         free(tmp);//free da lista
         i++;
     }
+    clean_exit(terminal()->cmd, 1);
     perror(cmd->args[0]);
 }
 
