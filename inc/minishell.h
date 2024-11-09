@@ -78,19 +78,19 @@ typedef struct s_tty
 
 /*Execution*/
 void	exeggutor(t_cmd *cmd);
+void    pipex(t_cmd *cmd);
+void    check_acess(t_cmd *cmd);
 
 /*Built-ins*/
 
-typedef void (*builtin_func)(t_cmd *cmd);
+typedef void	(*builtin_func)(t_cmd *cmd);
 
 int    check_builtin(t_cmd *cmd);
 int 	exec_builtin(t_cmd *cmd);
-void    cd_builtin(t_cmd *cmd);
-void    echo_builtin(t_cmd *cmd);
-void    env_builtin(t_cmd *cmd);
-void   unset_builtin(t_cmd *cmd);
-void    pipex(t_cmd *cmd);
-void    check_acess(t_cmd *cmd);
+void    cd_f(t_cmd *cmd);
+void    echo_f(t_cmd *cmd);
+void    env_f(t_cmd *cmd);
+void   unset_f(t_cmd *cmd);
 void	clean_exit(t_cmd *cmd, int	i);
 
 /*Lexical functions*/

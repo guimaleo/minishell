@@ -30,13 +30,13 @@ int exec_builtin(t_cmd *cmd)
     builtin_func f;
 
     if (!ft_strcmp(cmd->args[0], "cd"))
-        f = cd_builtin;
+        f = cd_f;
     else if (!ft_strcmp(cmd->args[0], "echo"))
-        f = echo_builtin;
+        f = echo_f;
     else if (!ft_strcmp(cmd->args[0], "env"))
-        f = env_builtin;
+        f = env_f;
     else if (!ft_strcmp(cmd->args[0], "unset"))
-        f = unset_builtin;
+        f = unset_f;
     else
         return (0);
     f(cmd);
@@ -44,7 +44,7 @@ int exec_builtin(t_cmd *cmd)
 
 }
 
-void    echo_builtin(t_cmd *cmd)
+void    echo_f(t_cmd *cmd)
 {
     if (cmd->args[1] && !cmd->args[2])
         printf("%s", cmd->args[1]);
@@ -54,9 +54,11 @@ void    echo_builtin(t_cmd *cmd)
         printf("%s", cmd->args[2]);
 }
 
-void    cd_builtin(t_cmd *cmd)
+void    cd_f(t_cmd *cmd)
 {
     //if !env do not work
+    char    cwd[256];
+    
     if (cmd->args[1])
     {
         if (ft_strcmp(cmd->args[1],"-"))
@@ -66,8 +68,9 @@ void    cd_builtin(t_cmd *cmd)
     }
     else
         chdir("/home");
+    printf("%s\n", getcwd(cwd, sizeof(cwd)));
 }
-void    env_builtin(t_cmd *cmd)
+void    env_f(t_cmd *cmd)
 {
     int     i;
 
@@ -78,7 +81,7 @@ void    env_builtin(t_cmd *cmd)
         printf("%s\n", cmd->env[i++]);
 }
 
-void   unset_builtin(t_cmd *cmd)
+void   unset_f(t_cmd *cmd)
 {
     int     i;
     size_t  len;
