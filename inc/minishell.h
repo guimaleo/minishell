@@ -31,6 +31,7 @@
 
 # define MIN_PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 # define BUILTIN {"cd", "echo", "exit", "export", "unset", "pwd", "env" };
+# define CD_ERR "cd: no such file or directory: "
 
 typedef struct s_env
 {

@@ -58,17 +58,24 @@ void    cd_f(t_cmd *cmd)
 {
     //if !env do not work
     char    cwd[256];
-    
+
     if (cmd->args[1])
     {
         if (ft_strcmp(cmd->args[1],"-"))
-            chdir(cmd->args[1]);
+            {
+                if (chdir(cmd->args[1]) == -1)
+                    printf("%s%s\n", CD_ERR, cmd->args[1]);
+                return; 
+            }
         else
             chdir(getenv("OLDPWD"));
     }
     else
         chdir("/home");
-    printf("%s\n", getcwd(cwd, sizeof(cwd)));
+    if (getcwd(cwd, sizeof(cwd)) == NULL)
+        perror("cwd");
+    else
+       printf("%s\n", getcwd(cwd, sizeof(cwd)));
 }
 void    env_f(t_cmd *cmd)
 {
