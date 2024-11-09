@@ -71,11 +71,6 @@ typedef struct s_tty
 
 }		t_terminal;
 
-// typedef struct s_tree {
-// 	int		value;
-// 	struct s_tree	*left;
-// 	struct s_tree	*right;
-// } t_tree;
 
 /*Execution*/
 void	exeggutor(t_cmd *cmd);
@@ -94,6 +89,8 @@ void    echo_f(t_cmd *cmd);
 void    env_f(t_cmd *cmd);
 void   unset_f(t_cmd *cmd);
 void	clean_exit(t_cmd *cmd, int	i);
+void    export_f(t_cmd *cmd);
+
 
 /*Lexical functions*/
 void    lexer(char *input);

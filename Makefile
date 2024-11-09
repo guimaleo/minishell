@@ -97,6 +97,9 @@ san: re
 val: $(NAME)
 	valgrind $(VAL) ./$(NAME)
 
+show: VAL += -s
+show: val
+
 valfd: VAL += --track-fds=all
 valfd: val
 
