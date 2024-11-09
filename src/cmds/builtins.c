@@ -25,29 +25,23 @@ int    check_builtin(t_cmd *cmd)
     return (check);
 }
 
-int    exec_builtin(t_cmd *cmd)
+int exec_builtin(t_cmd *cmd)
 {
+    builtin_func f;
+
     if (!ft_strcmp(cmd->args[0], "cd"))
-    {
-        cd_builtin(cmd);
-        return  (1);
-    }
+        f = cd_builtin;
     else if (!ft_strcmp(cmd->args[0], "echo"))
-    {
-        echo_builtin(cmd);
-        return (1);
-    }
+        f = echo_builtin;
     else if (!ft_strcmp(cmd->args[0], "env"))
-    {
-        env_builtin(cmd);
-        return (1);
-    }
+        f = env_builtin;
     else if (!ft_strcmp(cmd->args[0], "unset"))
-    {
-        unset_builtin(cmd);
-        return (1);
-    }
-    return (0);
+        f = unset_builtin;
+    else
+        return (0);
+    f(cmd);
+    return (1);
+
 }
 
 void    echo_builtin(t_cmd *cmd)
