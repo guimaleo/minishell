@@ -83,19 +83,46 @@ void    env_f(t_cmd *cmd)
 {
     int     i;
 
-    if (!*(cmd)->env)
+    if (!*terminal()->env)
         return ;
+    cmd->env = terminal()->env;
     i = 0;
+    while (terminal()->env[i])
+        printf("%s\n", terminal()->env[i++]);
+}
+
+void    replace_n_erase(t_cmd *cmd, char *input, size_t len)
+{
+    int     i;
+    char    *swap;
+
+    i = 0;
+    swap = NULL;
+    while (cmd->env[i] && ft_strncmp(cmd->env[i], input, len))
+        i++;
+    printf("i do unset: %i\n", i);
     while (cmd->env[i])
-        printf("%s\n", cmd->env[i++]);
+    {
+        swap = cmd->env[i + 1];
+        if (swap == NULL)
+        {
+            cmd->env[i] = NULL;
+            break ;
+        }
+        cmd->env[i] = swap;
+        printf("swap: %s\n", swap);
+        i++;
+    }
 }
 
 void   unset_f(t_cmd *cmd)
 {
     int     i;
+    bool    flag;
     size_t  len;
     char    *to_unset;
 
+    flag = false;
     to_unset = ft_strdup(cmd->args[1]);
     if (!to_unset)
         return ;
@@ -104,9 +131,15 @@ void   unset_f(t_cmd *cmd)
     while (cmd->env[i])
     {
         if (!ft_strncmp(cmd->env[i], to_unset, len))
-            cmd->env[i] = NULL;
+            flag = true;
         i++;
     }
+    if (flag)
+        replace_n_erase(cmd, to_unset, len);
+    
+        // if (!ft_strncmp(cmd->env[i], to_unset, len))
+        //     cmd->env[i] = NULL;
+
     // if (!ft_strcmp(to_unset, "PATH"))  SEGFAULT
     //     free(cmd->path);
     free(to_unset);
