@@ -43,7 +43,7 @@ typedef struct s_redirect
 {
 	char	*file;
 	bool	in;
-	t_redirect *next;
+	struct s_redirect *next;
 }		t_redirect;
 
 typedef struct s_cmd
