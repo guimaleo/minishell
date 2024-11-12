@@ -39,6 +39,8 @@ int exec_builtin(t_cmd *cmd)
         f = unset_f;
     else if (!ft_strcmp(cmd->args[0], "export"))
         f = export_f;
+    else if (!ft_strcmp(cmd->args[0], "exit"))
+        clean_exit(cmd, 1);
     else
         return (0);
     f(cmd);
