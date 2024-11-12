@@ -15,8 +15,8 @@ void	clean_exit(t_cmd *cmd, int i)
 	}
 	if (i)
 	{
-		if (terminal()->env)
-			free_doubles((void**)terminal()->env);
+		//if (terminal()->env)
+		//	free_doubles((void**)terminal()->env);
 		exit(0);
 	}
 }

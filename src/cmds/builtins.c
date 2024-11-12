@@ -98,13 +98,13 @@ void    replace_n_erase(t_cmd *cmd, char *input, size_t len)
 {
     int     i;
     char    *swap;
-    char    *tmp;
+    //char    *tmp;
 
     swap = NULL;
     i = 0;
     while (cmd->env[i] && ft_strncmp(cmd->env[i], input, len))
         i++;
-    tmp = cmd->env[i];
+    //tmp = cmd->env[i];
     printf("i do unset: %i\n", i);
     while (cmd->env[i])
     {
@@ -118,7 +118,7 @@ void    replace_n_erase(t_cmd *cmd, char *input, size_t len)
         printf("swap: %s\n", swap);
         i++;
     }
-    free(tmp);
+    //free(tmp);
 }
 
 void   unset_f(t_cmd *cmd)

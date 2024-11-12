@@ -13,6 +13,7 @@ t_cmd	*new_cmd(char **args)
 	else
 		{
 			init->path = getenv("PATH");
+			//printf("%s\n", getenv("PATH"));
 			init->env = terminal()->env;
 		}
 	init->abs_build = ft_split(init->path, ':');

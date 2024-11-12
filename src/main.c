@@ -38,22 +38,9 @@ static void	input_looking()
 
 int	main(int ac, char **av, char **env)
 {
-	int i;
 	(void)ac;
 	(void)av;
-	if (*env)
-	{
-		i = 0;
-		while (env[i])
-			i++;
-		terminal()->env = (char **)ft_calloc(sizeof(char *), i + 1);
-		i = 0;
-		while (env[i])
-		{
-			terminal()->env[i] = ft_strdup(env[i]);
-			i++;
-		}
-	}
+	terminal()->env = env;
 	input_looking();
 }
 
