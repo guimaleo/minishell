@@ -29,6 +29,7 @@ int exec_builtin(t_cmd *cmd)
 {
     builtin_func f;
 
+    f = NULL;
     if (!ft_strcmp(cmd->args[0], "cd"))
         f = cd_f;
     else if (!ft_strcmp(cmd->args[0], "echo"))
