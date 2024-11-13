@@ -3,6 +3,8 @@
 void	clean_exit(t_cmd *cmd, int i)
 {
 	t_cmd	*tmp;
+
+	printf("HERE\n");
 	while (cmd)
 	{
 		tmp = cmd->next;	

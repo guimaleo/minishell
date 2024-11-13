@@ -6,15 +6,18 @@ void    check_acess(t_cmd *cmd)
     char   *tmp;
 
     i = 0;
-    if (!access(cmd->args[0], F_OK))
-        execve(cmd->args[0], cmd->args, NULL);
-    while (cmd->abs_build[i])
+    if (!check_builtin(cmd))
     {
-        tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
-        if (!access(tmp, F_OK))
-            execve(tmp, cmd->args, NULL);
-        free(tmp);//free da lista
-        i++;
+        if (!access(cmd->args[0], F_OK))
+            execve(cmd->args[0], cmd->args, NULL);
+        while (cmd->abs_build[i])
+        {
+            tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
+            if (!access(tmp, F_OK))
+                execve(tmp, cmd->args, NULL);
+            free(tmp);//free da lista
+            i++;
+        }
     }
     clean_exit(terminal()->cmd, 1);
     perror(cmd->args[0]);
