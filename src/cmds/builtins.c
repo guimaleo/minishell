@@ -16,6 +16,8 @@ int    check_builtin(t_cmd *cmd)
         j = 0;
         while(tmp[j])
         {
+
+            printf("cmd:%s\ntmp:%s\n", cmd->args[i], tmp[j]);
             if (!ft_strcmp(cmd->args[i], tmp[j]))
                 check = exec_builtin(cmd);
             j++;
