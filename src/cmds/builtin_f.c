@@ -1,5 +1,61 @@
 #include "minishell.h"
 
+void	pwd_f(t_cmd *cmd)
+{
+    char    *buffer;
+    char    *cwd;
+
+    (void)cmd;
+    buffer = ft_calloc(2048, sizeof(char));
+    if (!buffer)
+        perror("getcwd error");
+    cwd = getcwd(buffer, 2048);
+    if (cwd)
+    {
+        printf("%s\n", cwd);
+        free(buffer);
+        return ;
+    }
+}
+void    cd_f(t_cmd *cmd)
+{
+    //if !env do not work
+    char    *buffer;
+
+    terminal()->cwd = ft_calloc(1024, sizeof(terminal()->cwd));
+    if (cmd->args[1])
+    {
+        if (ft_strcmp(cmd->args[1],"-"))
+        {
+            if (chdir(terminal()->cwd) == -1)
+                printf("%s%s\n", CD_ERR, terminal()->cwd);
+            return; 
+        }
+        else
+            chdir(terminal()->old_cwd);
+    }
+    else
+        chdir("/home");
+    if (getcwd(terminal()->cwd, sizeof(terminal()->cwd)) == NULL)
+        perror("cwd");
+    else
+       printf("%s\n", getcwd(terminal()->cwd, sizeof(terminal()->cwd)));
+    //implement change old_cwd to cwd -> export both
+    free(terminal()->cwd);
+}
+
+void    env_f(t_cmd *cmd)
+{
+    int     i;
+
+    if (!*terminal()->env)
+        return ;
+    cmd->env = terminal()->env;
+    i = 0;
+    while (terminal()->env[i])
+        printf("%s\n", terminal()->env[i++]);
+}
+
 void    env_injection(t_cmd *cmd, char *tmp)
 {
     int     i;

@@ -106,12 +106,12 @@ void	lexer(char *input)
 	while (pipes && pipes[i])
 	{
 		tmp = new_cmd(ft_split(pipes[i], '\2'));
-		if (check_char(*tmp, '=')){
-			terminal()->expand = *tmp;
-			printf("Mandado para expansao: %s", *tmp);
-			printf("Salvo para expansao: %s", terminal()->expand);
+		// if (check_char(*tmp, '=')){
+		// 	terminal()->expand = *tmp;
+		// 	printf("Mandado para expansao: %s", *tmp);
+		// 	printf("Salvo para expansao: %s", terminal()->expand);
 
-		}
+		// }
 		if (terminal()->cmd == NULL)
 			terminal()->cmd = tmp;
 		else

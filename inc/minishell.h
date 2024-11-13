@@ -56,6 +56,8 @@ typedef struct s_cmd
 typedef struct s_tty
 {
 	char	*name;
+	char	*cwd;
+	char	*old_cwd;
 	char	*prompt;
 	char	*input;
 	char	**split_input;
@@ -81,7 +83,8 @@ int 	exec_builtin(t_cmd *cmd);
 void    cd_f(t_cmd *cmd);
 void    echo_f(t_cmd *cmd);
 void    env_f(t_cmd *cmd);
-void   unset_f(t_cmd *cmd);
+void	pwd_f(t_cmd *cmd);
+void	unset_f(t_cmd *cmd);
 void	clean_exit(t_cmd *cmd, int	i);
 void    export_f(t_cmd *cmd);
 

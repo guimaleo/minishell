@@ -25,6 +25,16 @@ int    check_builtin(t_cmd *cmd)
     return (check);
 }
 
+void    echo_f(t_cmd *cmd)
+{
+    if (cmd->args[1] && !cmd->args[2])
+        printf("%s", cmd->args[1]);
+    if (ft_strncmp(cmd->args[1], "-n", 2) || !cmd->args[2])
+        printf("\n");
+    else if (cmd->args[2])
+        printf("%s", cmd->args[2]);
+}
+
 int exec_builtin(t_cmd *cmd)
 {
     builtin_func f;
@@ -40,6 +50,8 @@ int exec_builtin(t_cmd *cmd)
         f = unset_f;
     else if (!ft_strcmp(cmd->args[0], "export"))
         f = export_f;
+    else if (!ft_strcmp(cmd->args[0], "pwd"))
+        f = pwd_f;
     else if (!ft_strcmp(cmd->args[0], "exit"))
         clean_exit(cmd, 1);
     else
@@ -47,51 +59,6 @@ int exec_builtin(t_cmd *cmd)
     f(cmd);
     return (1);
 
-}
-
-void    echo_f(t_cmd *cmd)
-{
-    if (cmd->args[1] && !cmd->args[2])
-        printf("%s", cmd->args[1]);
-    if (ft_strncmp(cmd->args[1], "-n", 2) || !cmd->args[2])
-        printf("\n");
-    else if (cmd->args[2])
-        printf("%s", cmd->args[2]);
-}
-
-void    cd_f(t_cmd *cmd)
-{
-    //if !env do not work
-    char    cwd[256];
-
-    if (cmd->args[1])
-    {
-        if (ft_strcmp(cmd->args[1],"-"))
-            {
-                if (chdir(cmd->args[1]) == -1)
-                    printf("%s%s\n", CD_ERR, cmd->args[1]);
-                return; 
-            }
-        else
-            chdir(getenv("OLDPWD"));
-    }
-    else
-        chdir("/home");
-    if (getcwd(cwd, sizeof(cwd)) == NULL)
-        perror("cwd");
-    else
-       printf("%s\n", getcwd(cwd, sizeof(cwd)));
-}
-void    env_f(t_cmd *cmd)
-{
-    int     i;
-
-    if (!*terminal()->env)
-        return ;
-    cmd->env = terminal()->env;
-    i = 0;
-    while (terminal()->env[i])
-        printf("%s\n", terminal()->env[i++]);
 }
 
 void    replace_n_erase(t_cmd *cmd, char *input, size_t len)

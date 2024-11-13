@@ -40,7 +40,11 @@ int	main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
+	char	*buffer;
+	buffer = ft_calloc(1024, sizeof(char));
 	terminal()->env = env;
+	terminal()->cwd = getcwd(buffer, sizeof(buffer));
+	free(buffer);
 	input_looking();
 }
 
