@@ -33,12 +33,6 @@
 # define BUILTIN {"cd", "echo", "exit", "export", "unset", "pwd", "env" };
 # define CD_ERR "cd: no such file or directory: "
 
-typedef struct s_env
-{
-	char **env;
-	//char **paths;  Nao precisa
-}		t_env;
-
 typedef struct s_redirect
 {
 	char	*file;
@@ -65,6 +59,7 @@ typedef struct s_tty
 	char	*prompt;
 	char	*input;
 	char	**split_input;
+	char	*expand;
 	char	**env;
 	t_cmd	*cmd;
 
@@ -105,6 +100,7 @@ void	ft_putstrfd(char *str, int fd);
 void	ft_putcharfd(char c, int fd);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(char *s1, char *s2, int n);
+int		check_char(char *s, char c);
 char	*ft_strdup(char *str);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strjoin_char(char *s1, char *s2);

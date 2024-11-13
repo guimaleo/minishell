@@ -96,7 +96,7 @@ void	lexer(char *input)
 	substituir o \3 por 3 e \2 por 2 para facilitar a visualização*/
 	// for (int j = 0; pipes[j]; j++)
 	// {
-	// 	printf("cmd: %s\n", pipes[j]);
+	// 	// printf("cmd: %s\n", pipes[j]);
 	// 	char **args = ft_split(str, '\3');
 	// 	for (int k = 0; args[k]; k++)
 	// 		printf("\tArgs: %s\n", args[k]);
@@ -106,14 +106,16 @@ void	lexer(char *input)
 	while (pipes && pipes[i])
 	{
 		tmp = new_cmd(ft_split(pipes[i], '\2'));
+		if (check_char(*tmp, '=')){
+			terminal()->expand = *tmp;
+			printf("Mandado para expansao: %s", *tmp);
+			printf("Salvo para expansao: %s", terminal()->expand);
+
+		}
 		if (terminal()->cmd == NULL)
 			terminal()->cmd = tmp;
 		else
 			end->next = tmp;
-		/*Program received signal SIGSEGV, Segmentation fault.
-0x0000555555555d06 in lexer (input=0x555555571e00 "workd") at src/lexer/lexer.c:112
-112				end->next = tmp;
-*/
 		end = tmp;
 		i++;
 	}
