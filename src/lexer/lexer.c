@@ -105,6 +105,7 @@ void	lexer(char *input)
 	i = 0;
 	while (pipes && pipes[i])
 	{
+		check_redir(pipes[i]);
 		tmp = new_cmd(ft_split(pipes[i], '\2'));
 		// if (check_char(*tmp, '=')){
 		// 	terminal()->expand = *tmp;
@@ -119,7 +120,6 @@ void	lexer(char *input)
 		end = tmp;
 		i++;
 	}
-	check_redir(terminal()->cmd);
 	free_doubles((void **) pipes);
 	free(str);
 	exeggutor(terminal()->cmd);

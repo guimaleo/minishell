@@ -9,23 +9,15 @@ t_redirect	*init_redir(void)
 }
 
 
-void	check_redir(t_cmd *cmd)
+void	check_redir(char *str)
 {
 	int	i;
-
+	//int	start;
+	//int	len;
 	i = 0;
-	while (cmd->args[i])
+	printf("str:%s\n", str);
+	while (str[i])
 	{
-		if (!ft_strcmp(cmd->args[i], "<"))
-		{
-			cmd->redir = init_redir();
-			if (cmd->args[i + 1])
-			{
-				cmd->redir->file = ft_strdup(cmd->args[i + 1]);
-				cmd->redir->in = 1;
-			}
-		}
-		i++;
+		while (str[i] != '')
 	}
-	cmd = cmd->next;
 }
