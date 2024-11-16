@@ -25,7 +25,7 @@ static void	input_looking()
 {
 	while (1)
 	{
-		terminal()->input = readline(GREEN"minishell"CIAN" $> " ESCCLR);
+		terminal()->input = readline("minishell $> ");
 		add_history(terminal()->input);
 		lexer(terminal()->input);
 
@@ -43,8 +43,9 @@ int	main(int ac, char **av, char **env)
 
 
 	terminal()->env = env;
-	terminal()->cwd = getenv("PWD");
-	terminal()->old_cwd =getenv("OLDPWD");
+	terminal()->cwd = getcwd(NULL, 0);
+	// TROCAR GETENV POR FT_GETENV
+	terminal()->old_cwd = getenv("OLDPWD");
 	input_looking();
 }
 
