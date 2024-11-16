@@ -32,13 +32,15 @@ void	exeggutor(t_cmd *cmd)
 {
 	pid_t	pid;
 
+	pid = -1;
 	if (cmd->next)
 		pipex(cmd);
 	else
 	{
 		if (!ft_strcmp(cmd->args[0], "exit"))
 			clean_exit(terminal()->cmd, 1);
-		pid = fork();
+		if (!check_builtin(cmd))
+			pid = fork();
 		if (pid == 0)
 		{
 			while (cmd)

@@ -20,28 +20,29 @@ void	pwd_f(t_cmd *cmd)
 void    cd_f(t_cmd *cmd)
 {
     //if !env do not work
-    char    *buffer;
+   // char    *tmp;
 
-    terminal()->cwd = ft_calloc(1024, sizeof(terminal()->cwd));
     if (cmd->args[1])
     {
         if (ft_strcmp(cmd->args[1],"-"))
         {
-            if (chdir(terminal()->cwd) == -1)
+            printf("%s",cmd->args[1]);
+            if (chdir(cmd->args[1]) == -1)
                 printf("%s%s\n", CD_ERR, terminal()->cwd);
-            return; 
+            else 
+                terminal()->old_cwd = terminal()->cwd;
         }
         else
             chdir(terminal()->old_cwd);
     }
     else
         chdir("/home");
-    if (getcwd(terminal()->cwd, sizeof(terminal()->cwd)) == NULL)
-        perror("cwd");
-    else
-       printf("%s\n", getcwd(terminal()->cwd, sizeof(terminal()->cwd)));
+   // if (getcwd(terminal()->cwd, sizeof(terminal()->cwd)) == NULL)
+     //   perror("cwd");
+    //else
+      // printf("%s\n", getcwd(terminal()->cwd, sizeof(terminal()->cwd)));
     //implement change old_cwd to cwd -> export both
-    free(terminal()->cwd);
+    //free(terminal()->cwd);
 }
 
 void    env_f(t_cmd *cmd)

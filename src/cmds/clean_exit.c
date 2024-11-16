@@ -13,6 +13,7 @@ void	clean_exit(t_cmd *cmd, int i)
 		//free(cmd->path);
 		//free_doubles((void **)cmd->env);
 		free(cmd);
+		//free(terminal()->cwd);
 		cmd = tmp;
 	}
 	if (i)
