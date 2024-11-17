@@ -44,7 +44,7 @@ void	clear_args(char **args)
 void	check_redir(t_cmd *cmd)
 {
 	int	i;
-	t_redirect *tmp;
+	//t_redirect *tmp;
 
 	i = 0;
 	while(cmd->args[i])
