@@ -48,6 +48,7 @@ int	main(int ac, char **av, char **env)
 	terminal()->cwd = getcwd(NULL, 0);
 	// TROCAR GETENV POR FT_GETENV
 	terminal()->old_cwd = getenv("OLDPWD");
+	terminal()->home = getenv("HOME");
 	input_looking();
 }
 

@@ -36,8 +36,11 @@ void    cd_f(t_cmd *cmd)
         }
     }
     else
-        chdir("/home");
-    printf("%s", terminal()->cwd);
+    {
+        chdir(terminal()->home);
+        terminal()->cwd = getcwd(NULL, 0);
+    }
+    printf("%s\n", terminal()->cwd);
 }
 
 void    env_f(t_cmd *cmd)

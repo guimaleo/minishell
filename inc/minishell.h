@@ -56,6 +56,7 @@ typedef struct s_cmd
 typedef struct s_tty
 {
 	char	*name;
+	char	*home;
 	char	*cwd;
 	char	*old_cwd;
 	char	*prompt;
