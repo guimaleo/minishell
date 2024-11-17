@@ -14,7 +14,7 @@ void    check_acess(t_cmd *cmd)
         {
             tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
             if (!access(tmp, F_OK))
-                execve(tmp, cmd->args, NULL);
+                execve(tmp, cmd->args, terminal()->env);
             free(tmp);//free da lista
             i++;
         }

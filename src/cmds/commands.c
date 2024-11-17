@@ -37,8 +37,8 @@ void	exeggutor(t_cmd *cmd)
 		pipex(cmd);
 	else
 	{
-		if (!ft_strcmp(cmd->args[0], "exit"))
-			clean_exit(terminal()->cmd, 1);
+		//if (!ft_strcmp(cmd->args[0], "exit"))
+		//	clean_exit(terminal()->cmd, 1);
 		if (!check_builtin(cmd))
 			pid = fork();
 		if (pid == 0)

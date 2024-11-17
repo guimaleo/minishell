@@ -2,10 +2,11 @@
 
 t_redirect	*init_redir(void)
 {
-	static t_redirect init;
+	t_redirect *init;
 
-	init.in = -1;
-	return (&init);
+	init = (t_redirect *)ft_calloc(sizeof(t_redirect), 1);
+	init->in = -1;
+	return (init);
 }
 
 
@@ -44,7 +45,7 @@ void	clear_args(char **args)
 void	check_redir(t_cmd *cmd)
 {
 	int	i;
-	//t_redirect *tmp;
+	t_redirect *tmp;
 
 	i = 0;
 	while(cmd->args[i])
@@ -59,12 +60,19 @@ void	check_redir(t_cmd *cmd)
 					cmd->redir->in = 1;
 					cmd->redir->file = ft_strdup(cmd->args[i + 1]);
 					i += 1;
-
+					tmp = cmd->redir;
 				}
 			}
 			else
 			{
-				
+				tmp->next = init_redir();
+				if (cmd->args[i + 1])
+				{
+					tmp->next->in = 1;
+					tmp->next->file = ft_strdup(cmd->args[i + 1]);
+					i += 1;
+					tmp = tmp->next;
+				}
 			}
 		}
 		i++;
