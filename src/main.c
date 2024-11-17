@@ -26,6 +26,8 @@ static void	input_looking()
 	while (1)
 	{
 		terminal()->input = readline("minishell $> ");
+		if (!terminal()->input || *(terminal())->input == '\0')
+			continue ;
 		add_history(terminal()->input);
 		lexer(terminal()->input);
 
