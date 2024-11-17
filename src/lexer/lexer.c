@@ -105,8 +105,8 @@ void	lexer(char *input)
 	i = 0;
 	while (pipes && pipes[i])
 	{
-		check_redir(pipes[i]);
 		tmp = new_cmd(ft_split(pipes[i], '\2'));
+		check_redir(tmp);
 		// if (check_char(*tmp, '=')){
 		// 	terminal()->expand = *tmp;
 		// 	printf("Mandado para expansao: %s", *tmp);
