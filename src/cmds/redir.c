@@ -9,6 +9,10 @@ t_redirect	*init_redir(void)
 	return (init);
 }
 
+int	open_redir(t_cmd *cmd, int *fd_in)
+{
+	
+}
 
 void	clear_args(char **args)
 {
@@ -32,12 +36,6 @@ void	clear_args(char **args)
 		}
 		else
 			args[start++] = args[i];
-		i++;
-	}
-	i = 0;
-	while (args[i])
-	{
-		printf("remainder:%s\n", args[i]);
 		i++;
 	}
 }
@@ -77,10 +75,5 @@ void	check_redir(t_cmd *cmd)
 		}
 		i++;
 	}
-		while (cmd->redir)
-		{
-			printf("redir:%s\n", cmd->redir->file);
-			cmd->redir = cmd->redir->next;
-		}
 		clear_args(cmd->args);
 }

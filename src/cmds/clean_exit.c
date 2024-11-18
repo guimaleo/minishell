@@ -1,24 +1,39 @@
 #include "../inc/minishell.h"
 
+
+void	free_redirect(t_redirect *redir)
+{
+	t_redirect *tmp;
+	while (redir)
+	{
+		tmp = redir->next;
+		free(redir->file);
+		free(redir);
+		redir = NULL;
+		redir = tmp;
+	}
+}
+
 void	clean_exit(t_cmd *cmd, int i)
 {
 	t_cmd	*tmp;
+	
 
 	while (cmd)
 	{
 		tmp = cmd->next;
 		free_doubles((void **)cmd->args);
 		free_doubles((void **)cmd->abs_build);
-		//free(cmd->path);
-		//free_doubles((void **)cmd->env);
+		if (cmd->redir)
+			free_redirect(cmd->redir);
 		free(cmd);
-		//free(terminal()->cwd);
 		cmd = tmp;
 	}
 	if (i)
 	{
 		//if (terminal()->env)
 		//	free_doubles((void**)terminal()->env);
+		free(terminal()->cwd);
 		exit(0);
 	}
 }

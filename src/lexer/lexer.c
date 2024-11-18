@@ -98,14 +98,16 @@ void	lexer(char *input)
 	{
 		// printf("cmd: %s\n", pipes[j]);
 		char **args = ft_split(str, '3');
-		for (int k = 0; args[k]; k++)
-			printf("\tArgs: %s\n", args[k]);
+		// for (int k = 0; args[k]; k++)
+		// 	printf("\tArgs: %s\n", args[k]);
 		free_doubles((void **)args);
 	}
 	i = 0;
 	while (pipes && pipes[i])
 	{
 		tmp = new_cmd(ft_split(pipes[i], '2'));
+		//for (int k = 0; tmp->args[k]; k++)
+		 //	printf("\tArgs: %s\n", tmp->args[k]);
 		check_redir(tmp);
 		// if (check_char(*tmp, '=')){
 		// 	terminal()->expand = *tmp;
