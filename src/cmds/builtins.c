@@ -53,8 +53,10 @@ int exec_builtin(t_cmd *cmd)
         f = export_f;
     else if (!ft_strcmp(cmd->args[0], "pwd"))
         f = pwd_f;
-    else if (!ft_strcmp(cmd->args[0], "exit"))
+    else if (!ft_strcmp(cmd->args[0], "exit") && !cmd->args[1])
         clean_exit(cmd, 1);
+	else if (!ft_strcmp(cmd->args[0], "exit") && cmd->args[1])
+        args_exit(cmd);
     else
         return (0);
     f(cmd);
@@ -110,7 +112,7 @@ void   unset_f(t_cmd *cmd)
     }
     if (flag)
         replace_n_erase(cmd, to_unset, len);
-    
+
         // if (!ft_strncmp(cmd->env[i], to_unset, len))
         //     cmd->env[i] = NULL;
 

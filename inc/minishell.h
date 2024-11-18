@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/11/02 17:54:07 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:28:51 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define MIN_PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 # define BUILTIN {"cd", "echo", "exit", "export", "unset", "pwd", "env" };
 # define CD_ERR "cd: no such file or directory: "
+# define EXIT_ERR "minishell: exit: abc: numeric argument required\n"
+# define DIGITS "1234567890"
 
 typedef struct s_redirect
 {
@@ -88,6 +90,7 @@ void	pwd_f(t_cmd *cmd);
 void	unset_f(t_cmd *cmd);
 void	clean_exit(t_cmd *cmd, int	i);
 void    export_f(t_cmd *cmd);
+void	args_exit(t_cmd *cmd);
 
 
 /*Lexical functions*/
@@ -111,7 +114,7 @@ char	*ft_strjoin_char(char *s1, char *s2);
 char	*ft_strndup(char *str, int  n);
 char	**ft_split(char *str, char c);
 size_t	ft_strlen(char *str);
-
+int		ft_atoi(char *s);
 
 /*Memory Functions*/
 void	*ft_calloc(size_t len, size_t size);
