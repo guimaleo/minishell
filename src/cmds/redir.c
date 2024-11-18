@@ -10,7 +10,25 @@ t_redirect	*init_redir(void)
 
 int	open_redir(t_cmd *cmd, int *fd_in)
 {
-	
+	t_redirect *tmp;
+	int	fd;
+	tmp = cmd->redir;
+	while (tmp)
+	{
+		if (fd_in != 0)
+			close(*fd_in);
+		fd = open(tmp->file, O_RDONLY);
+		if (fd == -1)
+		{
+			printf("Can't open%s\n");
+			return (0);
+		}
+		else
+			*fd_in = fd;
+		tmp = tmp->next;
+	}
+	printf("%d\n", fd);
+	return (1);
 }
 
 void	clear_args(char **args)
