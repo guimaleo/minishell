@@ -8,6 +8,36 @@ t_redirect	*init_redir(void)
 	return (&init);
 }
 
+int	open_redir(t_cmd *cmd, int *fd_in)
+{
+	
+}
+
+void	clear_args(char **args)
+{
+	int i;
+	int	start;
+
+	i = 0;
+	start = 0;
+	while (args[i])
+	{
+		if (!ft_strcmp(args[i], "<"))
+		{
+			free(args[i]);
+			args[i] = NULL;
+			if (args[i + 1])
+			{
+				free(args[i + 1]);
+				args[i + 1] = NULL;
+				i++;
+			}
+		}
+		else
+			args[start++] = args[i];
+		i++;
+	}
+}
 
 void	check_redir(t_cmd *cmd)
 {

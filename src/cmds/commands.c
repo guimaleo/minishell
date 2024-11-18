@@ -33,19 +33,30 @@ void	exeggutor(t_cmd *cmd)
 	pid_t	pid;
 
 	pid = -1;
-	if (cmd->next)
-		pipex(cmd);
+	if (!cmd->next)
+	{
+		if (!check_builtin(cmd))
+		{
+			pid = fork();
+			if (pid == 0)
+			{
+				if(!pipex(cmd))
+					return ;
+			}
+			else
+				wait(NULL);
+		}
+	}
 	else
 	{
-		if (!ft_strcmp(cmd->args[0], "exit"))
-			clean_exit(terminal()->cmd, 1);
 		if (!check_builtin(cmd))
 			pid = fork();
 		if (pid == 0)
 		{
 			while (cmd)
 			{
-				check_acess(cmd);
+				if (!pipex(cmd))
+					return ;
 				cmd = cmd->next;
 			}
 		}

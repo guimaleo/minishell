@@ -70,9 +70,10 @@ typedef struct s_tty
 
 /*Execution*/
 void	exeggutor(t_cmd *cmd);
-void    pipex(t_cmd *cmd);
+int    pipex(t_cmd *cmd);
 void    check_acess(t_cmd *cmd);
 void	check_redir(t_cmd *cmd);
+int	open_redir(t_cmd *cmd, int *fd_in);
 
 /*Built-ins*/
 

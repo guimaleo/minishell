@@ -43,7 +43,7 @@ void    parent_process(int *fd, int *fd_in)
     *fd_in = fd[0];
 }
 
-void    pipex(t_cmd *cmd)
+int    pipex(t_cmd *cmd)
 {
     int fd[2];
     pid_t   pid;
@@ -51,16 +51,24 @@ void    pipex(t_cmd *cmd)
 
     while(cmd)
     {
+        if (cmd->redir)
+        if (!open_redir(cmd, &fd_in))
+            return (0) ;
         pipe(fd);
         pid = fork();
         if (pid == 0)
+        {
+            if (cmd->redir)
+                open_redin(cmd);
             child_process(cmd, fd, &fd_in);
+        }
         else
         {
             parent_process(fd, &fd_in);
-            cmd = cmd->next;
         }
+            cmd = cmd->next;
     }
     if (fd_in != 0)
         close(fd_in);
+    return (1);
 }
