@@ -55,8 +55,8 @@ void    pipex(t_cmd *cmd)
         pid = fork();
         if (pid == 0)
         {
-            if (cmd->redir)
-                open_redin(cmd);
+            // if (cmd->redir)
+            //     open_redin(cmd);
             child_process(cmd, fd, &fd_in);
         }
         else

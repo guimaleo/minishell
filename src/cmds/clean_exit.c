@@ -42,13 +42,11 @@ void	args_exit(t_cmd *cmd)
 {
 	int	ret;
 	int	i;
-	char *c;
 
-	c = DIGITS;
 	i = 0;
-	while (c[i])
-	{
-		if (ft_strcmp(cmd->args[1], c))
+	while (cmd->args[1][i])
+	{	
+		if (!ft_isdigit(cmd->args[1][i]))
 		{
 			printf(EXIT_ERR);
 			clean_exit(cmd, 0);

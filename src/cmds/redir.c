@@ -9,10 +9,10 @@ t_redirect	*init_redir(void)
 	return (init);
 }
 
-int	open_redir(t_cmd *cmd, int *fd_in)
-{
+// int	open_redir(t_cmd *cmd, int *fd_in)
+// {
 	
-}
+// }
 
 void	clear_args(char **args)
 {

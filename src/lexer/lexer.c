@@ -11,6 +11,69 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+// $HOME "Aqui expande $helllo" 'Aqui nao expande $world' "aqui expande '$workd'" "na proxima tambem expande" $user
+void	check_variable(t_cmd *cmd, int *i, int *pos)
+{
+	char	*to_check;
+	char	*to_exp;
+	char	**tmp;
+	int		start;
+	int		len;
+	char *check;
+
+	//printf("\nDentro da check_variable:\narg->%s, valor do i->%i\nposicao do $ na string passada: %i\n", cmd->args[*i], *i, *pos);
+	(*pos)++;
+	start = *pos;
+	//printf("Start position: %i\n", start);
+	while ((cmd->args[*i][*pos] && !ft_isspace(cmd->args[*i][*pos]) && (cmd->args[*i][*pos] != '\"' && cmd->args[*i][*pos] != '\'')))
+		(*pos)++;
+	//printf("End position: %i\tChar: %i\n", *pos, cmd->args[*i][*pos]);
+	len = *pos - start;
+	//printf("len to be expanded: %i\n", len);
+	to_check = ft_calloc(len + 1, 1);
+	if (!to_check)
+		perror("malloc");
+	check = to_check;
+	while (cmd->args[*i][start]){
+		//printf("To be sent to expander: %c\n", cmd->args[*i][start]);
+		*(to_check++) = cmd->args[*i][start++];
+	}
+	//printf("Expander: %c\n", *(to_check));
+	start = 0;
+	printf("check:%s\n", check);
+	while (terminal()->env[start])
+	{
+		if (!ft_strncmp(terminal()->env[start], check, len))
+		{
+			tmp = ft_split(terminal()->env[start], '=');
+			to_exp = ft_strdup(tmp[1]);
+			printf("Valor para ser expandido: %s\n", to_exp);
+			free_doubles(tmp);
+		}
+		start++;
+	}
+}
+
+void	expansions(t_cmd *cmd)
+{
+	int		i;
+	int		pos;
+
+	i = 0;
+	while (cmd->args[i])
+	{
+		pos = check_char(cmd->args[i], '$');
+		if (check_char(cmd->args[i], '$') > -1 && *cmd->args[i] != '\'')
+		{
+			// printf("char na pos[0] das strings passadas para checar: %c\n", cmd->args[i][0]);
+			// printf("Char encontrado: %c\n", cmd->args[i][pos]);
+			check_variable(cmd, &i, &pos);
+		}
+		// printf("Args sendo verificados para expansion: %s\n", cmd->args[i]);
+		i++;
+	}
+}
+
 
 /**
  * @brief This function will recognize any of the redirections tokens,
@@ -124,6 +187,7 @@ void	lexer(char *input)
 	}
 	free_doubles((void **) pipes);
 	free(str);
+	expansions(terminal()->cmd);
 	exeggutor(terminal()->cmd);
 	terminal()->cmd = NULL;
 }

@@ -50,6 +50,7 @@ typedef struct s_cmd
 	char			**env;
 	int				in;
 	int				out;
+	int				ret;
 	t_redirect		*redir;
 	struct s_cmd	*next;
 }		t_cmd;
@@ -104,6 +105,8 @@ t_terminal		*terminal(void);
 
 /*Strings Utils*/
 void	ft_putstrfd(char *str, int fd);
+int		ft_isdigit(char c);
+int		ft_isspace(char c);
 void	ft_putcharfd(char c, int fd);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(char *s1, char *s2, int n);

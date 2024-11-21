@@ -23,10 +23,10 @@ t_cmd	*new_cmd(char **args)
 	return (init);
 }
 
-char	*abs_path(char *arg, char *path)
-{
-	return(ft_strjoin(path, arg));
-}
+// char	*abs_path(char *arg, char *path)
+// {
+// 	return(ft_strjoin(path, arg));
+// }
 
 void	exeggutor(t_cmd *cmd)
 {
@@ -37,8 +37,6 @@ void	exeggutor(t_cmd *cmd)
 		pipex(cmd);
 	else
 	{
-		//if (!ft_strcmp(cmd->args[0], "exit"))
-		//	clean_exit(terminal()->cmd, 1);
 		if (!check_builtin(cmd))
 			pid = fork();
 		if (pid == 0)

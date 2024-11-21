@@ -1,8 +1,13 @@
 #include "../inc/minishell.h"
 
-static int	ft_isspace(char c)
+int	ft_isspace(char c)
 {
 	return ((c > 8 && c < 14) || c == 32);
+}
+
+int		ft_isdigit(char c)
+{
+	return (c > 47 && c < 58);
 }
 
 int	check_char(char *s, char c)
@@ -16,7 +21,7 @@ int	check_char(char *s, char c)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 char	*ft_substr(char * s, int start, int size)
