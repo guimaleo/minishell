@@ -31,6 +31,7 @@ char	*abs_path(char *arg, char *path)
 void	exeggutor(t_cmd *cmd)
 {
 	pid_t	pid;
+	int fd_in = 0;
 
 	pid = -1;
 	if (!cmd->next)
@@ -49,19 +50,26 @@ void	exeggutor(t_cmd *cmd)
 	}
 	else
 	{
+<<<<<<< Updated upstream
 		if (!check_builtin(cmd))
 			pid = fork();
 		if (pid == 0)
+=======
+		//if (!ft_strcmp(cmd->args[0], "exit"))
+		//	clean_exit(terminal()->cmd, 1);
+		if (!check_builtin(cmd) && open_redir(cmd, &fd_in))
+>>>>>>> Stashed changes
 		{
-			while (cmd)
+			pid = fork();
+			if (pid == 0)
 			{
 				if (!pipex(cmd))
 					return ;
 				cmd = cmd->next;
 			}
+			else
+				wait(NULL);
 		}
-		else
-			wait(NULL);
 	}
 	clean_exit(terminal()->cmd, 0);
 }

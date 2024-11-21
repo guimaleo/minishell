@@ -73,7 +73,12 @@ void	exeggutor(t_cmd *cmd);
 int    pipex(t_cmd *cmd);
 void    check_acess(t_cmd *cmd);
 void	check_redir(t_cmd *cmd);
+<<<<<<< Updated upstream
 int	open_redir(t_cmd *cmd, int *fd_in);
+=======
+int		open_redir(t_cmd *cmd, int *fd_in);
+
+>>>>>>> Stashed changes
 
 /*Built-ins*/
 

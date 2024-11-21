@@ -16,6 +16,8 @@ void	clean_exit(t_cmd *cmd, int i)
 		//free(terminal()->cwd);
 		cmd = tmp;
 	}
+	free(terminal()->input);
+	terminal()->input = NULL;
 	if (i)
 	{
 		//if (terminal()->env)

@@ -8,26 +8,41 @@ t_redirect	*init_redir(void)
 	return (&init);
 }
 
-int	open_redir(t_cmd *cmd, int *fd_in)
+
+	int	open_redir(t_cmd *cmd, int *fd_in)
 {
 	t_redirect *tmp;
 	int	fd;
 	tmp = cmd->redir;
+<<<<<<< Updated upstream
 	while (tmp)
 	{
 		if (fd_in != 0)
+=======
+	fd = 0;
+	while (tmp)
+	{
+		if (*fd_in != 0)
+>>>>>>> Stashed changes
 			close(*fd_in);
 		fd = open(tmp->file, O_RDONLY);
 		if (fd == -1)
 		{
+<<<<<<< Updated upstream
 			printf("Can't open%s\n");
+=======
+			printf("Can't open file or directory %s\n", tmp->file);
+>>>>>>> Stashed changes
 			return (0);
 		}
 		else
 			*fd_in = fd;
 		tmp = tmp->next;
 	}
+<<<<<<< Updated upstream
 	printf("%d\n", fd);
+=======
+>>>>>>> Stashed changes
 	return (1);
 }
 
