@@ -6,51 +6,74 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:44:54 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/29 09:24:14 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/11/22 22:59:20 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 // $HOME "Aqui expande $helllo" 'Aqui nao expande $world' "aqui expande '$workd'" "na proxima tambem expande" $user
+
+void	inject_expansion(char *input, char *key, char *value)
+{
+	size_t	len;
+	char	*expanded;
+	size_t		i;
+	size_t		j;
+	size_t		r;
+
+	len = ft_strlen(input) + ft_strlen(value);
+	expanded = ft_calloc(len, 1);
+	i = check_char(input, '$') + 1;
+	printf("%lu\n", i);
+	j = -1;
+	while (j < i)
+		expanded[++j] = *(input)++;
+	while (*key)
+	{
+		input++;
+		key++;
+	}
+	r = 0;
+	while (value[r])
+	{
+		expanded[j + r] = value[r];
+		r++;
+	}
+	while (j < len)
+		expanded[j++] = *(input)++;
+	input = NULL;
+	input = ft_strdup(expanded);
+	printf("input expandido: %s\n", input);
+	// free(expanded);
+}
+
 void	check_variable(t_cmd *cmd, int *i, int *pos)
 {
-	char	*to_check;
-	char	*to_exp;
+	char	*str[2];
 	char	**tmp;
-	int		start;
-	int		len;
-	char *check;
+	int		it[3];
 
-	//printf("\nDentro da check_variable:\narg->%s, valor do i->%i\nposicao do $ na string passada: %i\n", cmd->args[*i], *i, *pos);
-	(*pos)++;
-	start = *pos;
-	//printf("Start position: %i\n", start);
-	while ((cmd->args[*i][*pos] && !ft_isspace(cmd->args[*i][*pos]) && (cmd->args[*i][*pos] != '\"' && cmd->args[*i][*pos] != '\'')))
+	it[0] = *pos;
+	while ((cmd->args[*i][*pos] && !ft_isspace(cmd->args[*i][*pos]) && \
+	(cmd->args[*i][*pos] != '\"' && cmd->args[*i][*pos] != '\'')))
 		(*pos)++;
-	//printf("End position: %i\tChar: %i\n", *pos, cmd->args[*i][*pos]);
-	len = *pos - start;
-	//printf("len to be expanded: %i\n", len);
-	to_check = ft_calloc(len + 1, 1);
-	if (!to_check)
-		perror("malloc");
-	check = to_check;
-	while (cmd->args[*i][start]){
-		//printf("To be sent to expander: %c\n", cmd->args[*i][start]);
-		*(to_check++) = cmd->args[*i][start++];
-	}
-	//printf("Expander: %c\n", *(to_check));
-	start = 0;
-	printf("check:%s\n", check);
-	while (terminal()->env[start])
+	it[1] = *pos - it[0];
+	str[0] = ft_calloc(it[1] + 1, 1);
+	it[2] = 0;
+	while (cmd->args[*i][it[0]])
+		str[0][it[2]++] = cmd->args[*i][it[0]++];
+	it[0] = 0;
+	while (terminal()->env[it[0]])
 	{
-		if (!ft_strncmp(terminal()->env[start], check, len))
+		if (!ft_strncmp(terminal()->env[it[0]], str[0], it[1]))
 		{
-			tmp = ft_split(terminal()->env[start], '=');
-			to_exp = ft_strdup(tmp[1]);
-			printf("Valor para ser expandido: %s\n", to_exp);
-			free_doubles(tmp);
+			tmp = ft_split(terminal()->env[it[0]], '=');
+			str[1] = ft_strdup(tmp[1]);
+			free_doubles((void **)tmp);
+			printf("Key: %s\nPara expandir: %s\n", str[0], str[1]);
+			inject_expansion(cmd->args[*i], str[0], str[1]);
 		}
-		start++;
+		it[0]++;
 	}
 }
 
@@ -67,6 +90,7 @@ void	expansions(t_cmd *cmd)
 		{
 			// printf("char na pos[0] das strings passadas para checar: %c\n", cmd->args[i][0]);
 			// printf("Char encontrado: %c\n", cmd->args[i][pos]);
+			pos++;
 			check_variable(cmd, &i, &pos);
 		}
 		// printf("Args sendo verificados para expansion: %s\n", cmd->args[i]);
