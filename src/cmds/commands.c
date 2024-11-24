@@ -31,24 +31,39 @@ t_cmd	*new_cmd(char **args)
 void	exeggutor(t_cmd *cmd)
 {
 	pid_t	pid;
+	int fd_in = 0;
 
 	pid = -1;
-	if (cmd->next)
-		pipex(cmd);
+	printf("%p\n", cmd->next);
+	if (!cmd->next)
+	{
+			printf("HERE\n");
+		if (open_redir(cmd, &fd_in) && !check_builtin(cmd))
+		{
+			pid = fork();
+			if (pid == 0)
+			{
+				if(!pipex(cmd))
+					return ;
+			}
+			else
+				wait(NULL);
+		}
+	}
 	else
 	{
-		if (!check_builtin(cmd))
-			pid = fork();
-		if (pid == 0)
+		if (open_redir(cmd, &fd_in) && !check_builtin(cmd))
 		{
-			while (cmd)
+			pid = fork();
+			if (pid == 0)
 			{
-				check_acess(cmd);
+				if (!pipex(cmd))
+					return ;
 				cmd = cmd->next;
 			}
+			else
+				wait(NULL);
 		}
-		else
-			wait(NULL);
 	}
 	clean_exit(terminal()->cmd, 0);
 }
