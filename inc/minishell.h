@@ -118,6 +118,8 @@ char	*ft_strndup(char *str, int  n);
 char	**ft_split(char *str, char c);
 size_t	ft_strlen(char *str);
 int		ft_atoi(char *s);
+char	*ft_substr(char * s, int start, int size);
+int     ft_isupper(char c);
 
 /*Memory Functions*/
 void	*ft_calloc(size_t len, size_t size);

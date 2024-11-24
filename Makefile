@@ -35,7 +35,7 @@ SRC_MEM= $(addprefix $(MEM_DIR)/, $(MEM_FILES))
 
 ## Strings functions directory and build
 STR_DIR= src/str_utils
-STR_FILES= str_basic.c dup_split.c char_funcs.c
+STR_FILES= str_basic.c dup_split.c char_funcs.c char_funcs2.c
 SRC_STR= $(addprefix $(STR_DIR)/, $(STR_FILES))
 
 ## Lexer functions directory and build

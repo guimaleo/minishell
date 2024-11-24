@@ -29,6 +29,8 @@ char	*ft_substr(char * s, int start, int size)
 	int i;
 	char *sub;
 
+	if (!s || !size)
+		return (NULL);
 	sub = (char *)ft_calloc(size + 1, sizeof(char));
 	if (!sub)
 		return (NULL);

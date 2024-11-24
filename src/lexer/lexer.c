@@ -11,56 +11,73 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-// $HOME "Aqui expande $helllo" 'Aqui nao expande $world' "aqui expande '$workd'" "na proxima tambem expande" $user
+// $HOME "Aqui expande $HOME" 'Aqui nao expande $MAKELEVEL' "aqui expande '$worked?'" "na proxima tambem expande" $PATH
 
-void	inject_expansion(char *input, char *key, char *value)
+char	*inject_expansion(char *input, char *key, char *value)
 {
 	size_t	len;
 	char	*expanded;
+	char	*treated;
 	size_t		i;
 	size_t		j;
 	size_t		r;
 
 	len = ft_strlen(input) + ft_strlen(value);
-	expanded = ft_calloc(len, 1);
+	expanded = ft_calloc(len + 1, 1);
 	i = check_char(input, '$') + 1;
-	printf("%lu\n", i);
-	j = -1;
-	while (j < i)
-		expanded[++j] = *(input)++;
+	// printf("%lu\n", i);
+	j = 0;
+	// printf("Input Passo 0: %s\n", input);
+	while (j < i && *input != '$')
+		expanded[j++] = *(input)++;
+	input++;
+	// printf("Passo 1: %s\n", expanded);
+	// printf("Input Passo 1: %s\tChar %c %i\n", input, *input, *input);
+	// printf("Key: %s\n", key);
 	while (*key)
 	{
+		// printf("Key exclusion: %c %c\n", *key, *input);
 		input++;
 		key++;
 	}
+	// printf("Input Passo 2: %s\t Char: %i\n", input, *input);
 	r = 0;
 	while (value[r])
-	{
-		expanded[j + r] = value[r];
-		r++;
-	}
-	while (j < len)
+		expanded[j++] = value[r++];
+	// printf("Passo 2: %s\n", expanded);
+	// printf("Input Passo 3: %s\tchar: %i\n", input, *input);
+	while (j < len && *input)
 		expanded[j++] = *(input)++;
-	input = NULL;
-	input = ft_strdup(expanded);
-	printf("input expandido: %s\n", input);
+	// printf("Passo 3: %s\n", expanded);
+	// printf("Input Passo 4: %s\n", input);
+	// input = NULL;
+	// printf("Passo 4: %s\n", expanded);
+	// printf("Input Passo 5: %s\n", input);
+	treated = ft_strdup(expanded);
+	// printf("Input Passo 6: %s\n", input);
+	// printf("input expandido: %s\n", treated);
+	return (treated);
 	// free(expanded);
 }
 
-void	check_variable(t_cmd *cmd, int *i, int *pos)
+char	*check_variable(t_cmd *cmd, int *i, int *pos)
 {
-	char	*str[2];
+	char	*str[3];
 	char	**tmp;
 	int		it[3];
 
 	it[0] = *pos;
+	// printf("%i\n", it[0]);
+	// while (cmd->args[*i][*pos] && ft_isupper(cmd->args[*i][*pos]))
+	// 	(*pos)++;
 	while ((cmd->args[*i][*pos] && !ft_isspace(cmd->args[*i][*pos]) && \
 	(cmd->args[*i][*pos] != '\"' && cmd->args[*i][*pos] != '\'')))
 		(*pos)++;
+	// printf("pos: %i", *pos);
 	it[1] = *pos - it[0];
-	str[0] = ft_calloc(it[1] + 1, 1);
+	str[0] = ft_substr(cmd->args[*i], it[0], it[1]);
 	it[2] = 0;
-	while (cmd->args[*i][it[0]])
+	while (cmd->args[*i][it[0]] && (cmd->args[*i][it[0]] != '\'' && cmd->args[*i][it[0]] != '\"'))
 		str[0][it[2]++] = cmd->args[*i][it[0]++];
 	it[0] = 0;
 	while (terminal()->env[it[0]])
@@ -70,11 +87,13 @@ void	check_variable(t_cmd *cmd, int *i, int *pos)
 			tmp = ft_split(terminal()->env[it[0]], '=');
 			str[1] = ft_strdup(tmp[1]);
 			free_doubles((void **)tmp);
-			printf("Key: %s\nPara expandir: %s\n", str[0], str[1]);
-			inject_expansion(cmd->args[*i], str[0], str[1]);
+			// printf("Key: %s\nPara expandir: %s\n", str[0], str[1]);
+			str[2] = inject_expansion(cmd->args[*i], str[0], str[1]);
+			return (str[2]);
 		}
 		it[0]++;
 	}
+	return (0);
 }
 
 void	expansions(t_cmd *cmd)
@@ -91,7 +110,7 @@ void	expansions(t_cmd *cmd)
 			// printf("char na pos[0] das strings passadas para checar: %c\n", cmd->args[i][0]);
 			// printf("Char encontrado: %c\n", cmd->args[i][pos]);
 			pos++;
-			check_variable(cmd, &i, &pos);
+			terminal()->cmd->args[i] = check_variable(cmd, &i, &pos);
 		}
 		// printf("Args sendo verificados para expansion: %s\n", cmd->args[i]);
 		i++;
@@ -211,7 +230,13 @@ void	lexer(char *input)
 	}
 	free_doubles((void **) pipes);
 	free(str);
+	// char **tst1 = (char **)terminal()->cmd->args;
+	// for(int x = 0; tst1[x]; x++)
+	// 	printf("testing: %s\n", tst1[x]);
 	expansions(terminal()->cmd);
+	// char **tst = (char **)terminal()->cmd->args;
+	// for(int x = 0; tst[x]; x++)
+	// 	printf("testing: %s\n", tst[x]);
 	exeggutor(terminal()->cmd);
 	terminal()->cmd = NULL;
 }
