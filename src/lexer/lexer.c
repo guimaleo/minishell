@@ -54,6 +54,7 @@ char	*inject_expansion(char *input, char *key, char *value)
 	// printf("Passo 4: %s\n", expanded);
 	// printf("Input Passo 5: %s\n", input);
 	treated = ft_strdup(expanded);
+	free(expanded);
 	// printf("Input Passo 6: %s\n", input);
 	// printf("input expandido: %s\n", treated);
 	return (treated);
@@ -89,6 +90,9 @@ char	*check_variable(t_cmd *cmd, int *i, int *pos)
 			free_doubles((void **)tmp);
 			// printf("Key: %s\nPara expandir: %s\n", str[0], str[1]);
 			str[2] = inject_expansion(cmd->args[*i], str[0], str[1]);
+			free(str[0]);
+			free(str[1]);
+			free(cmd->args[*i]);
 			return (str[2]);
 		}
 		it[0]++;
