@@ -6,38 +6,19 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:44:54 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/11/25 17:27:21 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:44:32 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 // $HOME "Aqui expande $HOME" 'Aqui nao expande $MAKELEVEL' "aqui expande '$worked?'" "na proxima tambem expande" $PATH
 
-char	*quote_removal(char *s)
-{
-	int		i;
-	int		rm;
-	char	*ret;
-
-	i = 1;
-	rm = *s;
-	while (s[i])
-	{
-		if (s[i] == rm)
-			break;
-		i++;
-	}
-	ret = ft_substr(s, 1, i);
-	if (!ret)
-		return (NULL);
-	return (ret);
-}
-
 void	quote_analysis(t_cmd *cmd)
 {
 	int		i;
 	int		j;
 	int		to_rm;
+	char	*tmp;
 
 	i = 0;
 	while (cmd->args[i])
@@ -50,7 +31,9 @@ void	quote_analysis(t_cmd *cmd)
 				j++;
 			if (!cmd->args[i][j])
 				printf("Syntax error: unquoted string\n");//TODO: ignorar qualquer argumento que venha após um syntax error
-			terminal()->cmd->args[i] = ft_substr(cmd->args[i], 1, (j - 1));
+			tmp = ft_substr(cmd->args[i], 1, (j - 1));
+			terminal()->cmd->args[i] = ft_strdup(tmp);
+			free(tmp);
 		}
 		i++;
 	}
@@ -275,16 +258,16 @@ void	lexer(char *input)
 		end = tmp;
 		i++;
 	}
-	free_doubles((void **) pipes);
+	free_doubles((void **)pipes);
 	free(str);
 	expansions(terminal()->cmd);
-	char **tst1 = (char **)terminal()->cmd->args;
-	for(int x = 0; tst1[x]; x++)
-		printf("testing: %s\n", tst1[x]);
+	// char **tst1 = (char **)terminal()->cmd->args;
+	// for(int x = 0; tst1[x]; x++)
+		// printf("testing: %s\n", tst1[x]);
 	quote_analysis(terminal()->cmd);
-	char **tst = (char **)terminal()->cmd->args;
-	for(int x = 0; tst[x]; x++)
-		printf("testing: %s\n", tst[x]);
+	// char **tst = (char **)terminal()->cmd->args;
+	// for(int x = 0; tst[x]; x++)
+	// 	printf("testing: %s\n", tst[x]);
 	exeggutor(terminal()->cmd);
 	terminal()->cmd = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/11/18 08:28:51 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:40:13 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,10 @@ void	args_exit(t_cmd *cmd);
 
 /*Lexical functions*/
 void    lexer(char *input);
+void	expansions(t_cmd *cmd);
+char	*check_variable(t_cmd *cmd, int *i, int *pos);
+char	*inject_expansion(char *input, char *key, char *value);
+void	quote_analysis(t_cmd *cmd);
 t_cmd   *new_cmd(char **args);
 
 /*Terminal emulator*/
