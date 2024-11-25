@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_basic.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:47:15 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/11/02 15:10:17 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:32:02 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	ft_strncmp(char *s1, char *s2, int n)
 {
 	int	i;
 
+	if (!s1 || !s2 || !n)
+		return (-1);
 	i = 0;
 	while (s1[i] == s2[i] && i < n)
 		i++;
