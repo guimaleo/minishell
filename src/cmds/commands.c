@@ -36,7 +36,11 @@ void	exeggutor(t_cmd *cmd)
 	pid = -1;
 	if (!cmd->next)
 	{
+<<<<<<< Updated upstream
 		if (!check_builtin(cmd))
+=======
+		if (open_redir(cmd, &fd_in) && !check_builtin(cmd))
+>>>>>>> Stashed changes
 		{
 			pid = fork();
 			if (pid == 0)

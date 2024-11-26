@@ -75,8 +75,16 @@ void    check_acess(t_cmd *cmd);
 void	check_redir(t_cmd *cmd);
 <<<<<<< Updated upstream
 int	open_redir(t_cmd *cmd, int *fd_in);
+<<<<<<< Updated upstream
 =======
 int		open_redir(t_cmd *cmd, int *fd_in);
+
+>>>>>>> Stashed changes
+=======
+int	open_redout(t_cmd *cmd);
+void	clear_argso(char **args);
+void	check_redout(t_cmd *cmd);
+t_redirect	*init_redir(void);
 
 >>>>>>> Stashed changes
 

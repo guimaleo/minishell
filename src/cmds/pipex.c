@@ -25,9 +25,22 @@ void    check_acess(t_cmd *cmd)
 
 void    child_process(t_cmd *cmd, int *fd, int *fd_in)
 {
+    int tmp;
+
+    tmp = -1;
     dup2(*fd_in, STDIN_FILENO);
+    tmp = open_redout(cmd);
     if (cmd->next)
+    {
+        if (tmp != -1)
+            fd[1] = tmp;
         dup2(fd[1], STDOUT_FILENO);
+    }
+    if (tmp != -1)
+    {
+        fd[1] = tmp;
+        dup2(fd[1], STDOUT_FILENO);
+    }
     close(fd[0]);
     close(fd[1]);
     check_acess(cmd);
