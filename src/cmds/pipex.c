@@ -64,23 +64,6 @@ int    pipex(t_cmd *cmd)
 
     while(cmd)
     {
-<<<<<<< Updated upstream
-        if (cmd->redir)
-        if (!open_redir(cmd, &fd_in))
-            return (0) ;
-        pipe(fd);
-        pid = fork();
-        if (pid == 0)
-        {
-            child_process(cmd, fd, &fd_in);
-
-        }
-        else
-        {
-            parent_process(fd, &fd_in);
-        }
-            cmd = cmd->next;
-=======
         if (open_redir(cmd, &fd_in))
         {
             pipe(fd);
@@ -93,7 +76,6 @@ int    pipex(t_cmd *cmd)
             }
         }
         cmd = cmd->next;
->>>>>>> Stashed changes
     }
     if (fd_in != 0)
         close(fd_in);
