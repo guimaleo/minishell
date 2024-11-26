@@ -347,6 +347,8 @@ perror, printf
 		tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
 ## Lexer
+
+[Back to Index](#index)
 ![parser](./functions/prints/minishell.drawio.png)
 
 
