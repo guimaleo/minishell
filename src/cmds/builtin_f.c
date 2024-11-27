@@ -2,47 +2,45 @@
 
 void	pwd_f(t_cmd *cmd)
 {
-    char    *buffer;
     char    *cwd;
 
     (void)cmd;
-    buffer = ft_calloc(2048, sizeof(char));
-    if (!buffer)
-        perror("getcwd error");
-    cwd = getcwd(buffer, 2048);
+    cwd = getcwd(NULL, 0);
     if (cwd)
-    {
         printf("%s\n", cwd);
-        free(buffer);
-        return ;
-    }
+    free(cwd);
+    return ;
 }
 void    cd_f(t_cmd *cmd)
 {
-    //if !env do not work
-   // char    *tmp;
+    char    *tmp;
 
     if (cmd->args[1])
     {
         if (ft_strcmp(cmd->args[1],"-"))
         {
-            printf("%s",cmd->args[1]);
             if (chdir(cmd->args[1]) == -1)
                 printf("%s%s\n", CD_ERR, terminal()->cwd);
-            else 
+            else
+            {
                 terminal()->old_cwd = terminal()->cwd;
+                terminal()->cwd = getcwd(NULL, 0);
+            }
         }
         else
-            chdir(terminal()->old_cwd);
+        {
+            tmp = terminal()->old_cwd;
+            chdir(tmp);
+            terminal()->old_cwd = terminal()->cwd;
+            terminal()->cwd = tmp;
+        }
     }
     else
-        chdir("/home");
-   // if (getcwd(terminal()->cwd, sizeof(terminal()->cwd)) == NULL)
-     //   perror("cwd");
-    //else
-      // printf("%s\n", getcwd(terminal()->cwd, sizeof(terminal()->cwd)));
-    //implement change old_cwd to cwd -> export both
-    //free(terminal()->cwd);
+    {
+        chdir(terminal()->home);
+        terminal()->cwd = getcwd(NULL, 0);
+    }
+    printf("%s\n", terminal()->cwd);
 }
 
 void    env_f(t_cmd *cmd)
