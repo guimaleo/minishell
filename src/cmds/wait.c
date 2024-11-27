@@ -10,7 +10,7 @@ void wait_children(int *all_stat, int *proc)
     while (count < *proc)
     {
         pid = wait(&wstat);
-        printf("%d\n"pid);
+        printf("%d\n", pid);
         if(WIFEXITED(wstat))
         {
             terminal()->stat = WEXITSTATUS(wstat);

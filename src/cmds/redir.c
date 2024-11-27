@@ -48,54 +48,6 @@ void	clean_redir(t_redirect *redir)
 	return (1);
 }
 
-void	clear_args(char **args)
-{
-	int i;
-	int	start;
-
-	i = 0;
-	start = 0;
-	while (args[i])
-	{
-		if (!ft_strcmp(args[i], "<"))
-		{
-			free(args[i]);
-			args[i] = NULL;
-			if (args[i + 1])
-			{
-				free(args[i + 1]);
-				args[i + 1] = NULL;
-				i++;
-			}
-		}
-		else
-			args[start++] = args[i];
-		i++;
-	}
-}
-
-	int	open_redir(t_cmd *cmd, int *fd_in)
-{
-	t_redirect *tmp;
-	int	fd;
-	tmp = cmd->redir;
-	fd = 0;
-	while (tmp)
-	{
-		if (*fd_in != 0)
-			close(*fd_in);
-		fd = open(tmp->file, O_RDONLY);
-		if (fd == -1)
-		{
-			printf("Can't open file or directory %s\n", tmp->file);
-			return (0);
-		}
-		else
-			*fd_in = fd;
-		tmp = tmp->next;
-	}
-	return (1);
-}
 
 void	clear_args(char **args)
 {
