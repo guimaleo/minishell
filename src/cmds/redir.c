@@ -8,7 +8,19 @@ t_redirect	*init_redir(void)
 	return (&init);
 }
 
+void	clean_redir(t_redirect *redir)
+{
+	t_redirect *tmp;
 
+	tmp = redir;
+	while (tmp)
+	{
+		redir = redir->next;
+		free(tmp->file);
+		free(redir);
+		tmp = redir;
+	}
+}
 	int	open_redir(t_cmd *cmd, int *fd_in)
 {
 	t_redirect *tmp;
@@ -19,14 +31,17 @@ t_redirect	*init_redir(void)
 	{
 		if (*fd_in != 0)
 			close(*fd_in);
-		fd = open(tmp->file, O_RDONLY);
-		if (fd == -1)
+		if (tmp->in == 1)
 		{
-			printf("Can't open file or directory %s\n", tmp->file);
-			return (0);
+			fd = open(tmp->file, O_RDONLY);
+			if (fd == -1)
+			{
+				printf("Can't open file or directory %s\n", tmp->file);
+				return (0);
+			}
+			else
+				*fd_in = fd;
 		}
-		else
-			*fd_in = fd;
 		tmp = tmp->next;
 	}
 	return (1);
@@ -65,6 +80,7 @@ void	check_redir(t_cmd *cmd)
 	i = 0;
 	while (cmd->args[i])
 	{
+		printf("CMD:%s\n", cmd->args[i]);
 		if (!ft_strcmp(cmd->args[i], "<"))
 		{
 			cmd->redir = init_redir();

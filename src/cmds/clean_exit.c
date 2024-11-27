@@ -4,16 +4,15 @@ void	clean_exit(t_cmd *cmd, int i)
 {
 	t_cmd	*tmp;
 
-	printf("HERE\n");
+	
 	while (cmd)
 	{
 		tmp = cmd->next;	
 		free_doubles((void **)cmd->args);
 		free_doubles((void **)cmd->abs_build);
-		//free(cmd->path);
-		//free_doubles((void **)cmd->env);
+		if (cmd->redir)
+			clean_redir(cmd->redir);
 		free(cmd);
-		//free(terminal()->cwd);
 		cmd = tmp;
 	}
 	free(terminal()->input);

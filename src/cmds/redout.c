@@ -8,7 +8,7 @@ int	open_redout(t_cmd *cmd)
 	fd = -1;
     while (tmp)
     {
-        if (!tmp->file)
+        if (!tmp->in)
         {
             if (fd != -1)
                 close(fd);
@@ -21,7 +21,6 @@ int	open_redout(t_cmd *cmd)
         }
         tmp = tmp->next;
     }
-	printf("HERE\n");
 	return (fd);
 }
 

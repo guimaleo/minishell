@@ -25,7 +25,7 @@ static void	input_looking()
 {
 	while (1)
 	{
-		terminal()->input = readline(GREEN"minishell"CIAN" $> " ESCCLR);
+		terminal()->input = readline("minishell $> ");
 		add_history(terminal()->input);
 		lexer(terminal()->input);
 
