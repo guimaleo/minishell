@@ -50,6 +50,7 @@ typedef struct s_cmd
 	char			**env;
 	int				in;
 	int				out;
+	int				*all_stat;
 	int				ret;
 	t_redirect		*redir;
 	struct s_cmd	*next;
@@ -67,6 +68,7 @@ typedef struct s_tty
 	char	**split_input;
 	char	*expand;
 	char	**env;
+	int		stat;
 	t_cmd	*cmd;
 
 }		t_terminal;
@@ -77,7 +79,14 @@ void	exeggutor(t_cmd *cmd);
 int    pipex(t_cmd *cmd);
 void    check_acess(t_cmd *cmd);
 void	check_redir(t_cmd *cmd);
-int	open_redir(t_cmd *cmd, int *fd_in);
+int		open_redir(t_cmd *cmd, int *fd_in);
+int	open_redout(t_cmd *cmd);
+void	clear_argso(char **args);
+void	check_redout(t_cmd *cmd);
+t_redirect	*init_redir(void);
+void	clean_redir(t_redirect *redir);
+void wait_children(int *all_stat, int *proc);
+
 /*Built-ins*/
 
 typedef void	(*builtin_func)(t_cmd *cmd);

@@ -25,18 +25,34 @@ void    check_acess(t_cmd *cmd)
 
 void    child_process(t_cmd *cmd, int *fd, int *fd_in)
 {
+    int tmp;
+
+    tmp = -1;
     dup2(*fd_in, STDIN_FILENO);
+    tmp = open_redout(cmd);
     if (cmd->next)
+    {
+        if (tmp != -1)
+            fd[1] = tmp;
         dup2(fd[1], STDOUT_FILENO);
+    }
+    if (tmp != -1)
+    {
+        fd[1] = tmp;
+        dup2(fd[1], STDOUT_FILENO);
+    }
     close(fd[0]);
     close(fd[1]);
     check_acess(cmd);
     exit(1);
 }
 
-void    parent_process(int *fd, int *fd_in)
+void    parent_process(int *fd, int *fd_in, int *all_stat, int *proc)
 {
-    wait(NULL);
+    //(void)all_stat;
+    //(void)proc;
+    //wait(NULL);
+    wait_children(all_stat, proc);
     close(fd[1]);
     if (*fd_in != 0)
     close(*fd_in);
@@ -48,18 +64,23 @@ int    pipex(t_cmd *cmd)
     int fd[2];
     pid_t   pid;
     int     fd_in = 0;
+    int proc;
 
+    proc = 0;
     while(cmd)
     {
         if (open_redir(cmd, &fd_in))
         {
+
+            proc++;
             pipe(fd);
             pid = fork();
             if (pid == 0)
                 child_process(cmd, fd, &fd_in);
             else
             {
-                parent_process(fd, &fd_in);
+                printf("%d\n", proc);
+                parent_process(fd, &fd_in, cmd->all_stat, &proc);
             }
         }
         cmd = cmd->next;

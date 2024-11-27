@@ -25,10 +25,12 @@ void	clean_exit(t_cmd *cmd, int i)
 		free_doubles((void **)cmd->args);
 		free_doubles((void **)cmd->abs_build);
 		if (cmd->redir)
-			free_redirect(cmd->redir);
+			clean_redir(cmd->redir);
 		free(cmd);
 		cmd = tmp;
 	}
+	free(terminal()->input);
+	terminal()->input = NULL;
 	if (i)
 	{
 		//if (terminal()->env)

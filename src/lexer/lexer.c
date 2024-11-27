@@ -241,10 +241,13 @@ void	lexer(char *input)
 	i = 0;
 	while (pipes && pipes[i])
 	{
-		tmp = new_cmd(ft_split(pipes[i], '2'));
+
+		tmp = new_cmd(ft_split(pipes[i], '\2'));
 		//for (int k = 0; tmp->args[k]; k++)
-		 //	printf("\tArgs: %s\n", tmp->args[k]);
+		 	//printf("\tArgs: %s\n", tmp->args[k]);
 		check_redir(tmp);
+		check_redout(tmp);
+
 		// if (check_char(*tmp, '=')){
 		// 	terminal()->expand = *tmp;
 		// 	printf("Mandado para expansao: %s", *tmp);

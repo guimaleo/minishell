@@ -34,10 +34,8 @@ void	exeggutor(t_cmd *cmd)
 	int fd_in = 0;
 
 	pid = -1;
-	printf("%p\n", cmd->next);
 	if (!cmd->next)
 	{
-			printf("HERE\n");
 		if (open_redir(cmd, &fd_in) && !check_builtin(cmd))
 		{
 			pid = fork();
