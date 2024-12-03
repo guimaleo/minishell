@@ -49,10 +49,10 @@ void    child_process(t_cmd *cmd, int *fd, int *fd_in)
 
 void    parent_process(int *fd, int *fd_in, int *all_stat, int *proc)
 {
-    //(void)all_stat;
-    //(void)proc;
-    //wait(NULL);
-    wait_children(all_stat, proc);
+    (void)all_stat;
+    (void)proc;
+    wait(NULL);
+    //wait_children(all_stat, proc);
     close(fd[1]);
     if (*fd_in != 0)
     close(*fd_in);
@@ -79,7 +79,7 @@ int    pipex(t_cmd *cmd)
                 child_process(cmd, fd, &fd_in);
             else
             {
-                printf("%d\n", proc);
+                
                 parent_process(fd, &fd_in, cmd->all_stat, &proc);
             }
         }

@@ -160,24 +160,24 @@ static int	redirections(char *str, char **input, size_t *i)
 	if ((input[0][0] == '<' && input[0][1] == '<') || ((input[0][0] == '>' \
 	&& input[0][1] == '>')))
 	{
-		str[(*i)++] = '2';
+		str[(*i)++] = '\2';
 		str[(*i)++] =  (**input);
 		str[(*i)++] =  (**input);
-		str[(*i)++] = '2';
+		str[(*i)++] = '\2';
 		(*input) += 2;
 		return (1);
 	}
 	else if ((input[0][0] == '>') || (input[0][0] == '<'))
 	{
-		str[(*i)++] = '2';
+		str[(*i)++] = '\2';
 		str[(*i)++] =  (**input);
-		str[(*i)++] = '2';
+		str[(*i)++] = '\2';
 		(*input)++;
 		return (1);
 	}
 	else if (input[0][0] == '|')
 	{
-		str[(*i)++] =  '3';
+		str[(*i)++] =  '\3';
 		(*input)++;
 		return (1);
 	}
@@ -206,7 +206,7 @@ static char	*tokenization(char *str, char *input)
 		else if (flag == *input)
 			flag = 0;
 		if (flag == 0 && *input == ' ')
-			*input = '2';
+			*input = '\2';
 		if (!(flag == 0 && redirections(str, &input, &i)))
 			str[i++] = *input++;
 	}
@@ -227,17 +227,17 @@ void	lexer(char *input)
 
 	end = NULL;
 	str = tokenization(ft_calloc(ft_strlen(input), 3), input);
-	pipes = ft_split(str, '3');
+	pipes = ft_split(str, '\3');
 	/*prints importantes para visualização do lexer,
 	substituir o \3 por 3 e \2 por 2 para facilitar a visualização*/
-	for (int j = 0; pipes[j]; j++)
-	{
-		// printf("cmd: %s\n", pipes[j]);
-		char **args = ft_split(str, '3');
-		// for (int k = 0; args[k]; k++)
-		// 	printf("\tArgs: %s\n", args[k]);
-		free_doubles((void **)args);
-	}
+	// for (int j = 0; pipes[j]; j++)
+	// {
+	// 	// printf("cmd: %s\n", pipes[j]);
+	// 	char **args = ft_split(str, '\3');
+	// 	 for (int k = 0; args[k]; k++)
+	// 	 	printf("\tArgs: %s\n", args[k]);
+	// 	free_doubles((void **)args);
+	// }
 	i = 0;
 	while (pipes && pipes[i])
 	{

@@ -83,7 +83,7 @@ void	check_redir(t_cmd *cmd)
 	i = 0;
 	while(cmd->args[i])
 	{
-		printf("CMD:%s\n", cmd->args[i]);
+		
 		if (!ft_strcmp(cmd->args[i], "<"))
 		{
 			if (!cmd->redir)
