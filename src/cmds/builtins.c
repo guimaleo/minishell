@@ -54,7 +54,7 @@ int exec_builtin(t_cmd *cmd)
     else if (!ft_strcmp(cmd->args[0], "pwd"))
         f = pwd_f;
     else if (!ft_strcmp(cmd->args[0], "exit") && !cmd->args[1])
-        clean_exit(cmd, 1);
+        clean_exit(cmd, terminal()->stat);
 	else if (!ft_strcmp(cmd->args[0], "exit") && cmd->args[1])
         args_exit(cmd);
     else

@@ -31,12 +31,11 @@ t_cmd	*new_cmd(char **args)
 void	exeggutor(t_cmd *cmd)
 {
 	pid_t	pid;
-	int fd_in = 0;
 
 	pid = -1;
-	if (!cmd->next)
+	if (!cmd->next && !cmd->redir)
 	{
-		if (open_redir(cmd, &fd_in) && !check_builtin(cmd))
+		if (!check_builtin(cmd))
 		{
 			pid = fork();
 			if (pid == 0)
@@ -47,7 +46,7 @@ void	exeggutor(t_cmd *cmd)
 	}
 	else
 	{
-		if (open_redir(cmd, &fd_in) && !check_builtin(cmd))
+		if (!check_builtin(cmd))
 		{
 			pipex(cmd);
 		}

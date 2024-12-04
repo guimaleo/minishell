@@ -19,8 +19,9 @@ void    check_acess(t_cmd *cmd)
             i++;
         }
     }
-    clean_exit(terminal()->cmd, 1);
     perror(cmd->args[0]);
+    terminal()->stat = errno;
+    clean_exit(terminal()->cmd, 127);
 }
 
 void    child_process(t_cmd *cmd, int *fd, int *fd_in)
@@ -44,18 +45,18 @@ void    child_process(t_cmd *cmd, int *fd, int *fd_in)
     close(fd[0]);
     close(fd[1]);
     check_acess(cmd);
-    exit(1);
+    clean_exit(cmd, 1);
 }
 
-void    parent_process(int *fd, int *fd_in, int *all_stat, int *proc)
+void    parent_process(int *fd, int *fd_in, t_cmd *cmd)
 {
-    (void)all_stat;
-    (void)proc;
-    wait(NULL);
-    //wait_children(all_stat, proc);
+    //wait(NULL);
+    wait_children(&terminal()->stat);
     close(fd[1]);
     if (*fd_in != 0)
-    close(*fd_in);
+     close(*fd_in);
+    if (cmd->in != 0 && cmd->in != -1)
+        close(cmd->in);
     *fd_in = fd[0];
 }
 
@@ -64,22 +65,19 @@ int    pipex(t_cmd *cmd)
     int fd[2];
     pid_t   pid;
     int     fd_in = 0;
-    int proc;
 
-    proc = 0;
     while(cmd)
     {
         if (open_redir(cmd, &fd_in))
         {
-
-            proc++;
             pipe(fd);
             pid = fork();
             if (pid == 0)
                 child_process(cmd, fd, &fd_in);
             else
             {
-                parent_process(fd, &fd_in, cmd->all_stat, &proc);
+
+                parent_process(fd, &fd_in, cmd);
             }
         }
         cmd = cmd->next;

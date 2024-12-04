@@ -1,20 +1,34 @@
 #include "../inc/minishell.h"
 
-void wait_children(int *all_stat, int *proc)
+void wait_children(int *all_stat)
 {
     int wstat;
-    int count;
     pid_t pid;
 
-    count = 0;
-    while (count < *proc)
+    while (1)
     {
         pid = wait(&wstat);
-        printf("%d\n", pid);
-        if(WIFEXITED(wstat))
+        if (pid == -1)
         {
-            terminal()->stat = WEXITSTATUS(wstat);
-            all_stat[count++] = terminal()->stat;
+            if (errno == EINTR)
+            {
+                // If wait was interrupted by a signal, retry
+                continue;
+            }
+            else
+            {
+                // Handle other errors
+                perror("wait");
+                break;
+            }
+        }
+
+        if (WIFEXITED(wstat))
+        {
+            int exit_status = WEXITSTATUS(wstat);
+            *all_stat = exit_status;
+            printf("Process %d exited with status %d\n", pid, exit_status);
+            break;
         }
     }
 }

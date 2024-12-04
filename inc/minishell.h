@@ -85,7 +85,7 @@ void	clear_argso(char **args);
 void	check_redout(t_cmd *cmd);
 t_redirect	*init_redir(void);
 void	clean_redir(t_redirect *redir);
-void wait_children(int *all_stat, int *proc);
+void wait_children(int *all_stat);
 
 /*Built-ins*/
 

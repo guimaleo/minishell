@@ -13,13 +13,13 @@ void	clean_redir(t_redirect *redir)
 {
 	t_redirect *tmp;
 
-	tmp = redir;
-	while (tmp)
+	while (redir)
 	{
-		redir = redir->next;
-		free(tmp->file);
+		tmp = redir->next;
+		free(redir->file);
 		free(redir);
-		tmp = redir;
+		redir = NULL;
+		redir = tmp;
 	}
 }
 	int	open_redir(t_cmd *cmd, int *fd_in)
@@ -30,6 +30,12 @@ void	clean_redir(t_redirect *redir)
 	fd = 0;
 	while (tmp)
 	{
+		printf("REDIR:%s\n", tmp->file);
+		tmp = tmp->next;
+	}
+	tmp = cmd->redir;
+	while (tmp)
+	{
 		if (*fd_in != 0)
 			close(*fd_in);
 		if (tmp->in == 1)
@@ -38,11 +44,16 @@ void	clean_redir(t_redirect *redir)
 			if (fd == -1)
 			{
 				printf("Can't open file or directory %s\n", tmp->file);
+				terminal()->stat = 1;
 				return (0);
 			}
 			else
+			{
+				cmd->in = fd;
 				*fd_in = fd;
+			}
 		}
+		printf("File:%s   fd:%d\n", tmp->file, fd);
 		tmp = tmp->next;
 	}
 	return (1);
@@ -81,35 +92,38 @@ void	check_redir(t_cmd *cmd)
 	t_redirect *tmp;
 
 	i = 0;
-	while(cmd->args[i])
+	if (!cmd->redir)
 	{
-		
-		if (!ft_strcmp(cmd->args[i], "<"))
+		while(cmd->args[i])
 		{
-			if (!cmd->redir)
+			
+			if (!ft_strcmp(cmd->args[i], "<"))
 			{
-				cmd->redir = init_redir();
-				if (cmd->args[i + 1])
+				if (!cmd->redir)
 				{
-					cmd->redir->in = 1;
-					cmd->redir->file = ft_strdup(cmd->args[i + 1]);
-					i += 1;
-					tmp = cmd->redir;
+					cmd->redir = init_redir();
+					if (cmd->args[i + 1])
+					{
+						cmd->redir->in = 1;
+						cmd->redir->file = ft_strdup(cmd->args[i + 1]);
+						i += 1;
+						tmp = cmd->redir;
+					}
+				}
+				else
+				{
+					tmp->next = init_redir();
+					if (cmd->args[i + 1])
+					{
+						tmp->next->in = 1;
+						tmp->next->file = ft_strdup(cmd->args[i + 1]);
+						i += 1;
+						tmp = tmp->next;
+					}
 				}
 			}
-			else
-			{
-				tmp->next = init_redir();
-				if (cmd->args[i + 1])
-				{
-					tmp->next->in = 1;
-					tmp->next->file = ft_strdup(cmd->args[i + 1]);
-					i += 1;
-					tmp = tmp->next;
-				}
-			}
+			i++;
 		}
-		i++;
+	 clear_args(cmd->args);
 	}
-		clear_args(cmd->args);
 }

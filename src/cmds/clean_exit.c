@@ -18,7 +18,8 @@ void	clean_exit(t_cmd *cmd, int i)
 {
 	t_cmd	*tmp;
 	
-
+	if (cmd->in != 0 && cmd->in != -1)
+		close(cmd->in);
 	while (cmd)
 	{
 		tmp = cmd->next;
@@ -36,7 +37,7 @@ void	clean_exit(t_cmd *cmd, int i)
 		//if (terminal()->env)
 		//	free_doubles((void**)terminal()->env);
 		free(terminal()->cwd);
-		exit(0);
+		exit(terminal()->stat);
 	}
 }
 
