@@ -79,7 +79,6 @@ int    pipex(t_cmd *cmd)
                 child_process(cmd, fd, &fd_in);
             else
             {
-                
                 parent_process(fd, &fd_in, cmd->all_stat, &proc);
             }
         }

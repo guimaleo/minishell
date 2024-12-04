@@ -40,10 +40,7 @@ void	exeggutor(t_cmd *cmd)
 		{
 			pid = fork();
 			if (pid == 0)
-			{
-				if(!pipex(cmd))
-					return ;
-			}
+				check_acess(cmd);
 			else
 				wait(NULL);
 		}
@@ -52,15 +49,7 @@ void	exeggutor(t_cmd *cmd)
 	{
 		if (open_redir(cmd, &fd_in) && !check_builtin(cmd))
 		{
-			pid = fork();
-			if (pid == 0)
-			{
-				if (!pipex(cmd))
-					return ;
-				cmd = cmd->next;
-			}
-			else
-				wait(NULL);
+			pipex(cmd);
 		}
 	}
 	clean_exit(terminal()->cmd, 0);
