@@ -19,6 +19,7 @@ void    check_acess(t_cmd *cmd)
             i++;
         }
     }
+    printf("HERE\n");
     perror(cmd->args[0]);
     terminal()->stat = errno;
     clean_exit(terminal()->cmd, 127);
@@ -68,7 +69,7 @@ int    pipex(t_cmd *cmd)
 
     while(cmd)
     {
-        if (open_redir(cmd, &fd_in))
+        if ((open_redir(cmd, &fd_in) && cmd->next) || !check_builtin(cmd))
         {
             pipe(fd);
             pid = fork();

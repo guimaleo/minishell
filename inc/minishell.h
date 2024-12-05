@@ -99,6 +99,7 @@ void    env_f(t_cmd *cmd);
 void	pwd_f(t_cmd *cmd);
 void	unset_f(t_cmd *cmd);
 void	clean_exit(t_cmd *cmd, int	i);
+void	built_exit(t_cmd *cmd);
 void    export_f(t_cmd *cmd);
 void	args_exit(t_cmd *cmd);
 

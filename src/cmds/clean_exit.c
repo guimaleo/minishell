@@ -14,6 +14,30 @@ void	free_redirect(t_redirect *redir)
 	}
 }
 
+void	built_exit(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+	
+	if (cmd->in != 0 && cmd->in != -1)
+		close(cmd->in);
+	while (cmd)
+	{
+		tmp = cmd->next;
+		free_doubles((void **)cmd->args);
+		free_doubles((void **)cmd->abs_build);
+		if (cmd->redir)
+			clean_redir(cmd->redir);
+		free(cmd);
+		cmd = tmp;
+	}
+	free(terminal()->input);
+	terminal()->input = NULL;
+	//if (terminal()->env)
+	//	free_doubles((void**)terminal()->env);
+	free(terminal()->cwd);
+	exit(terminal()->stat);
+}
+
 void	clean_exit(t_cmd *cmd, int i)
 {
 	t_cmd	*tmp;

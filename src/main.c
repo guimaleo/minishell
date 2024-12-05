@@ -33,7 +33,7 @@ static void	input_looking()
 
 		//free(terminal()->input);
 	}
-	printf("%s\n", terminal()->input);
+	//printf("%s\n", terminal()->input);
 	// for(int i = 0; terminal()->split_input[i]; i++)
 	// 	printf("%s\n", terminal()->split_input[i]);
 }
