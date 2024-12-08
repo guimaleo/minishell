@@ -34,6 +34,7 @@
 # define CD_ERR "cd: no such file or directory: "
 # define EXIT_ERR "minishell: exit: abc: numeric argument required\n"
 # define DIGITS "1234567890"
+# define CMD "Command not found: "
 
 typedef struct s_redirect
 {

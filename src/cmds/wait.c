@@ -25,9 +25,9 @@ void wait_children(int *all_stat)
 
         if (WIFEXITED(wstat))
         {
-            int exit_status = WEXITSTATUS(wstat);
-            *all_stat = exit_status;
-            printf("Process %d exited with status %d\n", pid, exit_status);
+            terminal()->stat = WEXITSTATUS(wstat);
+            (void)all_stat;
+            printf("Process %d exited with status %d\n", pid, terminal()->stat);
             break;
         }
     }

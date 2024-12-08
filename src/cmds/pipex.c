@@ -9,7 +9,7 @@ void    check_acess(t_cmd *cmd)
     if (!check_builtin(cmd))
     {
         if (!access(cmd->args[0], F_OK))
-            execve(cmd->args[0], cmd->args, NULL);
+            execve(cmd->args[0], cmd->args, terminal()->env);
         while (cmd->abs_build[i])
         {
             tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
@@ -19,10 +19,9 @@ void    check_acess(t_cmd *cmd)
             i++;
         }
     }
-    printf("HERE\n");
-    perror(cmd->args[0]);
-    terminal()->stat = errno;
-    clean_exit(terminal()->cmd, 127);
+    printf(CMD"%s\n", cmd->args[0]);
+    terminal()->stat = 127;
+    clean_exit(terminal()->cmd, 1);
 }
 
 void    child_process(t_cmd *cmd, int *fd, int *fd_in)
@@ -77,7 +76,6 @@ int    pipex(t_cmd *cmd)
                 child_process(cmd, fd, &fd_in);
             else
             {
-
                 parent_process(fd, &fd_in, cmd);
             }
         }
