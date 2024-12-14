@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:44:54 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/11/25 17:44:32 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:24:10 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,14 @@ void	expansions(t_cmd *cmd)
 {
 	int		i;
 	int		pos;
+	char	*tmp;
 
 	i = 0;
 	while (cmd->args[i])
 	{
 		pos = check_char(cmd->args[i], '$');
-		if (check_char(cmd->args[i], '$') > -1 && *cmd->args[i] != '\'')
+		if ((check_char(cmd->args[i], '$') > -1 && *cmd->args[i] != '\'')
+			&& !check_char(cmd->args[pos + 1], '?'))
 		{
 			// printf("char na pos[0] das strings passadas para checar: %c\n", cmd->args[i][0]);
 			// printf("Char encontrado: %c\n", cmd->args[i][pos]);
@@ -144,6 +146,11 @@ void	expansions(t_cmd *cmd)
 		}
 		// printf("Args sendo verificados para expansion: %s\n", cmd->args[i]);
 		i++;
+	}
+	if (!ft_strcmp(cmd->args[i], "$?"))
+	{
+		tmp = ft_itoa(terminal()->stat);
+		printf("itoa: %s\n",tmp);
 	}
 }
 

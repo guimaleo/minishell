@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/11/25 17:40:13 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:24:44 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ size_t	ft_strlen(char *str);
 int		ft_atoi(char *s);
 char	*ft_substr(char * s, int start, int size);
 int     ft_isupper(char c);
+char	*ft_itoa(int nb);
 
 /*Memory Functions*/
 void	*ft_calloc(size_t len, size_t size);
