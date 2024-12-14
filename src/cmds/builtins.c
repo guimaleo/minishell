@@ -29,7 +29,12 @@ int    check_builtin(t_cmd *cmd)
 void    echo_f(t_cmd *cmd)
 {
     if (cmd->args[1] && !cmd->args[2])
-        printf("%s", cmd->args[1]);
+    {
+        if (!ft_strcmp(cmd->args[1], "$?"))
+            printf("%d", terminal()->stat);
+        else
+            printf("%s", cmd->args[1]);
+    }
     if (ft_strncmp(cmd->args[1], "-n", 2) || !cmd->args[2])
         printf("\n");
     else if (cmd->args[2])

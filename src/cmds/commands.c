@@ -33,15 +33,15 @@ void	exeggutor(t_cmd *cmd)
 	pid_t	pid;
 
 	pid = -1;
-	if (!cmd->next && !cmd->redir)
+	if (!cmd->next)
 	{
-		if (!check_builtin(cmd))
+		if (!check_builtin(cmd) && open_redir(cmd, &cmd->in))
 		{
 			pid = fork();
 			if (pid == 0)
 				check_acess(cmd);
 			else
-				wait(NULL);
+				wait_children(&terminal()->stat);
 		}
 	}
 	else

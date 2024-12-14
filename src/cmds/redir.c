@@ -44,7 +44,7 @@ void	clean_redir(t_redirect *redir)
 			if (fd == -1)
 			{
 				printf("Can't open file or directory %s\n", tmp->file);
-				terminal()->stat = 1;
+				terminal()->stat = 126;
 				return (0);
 			}
 			else

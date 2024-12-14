@@ -68,7 +68,7 @@ int    pipex(t_cmd *cmd)
 
     while(cmd)
     {
-        if ((open_redir(cmd, &fd_in) && cmd->next) || !check_builtin(cmd))
+        if ((open_redir(cmd, &fd_in)) && !check_builtin(cmd))
         {
             pipe(fd);
             pid = fork();
