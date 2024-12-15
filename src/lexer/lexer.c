@@ -135,6 +135,12 @@ void	expansions(t_cmd *cmd)
 	i = 0;
 	while (cmd->args[i])
 	{
+		if (!ft_strcmp(cmd->args[i], "$?"))
+		{
+			tmp = ft_itoa(terminal()->stat);
+			free(cmd->args[i]);
+			cmd->args[i] = tmp;
+		}
 		pos = check_char(cmd->args[i], '$');
 		if ((check_char(cmd->args[i], '$') > -1 && *cmd->args[i] != '\'')
 			&& !check_char(cmd->args[pos + 1], '?'))
@@ -146,11 +152,6 @@ void	expansions(t_cmd *cmd)
 		}
 		// printf("Args sendo verificados para expansion: %s\n", cmd->args[i]);
 		i++;
-	}
-	if (!ft_strcmp(cmd->args[i], "$?"))
-	{
-		tmp = ft_itoa(terminal()->stat);
-		printf("itoa: %s\n",tmp);
 	}
 }
 

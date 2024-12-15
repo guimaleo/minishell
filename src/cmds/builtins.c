@@ -28,17 +28,20 @@ int    check_builtin(t_cmd *cmd)
 
 void    echo_f(t_cmd *cmd)
 {
-    if (cmd->args[1] && !cmd->args[2])
+    int flag;
+    int i;
+
+    i = 1;
+    flag = (!ft_strncmp(cmd->args[1], "-n", 2));
+    i += flag;
+    while (cmd->args[i])
     {
-        if (!ft_strcmp(cmd->args[1], "$?"))
-            printf("%d", terminal()->stat);
-        else
-            printf("%s", cmd->args[1]);
+        printf("%s", cmd->args[i++]);
+        if (cmd->args[i])
+            printf(" ");
     }
-    if (ft_strncmp(cmd->args[1], "-n", 2) || !cmd->args[2])
+    if (!flag)
         printf("\n");
-    else if (cmd->args[2])
-        printf("%s", cmd->args[2]);
 }
 
 int exec_builtin(t_cmd *cmd)
