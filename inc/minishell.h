@@ -30,6 +30,7 @@
 # include "colors.h"
 
 # define MIN_PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+# define MIN_
 # define BUILTIN {"cd", "echo", "exit", "export", "unset", "pwd", "env" };
 # define CD_ERR "cd: no such file or directory: "
 # define EXIT_ERR "minishell: exit: abc: numeric argument required\n"
@@ -120,6 +121,8 @@ t_cmd   *new_cmd(char **args);
 /*Terminal emulator*/
 int		open_tty(t_terminal *term);
 t_terminal		*terminal(void);
+char	*ft_getenv(char *str);
+void    env_injection(t_cmd *cmd, char *tmp);
 
 
 /*Strings Utils*/

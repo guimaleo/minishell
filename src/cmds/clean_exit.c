@@ -42,7 +42,7 @@ void	clean_exit(t_cmd *cmd, int i)
 {
 	t_cmd	*tmp;
 	
-	if (cmd->in != 0 && cmd->in != -1)
+	if (cmd && cmd->in != 0 && cmd->in != -1)
 		close(cmd->in);
 	while (cmd)
 	{
@@ -58,8 +58,8 @@ void	clean_exit(t_cmd *cmd, int i)
 	terminal()->input = NULL;
 	if (i)
 	{
-		//if (terminal()->env)
-		//	free_doubles((void**)terminal()->env);
+		if (i == 2)
+			printf("exit\n");
 		free(terminal()->cwd);
 		exit(terminal()->stat);
 	}

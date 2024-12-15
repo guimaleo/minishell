@@ -94,17 +94,17 @@ char	*check_variable(t_cmd *cmd, int *i, int *pos)
 	int		it[3];
 
 	it[0] = *pos;
-	// printf("%i\n", it[0]);
-	// while (cmd->args[*i][*pos] && ft_isupper(cmd->args[*i][*pos]))
-	// 	(*pos)++;
+	printf("%i\n", it[0]);
+	while (cmd->args[*i][*pos] && ft_isupper(cmd->args[*i][*pos]))
+		(*pos)++;
 	while ((cmd->args[*i][*pos] && !ft_isspace(cmd->args[*i][*pos]) && \
 	(cmd->args[*i][*pos] != '\"' && cmd->args[*i][*pos] != '\'')))
 		(*pos)++;
-	// printf("pos: %i", *pos);
+	printf("pos: %i", *pos);
 	it[1] = *pos - it[0];
 	str[0] = ft_substr(cmd->args[*i], it[0], it[1]);
 	it[2] = 0;
-	while (cmd->args[*i][it[0]] && (cmd->args[*i][it[0]] != '\'' && cmd->args[*i][it[0]] != '\"'))
+	while (cmd->args[*i][it[0]] && (cmd->args[*i][it[0]] != '\'' && cmd->args[*i][it[0]] != '\"') && !ft_isspace(cmd->args[*i][it[0]]))
 		str[0][it[2]++] = cmd->args[*i][it[0]++];
 	it[0] = 0;
 	while (terminal()->env[it[0]])
@@ -114,7 +114,7 @@ char	*check_variable(t_cmd *cmd, int *i, int *pos)
 			tmp = ft_split(terminal()->env[it[0]], '=');
 			str[1] = ft_strdup(tmp[1]);
 			free_doubles((void **)tmp);
-			// printf("Key: %s\nPara expandir: %s\n", str[0], str[1]);
+			printf("Key: %s\nPara expandir: %s\n", str[0], str[1]);
 			str[2] = inject_expansion(cmd->args[*i], str[0], str[1]);
 			free(str[0]);
 			free(str[1]);
@@ -141,14 +141,17 @@ void	expansions(t_cmd *cmd)
 			free(cmd->args[i]);
 			cmd->args[i] = tmp;
 		}
-		pos = check_char(cmd->args[i], '$');
-		if ((check_char(cmd->args[i], '$') > -1 && *cmd->args[i] != '\'')
-			&& !check_char(cmd->args[pos + 1], '?'))
+		else if ((check_char(cmd->args[i], '$') > -1 && *cmd->args[i] != '\''))
 		{
+			while (check_char(cmd->args[i], '$') != -1)
+			{
+				pos = check_char(cmd->args[i], '$');
+				pos++;
+				terminal()->cmd->args[i] = check_variable(cmd, &i, &pos);
+				//pos = check_char(cmd->args[i], '$');
+			}
 			// printf("char na pos[0] das strings passadas para checar: %c\n", cmd->args[i][0]);
 			// printf("Char encontrado: %c\n", cmd->args[i][pos]);
-			pos++;
-			terminal()->cmd->args[i] = check_variable(cmd, &i, &pos);
 		}
 		// printf("Args sendo verificados para expansion: %s\n", cmd->args[i]);
 		i++;
@@ -272,9 +275,9 @@ void	lexer(char *input)
 	free_doubles((void **)pipes);
 	free(str);
 	expansions(terminal()->cmd);
-	// char **tst1 = (char **)terminal()->cmd->args;
-	// for(int x = 0; tst1[x]; x++)
-		// printf("testing: %s\n", tst1[x]);
+	char **tst1 = (char **)terminal()->cmd->args;
+	for(int x = 0; tst1[x]; x++)
+		printf("testing: %s\n", tst1[x]);
 	quote_analysis(terminal()->cmd);
 	// char **tst = (char **)terminal()->cmd->args;
 	// for(int x = 0; tst[x]; x++)

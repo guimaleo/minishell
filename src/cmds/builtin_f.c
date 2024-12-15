@@ -43,38 +43,42 @@ void    cd_f(t_cmd *cmd)
     printf("%s\n", terminal()->cwd);
 }
 
-void    env_f(t_cmd *cmd)
-{
-    int     i;
-
-    if (!*terminal()->env)
-        return ;
-    cmd->env = terminal()->env;
-    i = 0;
-    while (terminal()->env[i])
-        printf("%s\n", terminal()->env[i++]);
-}
-
 void    env_injection(t_cmd *cmd, char *tmp)
 {
     int     i;
     char    **new_env;
 
     i = 0;
-    while (cmd->env[i])
+    (void)cmd;
+    while (terminal()->env && terminal()->env[i])
         i++;
-    new_env = ft_calloc(i + 2, sizeof(*(cmd)->env));
+    new_env = ft_calloc(i + 2, sizeof(char **));
     if (!new_env)
         return ;
     i = 0;
-    while (cmd->env[i])
+    while (terminal()->env && terminal()->env[i])
     {
-        new_env[i] = ft_strdup(cmd->env[i]);
+        new_env[i] = ft_strdup(terminal()->env[i]);
         i++;
     }
     new_env[i] = ft_strdup(tmp);
     free_doubles((void **)terminal()->env);
     terminal()->env = new_env;
+}
+void    env_f(t_cmd *cmd)
+{
+    int     i;
+
+    if (!*terminal()->env && !cmd->args[1])
+    {
+        env_injection(cmd, "PWD=/home/lede-gui/minishell");
+        env_injection(cmd, "SHLVL=1");
+        env_injection(cmd, "_=/usr/bin/env");
+    }
+    cmd->env = terminal()->env;
+    i = 0;
+    while (terminal()->env[i])
+        printf("%s\n", terminal()->env[i++]);
 }
 void    export_f(t_cmd *cmd)
 {
@@ -89,7 +93,7 @@ void    export_f(t_cmd *cmd)
     tmp = ft_strdup(cmd->args[1]);
     len = ft_strlen(to_exp[0]);
     i = 0;
-    while (cmd->env[i])
+    while (cmd->env && cmd->env[i])
     {
         if (!ft_strncmp(cmd->env[i], to_exp[0], len))
         {

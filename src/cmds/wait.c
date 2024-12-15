@@ -12,12 +12,11 @@ void wait_children(int *all_stat)
         {
             if (errno == EINTR)
             {
-                // If wait was interrupted by a signal, retry
-                continue;
+                terminal()->stat = 128 + terminal()->sig;
+                break;
             }
             else
             {
-                // Handle other errors
                 perror("wait");
                 break;
             }
