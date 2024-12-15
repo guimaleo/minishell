@@ -70,10 +70,14 @@ typedef struct s_tty
 	char	*expand;
 	char	**env;
 	int		stat;
+	int		sig;
 	t_cmd	*cmd;
 
 }		t_terminal;
 
+
+/*Signaling*/
+void    sig_handle(void);
 
 /*Execution*/
 void	exeggutor(t_cmd *cmd);

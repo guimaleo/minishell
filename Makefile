@@ -48,9 +48,14 @@ CMD_DIR= src/cmds
 CMD_FILES= commands.c builtins.c pipex.c clean_exit.c redir.c builtin_f.c redout.c wait.c
 SRC_CMD= $(addprefix $(CMD_DIR)/, $(CMD_FILES))
 
+## FDS functions directory and build
+SIG_DIR= src/signals
+SIG_FILES= sig_handler.c
+SRC_SIG= $(addprefix $(SIG_DIR)/, $(SIG_FILES))
+
 SRC_FILES= main.c
 
-SRC= $(SRC_FILES) $(SRC_MEM) $(SRC_STR) $(SRC_LEX) $(SRC_CMD)
+SRC= $(SRC_FILES) $(SRC_MEM) $(SRC_STR) $(SRC_LEX) $(SRC_CMD) $(SRC_SIG)
 
 OBJ= $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
@@ -81,7 +86,8 @@ $(OBJ_DIR)/%.o: $(LEX_DIR)/%.c | $(OBJ_DIR)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(FLAGS) -c $< -o $@
 
-
+$(OBJ_DIR)/%.o: $(SIG_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)

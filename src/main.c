@@ -25,6 +25,7 @@ static void	input_looking()
 {
 	while (1)
 	{
+		sig_handle();
 		terminal()->input = readline("minishell $> ");
 		if (!terminal()->input || *(terminal())->input == '\0')
 			continue ;
