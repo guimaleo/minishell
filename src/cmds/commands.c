@@ -35,11 +35,7 @@ void	exeggutor(t_cmd *cmd)
 	{
 		if (!check_builtin(cmd) && open_redir(cmd, &cmd->in))
 		{
-			pid = fork();
-			if (pid == 0)
-				check_acess(cmd);
-			else
-				wait_children(&terminal()->stat);
+			pipex(cmd);
 		}
 	}
 	else
