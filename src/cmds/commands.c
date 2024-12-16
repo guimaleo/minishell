@@ -12,12 +12,11 @@ t_cmd	*new_cmd(char **args)
 		init->path = MIN_PATH;//IF UNSET PATH = NULL; && FREE
 	else
 	{
-		init->path = getenv("PATH");
+		init->path = ft_getenv("PATH");
 		init->env = terminal()->env;
 	}
+	printf("PATH%s\n", init->path);
 	init->abs_build = ft_split(init->path, ':');
-	if (!init->abs_build)
-		perror("Split cmd struct error\n");
 	return (init);
 }
 

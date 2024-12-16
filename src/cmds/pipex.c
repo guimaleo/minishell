@@ -6,13 +6,15 @@ void    check_acess(t_cmd *cmd)
     char   *tmp;
 
     i = 0;
+    printf("HERE%p\n", cmd);
     if (!check_builtin(cmd))
     {
         if (!access(cmd->args[0], F_OK))
             execve(cmd->args[0], cmd->args, terminal()->env);
-        while (cmd->abs_build[i])
+        while (cmd->abs_build && cmd->abs_build[i])
         {
             tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
+            printf("tmp:%s\n", tmp);
             if (!access(tmp, F_OK))
                 execve(tmp, cmd->args, terminal()->env);
             free(tmp);//free da lista
