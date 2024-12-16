@@ -256,7 +256,7 @@ void	lexer(char *input)
 		tmp = new_cmd(ft_split(pipes[i], '\2'));
 		//for (int k = 0; tmp->args[k]; k++)
 		 	//printf("\tArgs: %s\n", tmp->args[k]);
-		check_redir(tmp);
+		//check_redir(tmp);
 		check_redout(tmp);
 
 		// if (check_char(*tmp, '=')){
@@ -275,13 +275,14 @@ void	lexer(char *input)
 	free_doubles((void **)pipes);
 	free(str);
 	expansions(terminal()->cmd);
-	char **tst1 = (char **)terminal()->cmd->args;
-	for(int x = 0; tst1[x]; x++)
-		printf("testing: %s\n", tst1[x]);
+	//char **tst1 = (char **)terminal()->cmd->args;
+	//for(int x = 0; tst1[x]; x++)
+		//printf("testing: %s\n", tst1[x]);
 	quote_analysis(terminal()->cmd);
 	// char **tst = (char **)terminal()->cmd->args;
 	// for(int x = 0; tst[x]; x++)
 	// 	printf("testing: %s\n", tst[x]);
+	check_here(terminal()->cmd);
 	exeggutor(terminal()->cmd);
 	terminal()->cmd = NULL;
 }

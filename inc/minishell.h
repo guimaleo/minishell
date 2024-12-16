@@ -92,6 +92,7 @@ void	check_redout(t_cmd *cmd);
 t_redirect	*init_redir(void);
 void	clean_redir(t_redirect *redir);
 void wait_children(int *all_stat);
+void check_here(t_cmd *cmd);
 
 /*Built-ins*/
 

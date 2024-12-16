@@ -51,16 +51,12 @@ char	*ft_getenv(char *str)
 	split = NULL;
 	i = 0;
 	len = ft_strlen(str);
-	printf("\n\n\n\nstr:%s\n", str);
 	while (terminal()->env && terminal()->env[i])
 	{
-		printf("%s\n", terminal()->env[i]);
 		if (!ft_strncmp(terminal()->env[i], str, len))
 			break ;
 		i++;
 	}
-	printf("BREAK\n");
-	printf("%s\n", terminal()->env[i]);
 	split = ft_split(terminal()->env[i], '=');
 	if (split)
 		ret = ft_strdup(split[1]);
@@ -73,7 +69,7 @@ char	*ft_getenv(char *str)
 
 static void	input_looking()
 {
-	sig_handle();
+	//sig_handle();
 	while (1)
 	{
 		terminal()->input = readline("minishell $> ");

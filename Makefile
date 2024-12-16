@@ -45,7 +45,7 @@ SRC_LEX= $(addprefix $(LEX_DIR)/, $(LEX_FILES))
 
 ## Command functions directory and build
 CMD_DIR= src/cmds
-CMD_FILES= commands.c builtins.c pipex.c clean_exit.c redir.c builtin_f.c redout.c wait.c
+CMD_FILES= commands.c builtins.c pipex.c clean_exit.c redir.c builtin_f.c redout.c wait.c heredoc.c
 SRC_CMD= $(addprefix $(CMD_DIR)/, $(CMD_FILES))
 
 ## FDS functions directory and build

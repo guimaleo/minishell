@@ -6,7 +6,6 @@ void    check_acess(t_cmd *cmd)
     char   *tmp;
 
     i = 0;
-    printf("HERE%p\n", cmd);
     if (!check_builtin(cmd))
     {
         if (!access(cmd->args[0], F_OK))
@@ -14,7 +13,7 @@ void    check_acess(t_cmd *cmd)
         while (cmd->abs_build && cmd->abs_build[i])
         {
             tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
-            printf("tmp:%s\n", tmp);
+
             if (!access(tmp, F_OK))
                 execve(tmp, cmd->args, terminal()->env);
             free(tmp);//free da lista
@@ -31,7 +30,8 @@ void    child_process(t_cmd *cmd, int *fd, int *fd_in)
     int tmp;
 
     tmp = -1;
-    dup2(*fd_in, STDIN_FILENO);
+    (void)fd_in;
+    dup2(cmd->in, STDIN_FILENO);
     tmp = open_redout(cmd);
     if (cmd->next)
     {
@@ -72,13 +72,16 @@ int    pipex(t_cmd *cmd)
     {
         if ((open_redir(cmd, &fd_in)))
         {
-            pipe(fd);
-            pid = fork();
-            if (pid == 0)
-                child_process(cmd, fd, &fd_in);
-            else
+            if (cmd->next || !check_builtin(cmd))
             {
-                parent_process(fd, &fd_in, cmd);
+                pipe(fd);
+                pid = fork();
+                if (pid == 0)
+                    child_process(cmd, fd, &fd_in);
+                else
+                {
+                    parent_process(fd, &fd_in, cmd);
+                }
             }
         }
         cmd = cmd->next;

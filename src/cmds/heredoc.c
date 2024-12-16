@@ -1,38 +1,58 @@
 #include "minishell.h"
 
-char **store_doc(char *input, char ** doc)
-{
-    int i;
-    char **res;
-
-    i = 0;
-    while (doc[i])
-        i++;
-    res = (char **)malloc((i + 1) * sizeof(char*));
-    if (!res)
-        return (free_doubles(res), NULL);
-    i = 0;
-    while(doc[i])
-    {
-        res[i] = ft_strdup(doc[i]);
-        if (!res)
-            return(free_doubles(doc), free_doubles(res), NULL);
-        i++;
-    }
-    free_doubles(doc);
-    return (res);
-}
-
-int     here_doc(char *del)
+void here_doc(t_cmd *cmd, char *del)
 {
     char *input;
-    char **doc;
-    doc = NULL;
-    while (1)
+    int fd[2];
+    pid_t pid;
+
+    if (pipe(fd) == -1)
     {
-        input = readline("heredoc>");
-        if (!ft_strcmp(input, del))
-            break ;
-        store_doc(input, doc);
+        perror("pipe");
+        exit(1);
+    }
+    pid = fork();
+    if (pid == 0)
+    {
+        close(fd[0]);
+        //dup2(fd[1], STDOUT_FILENO);
+        while (1)
+        {
+            input = readline("heredoc> ");
+            if (!input || !ft_strcmp(input, del))
+            {
+                free(input);
+                break;
+            }
+            write(fd[1], input, ft_strlen(input));
+            write(fd[1], "\n", 1);
+            free(input);
+        }
+        close(fd[1]);
+        exit(0);
+    }
+    else
+    {
+        close(fd[1]);
+        waitpid(pid, NULL ,0);
+        printf("HERE\n");
+        cmd->in = fd[0];
+    }
+}
+
+void check_here(t_cmd *cmd)
+{
+    int i = 0;
+    while (cmd->args[i])
+    {
+        if (!ft_strncmp(cmd->args[i], "<<", 2))
+        {
+            here_doc(cmd, cmd->args[i + 1]);
+            free(cmd->args[i]);
+            free(cmd->args[i + 1]);
+            cmd->args[i] = NULL;
+            break;
+        }
+        i++;
     }
 }
