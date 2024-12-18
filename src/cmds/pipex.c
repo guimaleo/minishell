@@ -29,7 +29,6 @@ void child_process(t_cmd *cmd, int *fd, int *fd_in)
 {
     int tmp;
 
-    // Handle input redirection
     if (cmd->in != -1)
     {
         dup2(cmd->in, STDIN_FILENO);
@@ -40,8 +39,6 @@ void child_process(t_cmd *cmd, int *fd, int *fd_in)
         dup2(*fd_in, STDIN_FILENO);
         close(*fd_in);
     }
-
-    // Handle output redirection
     tmp = open_redout(cmd);
     if (cmd->next)
     {
@@ -60,11 +57,8 @@ void child_process(t_cmd *cmd, int *fd, int *fd_in)
         dup2(tmp, STDOUT_FILENO);
         close(tmp);
     }
-
     close(fd[0]);
     close(fd[1]);
-
-    // Execute the command
     check_acess(cmd);
     clean_exit(cmd, 1);
 }
@@ -92,8 +86,8 @@ int    pipex(t_cmd *cmd)
     {
         if ((open_redir(cmd, &fd_in)))
         {
-          //  if (cmd->next || !check_builtin(cmd))
-            //{
+            if (cmd->next || !check_builtin(cmd))
+            {
                 pipe(fd);
                 pid = fork();
                 if (pid == 0)
@@ -102,7 +96,7 @@ int    pipex(t_cmd *cmd)
                 {
                     parent_process(fd, &fd_in, cmd);
                 }
-            //}
+            }
         }
         cmd = cmd->next;
     }
