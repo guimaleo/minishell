@@ -26,9 +26,7 @@ t_cmd	*new_cmd(char **args)
 
 void	exeggutor(t_cmd *cmd)
 {
-	pid_t	pid;
 
-	pid = -1;
 	if (!cmd->next)
 	{
 		if (!check_builtin(cmd) && open_redir(cmd, &cmd->in))

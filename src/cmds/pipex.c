@@ -25,40 +25,60 @@ void    check_acess(t_cmd *cmd)
     clean_exit(terminal()->cmd, 1);
 }
 
-void    child_process(t_cmd *cmd, int *fd, int *fd_in)
+void child_process(t_cmd *cmd, int *fd, int *fd_in)
 {
     int tmp;
 
-    tmp = -1;
-    (void)fd_in;
-    dup2(cmd->in, STDIN_FILENO);
+    // Handle input redirection
+    if (cmd->in != -1)
+    {
+        dup2(cmd->in, STDIN_FILENO);
+        close(cmd->in);
+    }
+    else if (fd_in && *fd_in != 0)
+    {
+        dup2(*fd_in, STDIN_FILENO);
+        close(*fd_in);
+    }
+
+    // Handle output redirection
     tmp = open_redout(cmd);
     if (cmd->next)
     {
         if (tmp != -1)
-            fd[1] = tmp;
-        dup2(fd[1], STDOUT_FILENO);
+        {
+            dup2(tmp, STDOUT_FILENO);
+            close(tmp);
+        }
+        else
+        {
+            dup2(fd[1], STDOUT_FILENO);
+        }
     }
-    if (tmp != -1)
+    else if (tmp != -1)
     {
-        fd[1] = tmp;
-        dup2(fd[1], STDOUT_FILENO);
+        dup2(tmp, STDOUT_FILENO);
+        close(tmp);
     }
+
     close(fd[0]);
     close(fd[1]);
+
+    // Execute the command
     check_acess(cmd);
     clean_exit(cmd, 1);
 }
 
-void    parent_process(int *fd, int *fd_in, t_cmd *cmd)
+void parent_process(int *fd, int *fd_in, t_cmd *cmd)
 {
-    //wait(NULL);
     wait_children(&terminal()->stat);
+
     close(fd[1]);
     if (*fd_in != 0)
-     close(*fd_in);
+        close(*fd_in);
     if (cmd->in != 0 && cmd->in != -1)
         close(cmd->in);
+
     *fd_in = fd[0];
 }
 
@@ -72,8 +92,8 @@ int    pipex(t_cmd *cmd)
     {
         if ((open_redir(cmd, &fd_in)))
         {
-            if (cmd->next || !check_builtin(cmd))
-            {
+          //  if (cmd->next || !check_builtin(cmd))
+            //{
                 pipe(fd);
                 pid = fork();
                 if (pid == 0)
@@ -82,7 +102,7 @@ int    pipex(t_cmd *cmd)
                 {
                     parent_process(fd, &fd_in, cmd);
                 }
-            }
+            //}
         }
         cmd = cmd->next;
     }

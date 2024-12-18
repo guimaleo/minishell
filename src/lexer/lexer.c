@@ -256,7 +256,7 @@ void	lexer(char *input)
 		tmp = new_cmd(ft_split(pipes[i], '\2'));
 		//for (int k = 0; tmp->args[k]; k++)
 		 	//printf("\tArgs: %s\n", tmp->args[k]);
-		//check_redir(tmp);
+		check_redir(tmp);
 		check_redout(tmp);
 
 		// if (check_char(*tmp, '=')){

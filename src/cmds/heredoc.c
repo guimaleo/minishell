@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void here_doc(t_cmd *cmd, char *del)
+void here_doc(t_cmd *cmd, char *del, char *str)
 {
     char *input;
     int fd[2];
@@ -14,8 +14,13 @@ void here_doc(t_cmd *cmd, char *del)
     pid = fork();
     if (pid == 0)
     {
+        if (!str)
+        {
+            close(fd[1]);
+            fd[1] = 1;
+        }
+        dup2(fd[1], STDOUT_FILENO);
         close(fd[0]);
-        //dup2(fd[1], STDOUT_FILENO);
         while (1)
         {
             input = readline("heredoc> ");
@@ -29,6 +34,7 @@ void here_doc(t_cmd *cmd, char *del)
             free(input);
         }
         close(fd[1]);
+        cmd->in = fd[0];
         exit(0);
     }
     else
@@ -47,7 +53,7 @@ void check_here(t_cmd *cmd)
     {
         if (!ft_strncmp(cmd->args[i], "<<", 2))
         {
-            here_doc(cmd, cmd->args[i + 1]);
+            here_doc(cmd, cmd->args[i + 1], cmd->args[i + 2]);
             free(cmd->args[i]);
             free(cmd->args[i + 1]);
             cmd->args[i] = NULL;
