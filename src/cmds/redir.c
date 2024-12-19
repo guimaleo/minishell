@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:34:05 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 19:05:51 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:51:30 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ int	open_redir(t_cmd *cmd, int *fd_in)
 	tmp = cmd->redir;
 	while (tmp)
 	{
-		// if (*fd_in > 0 && tmp->flag == 3)
-		
 		if (tmp->flag == 3)
 		{
+			ft_close(cmd->in);
 			fd = open(tmp->file, O_RDONLY);
 			if (fd == -1)
 			{
@@ -57,7 +56,6 @@ int	open_redir(t_cmd *cmd, int *fd_in)
 			}
 			else
 			{
-				ft_close(cmd->in);
 				cmd->in = fd;
 				*fd_in = fd;
 			}

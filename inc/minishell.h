@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 18:56:13 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:53:51 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ char	*ft_getenv(char *str);
 void    env_injection(t_cmd *cmd, char *tmp);
 void	free_prealloc(void);
 void	ft_close(int fd);
+void	ft_close_pipe(int *fd);
 
 
 /*Strings Utils*/
