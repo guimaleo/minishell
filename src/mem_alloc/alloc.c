@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:39 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/29 09:22:33 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/17 23:23:25 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	free_list(t_cmd **list)
 	}
 	*list = NULL;
 }
-
 
 /**
  * @brief frees any double pointer variable if it is typecasted as a void **

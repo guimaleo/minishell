@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   char_funcs2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/17 23:24:25 by lede-gui          #+#    #+#             */
+/*   Updated: 2024/12/17 23:24:53 by lede-gui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int     ft_isupper(char c)
+int	ft_isupper(char c)
 {
-    return (c >= 'A' && c <= 'Z');
+	return (c >= 'A' && c <= 'Z');
 }
 
-static int		dig_count(int nb)
+static int	dig_count(int nb)
 {
 	int		dig;
 

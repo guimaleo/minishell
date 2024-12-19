@@ -1,32 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redout.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/17 23:37:05 by lede-gui          #+#    #+#             */
+/*   Updated: 2024/12/17 23:38:26 by lede-gui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 int	open_redout(t_cmd *cmd)
 {
-	t_redirect *tmp;
-	int	fd;
+	t_redirect	*tmp;
+	int			fd;
+
 	tmp = cmd->redir;
 	fd = -1;
-    while (tmp)
-    {
-        if (!tmp->in)
-        {
-            if (fd != -1)
-                close(fd);
-            fd = open(tmp->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-            if (fd == -1)
-            {
-            	printf("Can't create file %s\n", tmp->file);
-                return (-1);
-            }
-        }
-        tmp = tmp->next;
-    }
+	while (tmp)
+	{
+		if (!tmp->in)
+		{
+			if (fd != -1)
+				close(fd);
+			fd = open(tmp->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (fd == -1)
+			{
+				printf("Can't create file %s\n", tmp->file);
+				return (-1);
+			}
+		}
+		tmp = tmp->next;
+	}
 	return (fd);
 }
 
 void	clear_argso(char **args)
 {
-	int i;
+	int	i;
 	int	start;
 
 	i = 0;
@@ -52,11 +65,11 @@ void	clear_argso(char **args)
 
 void	check_redout(t_cmd *cmd)
 {
-	int	i;
-	t_redirect *tmp;
+	int			i;
+	t_redirect	*tmp;
 
 	i = 0;
-	while(cmd->args[i])
+	while (cmd->args[i])
 	{
 		if (!ft_strcmp(cmd->args[i], ">"))
 		{
@@ -85,5 +98,5 @@ void	check_redout(t_cmd *cmd)
 		}
 		i++;
 	}
-		clear_argso(cmd->args);
+	clear_argso(cmd->args);
 }

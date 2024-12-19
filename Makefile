@@ -6,7 +6,7 @@
 #    By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 22:38:45 by lede-gui          #+#    #+#              #
-#    Updated: 2024/11/02 15:18:01 by lede-gui         ###   ########.fr        #
+#    Updated: 2024/12/19 12:01:21 by lede-gui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRC_STR= $(addprefix $(STR_DIR)/, $(STR_FILES))
 
 ## Lexer functions directory and build
 LEX_DIR= src/lexer
-LEX_FILES= lexer.c
+LEX_FILES= lexer.c expander.c
 SRC_LEX= $(addprefix $(LEX_DIR)/, $(LEX_FILES))
 
 ## Command functions directory and build
@@ -101,7 +101,7 @@ re: fclean all
 san: CFLAGS += -fsanitize=address
 san: re
 
-val: $(NAME)
+val: fclean all
 	valgrind $(VAL) ./$(NAME)
 
 show: VAL += -s

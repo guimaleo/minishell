@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/11/02 17:28:35 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:44:59 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,24 @@ t_terminal	*terminal(void)
 	return (&init);
 }
 
-// static char	**ft_mingetenv(char **env)
-// {
-// 	int		i;
-// 	int		count;
-// 	char	**min_env;
-
-// 	count = 0;
-// 	while (env[count])
-// 		count++;
-// 	i = 0;
-// 	min_env = ft_calloc(count + 1, sizeof(char *));
-// 	if (!min_env)
-// 		return (NULL);
-// 	while (env[i])
-// 	{
-// 		min_env[i] = ft_strdup(env[i]);
-// 		i++;
-// 	}
-// 	return (min_env);
-// }
+void	free_prealloc(void)
+{
+	if (terminal()->cwd)
+    {
+        free(terminal()->cwd);
+        terminal()->cwd = NULL;
+    }
+    if (terminal()->old_cwd)
+    {
+        free(terminal()->old_cwd);
+        terminal()->old_cwd = NULL;
+    }
+    if (terminal()->home)
+    {
+        free(terminal()->home);
+        terminal()->home = NULL;
+    }
+}
 
 char	*ft_getenv(char *str)
 {
@@ -53,26 +51,54 @@ char	*ft_getenv(char *str)
 	len = ft_strlen(str);
 	while (terminal()->env && terminal()->env[i])
 	{
-		if (!ft_strncmp(terminal()->env[i], str, len))
+		if (!ft_strncmp(terminal()->env[i], str, len) 
+			&& terminal()->env[i][len] == '=')
 			break ;
 		i++;
 	}
-	split = ft_split(terminal()->env[i], '=');
-	if (split)
-		ret = ft_strdup(split[1]);
-	free_doubles((void**)split);
-	if (ret)
-		return (ret);
-	else
-		return (NULL);
+	if (terminal()->env && terminal()->env[i])
+	{
+		split = ft_split(terminal()->env[i], '=');
+		if (split && split[1])
+			ret = ft_strdup(split[1]);
+		free_doubles((void **)split);
+	}
+	return (ret);
 }
 
-static void	input_looking()
+void	set_bash_min_env(void)
 {
-	//sig_handle();
+	char	*path;
+	char	*lvl;
+	char	**min;
+	
+	printf("No env case\n");
+	terminal()->no_env = true;
+	terminal()->cwd = getcwd(NULL, 0);
+	path = MIN_PATH;
+	lvl = getenv("SHLVL");
+	if(!lvl)
+		lvl = "1";
+	min = ft_calloc(4, sizeof(char *));
+	if (!min)
+	{
+		perror("env init");
+		exit(EXIT_FAILURE);
+	}
+	min[0] = ft_strjoin("PATH=", path);
+	min[1] = ft_strjoin("PWD=", terminal()->cwd);
+	min[2] = ft_strjoin("SHLVL=", lvl);
+	min[3] = NULL;
+	terminal()->env = min;
+}
+
+static void	input_looking(void)
+{
+	sig_handle();
+	terminal()->prompt = "minishell $> ";
 	while (1)
 	{
-		terminal()->input = readline("minishell $> ");
+		terminal()->input = readline(terminal()->prompt);
 		if (!terminal()->input)
 		{
 			clean_exit(terminal()->cmd, 2);
@@ -88,8 +114,12 @@ int	main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-
-	terminal()->env = env;
+	if (!*env)
+		set_bash_min_env();
+	else
+	{
+		terminal()->env = env;
+	}
 	terminal()->cwd = getcwd(NULL, 0);
 	terminal()->old_cwd = ft_getenv("OLDPWD");
 	terminal()->home = ft_getenv("HOME");

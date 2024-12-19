@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_basic.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:47:15 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/11/25 17:32:02 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:20:17 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
-
+	
 	i = 0;
 	while (s1[i] || s2[i])
 	{
@@ -72,9 +72,9 @@ char	*ft_strjoin(char *s1, char *s2)
 		i++;
 	}
 	i = 0;
-	while(s2[i])
+	while (s2[i])
 	{
-		ptr[len[0]+ i] = s2[i];
+		ptr[len[0] + i] = s2[i];
 		i++;
 	}
 	return (ptr);
@@ -101,9 +101,9 @@ char	*ft_strjoin_char(char *s1, char *s2)
 	}
 	ptr[i] = '/';
 	i = 0;
-	while(s2[i])
+	while (s2[i])
 	{
-		ptr[len[0]+ i +1] = s2[i];
+		ptr[len[0] + i +1] = s2[i];
 		i++;
 	}
 	return (ptr);

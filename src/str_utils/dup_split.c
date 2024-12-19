@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:21 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/26 17:48:59 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/17 23:27:05 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	ft_countwords(char *str, char c)
 	int	count;
 	int	i;
 
-	// count = (str[0] != c);
 	count = 0;
 	i = 0;
 	while (str[i])
@@ -81,7 +80,7 @@ char	**ft_rec_split(char *s, char **ret, char c, int count)
 {
 	int		i;
 	char	*tmp;
-	
+
 	tmp = NULL;
 	while (*s == c)
 		s++;
@@ -93,14 +92,12 @@ char	**ft_rec_split(char *s, char **ret, char c, int count)
 	i = 0;
 	while (tmp && *s && *s != c)
 		tmp[i++] = *s++;
-	// if (tmp)
-	// 	tmp[i] = 0;
 	if (tmp)
 		ret = ft_rec_split(s, ret, c, count + 1);
 	else
 		ret = ft_calloc(count + 1, sizeof(char *));
 	ret[count] = tmp;
-	return(ret);
+	return (ret);
 }
 
 char	**ft_split(char *s, char c)
@@ -109,82 +106,3 @@ char	**ft_split(char *s, char c)
 		return (NULL);
 	return (ft_rec_split(s, NULL, c, 0));
 }
-
-// char	**ft_split(char *str, char c)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		wc;
-// 	int		end;
-// 	char	**split;
-
-// 	i = 0;
-// 	j = 0;
-// 	if (!str || !str[0])
-// 		return (NULL);
-// 	wc = ft_countwords(str, c);
-// 	split = (char **)ft_calloc(wc + 1, sizeof(char *));
-// 	while (str[i])
-// 	{
-// 		while (str[i] == c)
-// 			i++;
-// 		end = 0;
-// 		while (str[end + i] && str[end + i] != c)
-// 			end++;
-// 		split[j] = ft_strndup(str + i, end); //seg fault! test: minishell $> cat Makefile
-// 		/*Program received signal SIGSEGV, Segmentation fault.
-// 			ft_split (str=0x555555595e70 "cat Makefile ", c=32 ' ') at src/str_utils/dup_split.c:101
-// 			101			split[j] = ft_strndup(str + i, end);
-// 			(gdb)
-// 		*/
-// 		j++;
-// 		i += end;
-// 	}
-// 	return (split);
-// }
-
-
-
-
-// int	ft_countwords(char *str, char c)
-// {
-// 	int	count;
-// 	int	i;
-
-// 	count = (str[0] != c);
-// 	i = 0;
-// 	i++;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == c )
-// 			count++;
-// 		i++;
-// 	}
-// 	return (count);
-// }
-
-// char	**ft_split(char *str, char c)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		end;
-// 	char	**split;
-
-// 	i = 0;
-// 	j = 0;
-// 	if (!str || !str[0])
-// 		return (NULL);
-// 	split = (char **)ft_calloc(1, ft_countwords(str, c) + 1 * sizeof(char *));
-// 	while (str[i])
-// 	{
-// 		while (str[i] == c)
-// 			i++;
-// 		end = 0;
-// 		while (str[end + i] && str[end + i] != c)
-// 			end++;
-// 		split[j] = ft_strndup(str + i, end);
-// 		j++;
-// 		i += end;
-// 	}
-// 	return (split);
-// }

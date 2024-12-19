@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/14 18:24:44 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:51:19 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_tty
 	char	**env;
 	int		stat;
 	int		sig;
+	bool	no_env;
 	t_cmd	*cmd;
 
 }		t_terminal;
@@ -124,6 +125,7 @@ int		open_tty(t_terminal *term);
 t_terminal		*terminal(void);
 char	*ft_getenv(char *str);
 void    env_injection(t_cmd *cmd, char *tmp);
+void	free_prealloc(void);
 
 
 /*Strings Utils*/

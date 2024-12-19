@@ -8,25 +8,20 @@ t_cmd	*new_cmd(char **args)
 	init->args = args;
 	init->in = -1;
 	init->out = -1;
-	if (!*terminal()->env)
-		init->path = MIN_PATH;//IF UNSET PATH = NULL; && FREE
-	else
-	{
-		init->path = ft_getenv("PATH");
-		init->env = terminal()->env;
-	}
+	init->path = ft_getenv("PATH");
+	init->env = terminal()->env;
 	init->abs_build = ft_split(init->path, ':');
 	return (init);
 }
 
-// char	*abs_path(char *arg, char *path)
-// {
-// 	return(ft_strjoin(path, arg));
-// }
-
 void	exeggutor(t_cmd *cmd)
 {
+	pid_t	pid;
 
+	expansions(terminal()->cmd);
+	quote_analysis(terminal()->cmd);
+	//check_here(terminal()->cmd);
+	pid = -1;
 	if (!cmd->next)
 	{
 		if (!check_builtin(cmd) && open_redir(cmd, &cmd->in))

@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/17 23:34:05 by lede-gui          #+#    #+#             */
+/*   Updated: 2024/12/17 23:36:45 by lede-gui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 t_redirect	*init_redir(void)
 {
-	t_redirect *init;
+	t_redirect	*init;
 
 	init = (t_redirect *)ft_calloc(sizeof(t_redirect), 1);
 	init->in = -1;
@@ -11,7 +23,7 @@ t_redirect	*init_redir(void)
 
 void	clean_redir(t_redirect *redir)
 {
-	t_redirect *tmp;
+	t_redirect	*tmp;
 
 	while (redir)
 	{
@@ -22,10 +34,12 @@ void	clean_redir(t_redirect *redir)
 		redir = tmp;
 	}
 }
-	int	open_redir(t_cmd *cmd, int *fd_in)
+
+int	open_redir(t_cmd *cmd, int *fd_in)
 {
-	t_redirect *tmp;
-	int	fd;
+	t_redirect	*tmp;
+	int			fd;
+
 	tmp = cmd->redir;
 	fd = 0;
 	while (tmp)
@@ -59,10 +73,9 @@ void	clean_redir(t_redirect *redir)
 	return (1);
 }
 
-
 void	clear_args(char **args)
 {
-	int i;
+	int	i;
 	int	start;
 
 	i = 0;
@@ -88,15 +101,14 @@ void	clear_args(char **args)
 
 void	check_redir(t_cmd *cmd)
 {
-	int	i;
-	t_redirect *tmp;
+	int			i;
+	t_redirect	*tmp;
 
 	i = 0;
 	if (!cmd->redir)
 	{
-		while(cmd->args[i])
+		while (cmd->args[i])
 		{
-			
 			if (!ft_strcmp(cmd->args[i], "<"))
 			{
 				if (!cmd->redir)
@@ -124,6 +136,6 @@ void	check_redir(t_cmd *cmd)
 			}
 			i++;
 		}
-	 clear_args(cmd->args);
+		clear_args(cmd->args);
 	}
 }
