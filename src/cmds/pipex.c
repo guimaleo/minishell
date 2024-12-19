@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 23:31:32 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/17 23:33:46 by lede-gui         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/minishell.h"
 
-void	check_acess(t_cmd *cmd)
+void    check_acess(t_cmd *cmd)
 {
-	int		i;
-	char	*tmp;
+	int i;
+	char   *tmp;
 
 	i = 0;
 	if (!check_builtin(cmd))
@@ -27,7 +15,7 @@ void	check_acess(t_cmd *cmd)
 			tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
 			if (!access(tmp, F_OK))
 				execve(tmp, cmd->args, terminal()->env);
-			free(tmp);
+			free(tmp);//free da lista
 			i++;
 		}
 	}
@@ -36,24 +24,37 @@ void	check_acess(t_cmd *cmd)
 	clean_exit(terminal()->cmd, 1);
 }
 
-void	child_process(t_cmd *cmd, int *fd, int *fd_in)
+void child_process(t_cmd *cmd, int *fd, int *fd_in)
 {
-	int	tmp;
+	int tmp;
 
-	tmp = -1;
-	(void)fd_in;
-	dup2(cmd->in, STDIN_FILENO);
+	if (cmd->in != -1)
+	{
+		dup2(cmd->in, STDIN_FILENO);
+		close(cmd->in);
+	}
+	else if (fd_in && *fd_in != 0)
+	{
+		dup2(*fd_in, STDIN_FILENO);
+		close(*fd_in);
+	}
 	tmp = open_redout(cmd);
 	if (cmd->next)
 	{
 		if (tmp != -1)
-			fd[1] = tmp;
-		dup2(fd[1], STDOUT_FILENO);
+		{
+			dup2(tmp, STDOUT_FILENO);
+			close(tmp);
+		}
+		else
+		{
+			dup2(fd[1], STDOUT_FILENO);
+		}
 	}
-	if (tmp != -1)
+	else if (tmp != -1)
 	{
-		fd[1] = tmp;
-		dup2(fd[1], STDOUT_FILENO);
+		dup2(tmp, STDOUT_FILENO);
+		close(tmp);
 	}
 	close(fd[0]);
 	close(fd[1]);
@@ -61,24 +62,26 @@ void	child_process(t_cmd *cmd, int *fd, int *fd_in)
 	clean_exit(cmd, 1);
 }
 
-void	parent_process(int *fd, int *fd_in, t_cmd *cmd)
+void parent_process(int *fd, int *fd_in, t_cmd *cmd)
 {
 	wait_children(&terminal()->stat);
+
 	close(fd[1]);
 	if (*fd_in != 0)
 		close(*fd_in);
 	if (cmd->in != 0 && cmd->in != -1)
 		close(cmd->in);
+
 	*fd_in = fd[0];
 }
 
-int	pipex(t_cmd *cmd)
+int    pipex(t_cmd *cmd)
 {
-	int		fd[2];
-	pid_t	pid;
-	int		fd_in = 0;
+	int fd[2];
+	pid_t   pid;
+	int     fd_in = 0;
 
-	while (cmd)
+	while(cmd)
 	{
 		if ((open_redir(cmd, &fd_in)))
 		{
