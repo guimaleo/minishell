@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   put_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lede-gui <lede-gui@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:48:40 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/10/24 22:49:14 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:05:07 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_close(int fd)
+{
+	if (fd > 2)
+		close(fd);
+}
 
 void	ft_putcharfd(char c, int fd)
 {

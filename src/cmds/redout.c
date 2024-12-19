@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:37:05 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/17 23:38:26 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:06:07 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int	open_redout(t_cmd *cmd)
 	fd = -1;
 	while (tmp)
 	{
-		if (!tmp->in)
-		{
-			if (fd != -1)
-				close(fd);
+		if (fd != -1 && tmp->flag < 3)
+			ft_close(fd);
+		if (tmp->flag == 1)
 			fd = open(tmp->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd == -1)
-			{
-				printf("Can't create file %s\n", tmp->file);
-				return (-1);
-			}
+		else if (tmp->flag == 2)
+			fd = open(tmp->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (fd == -1 && tmp->flag < 3)
+		{
+			printf("Can't create file %s\n", tmp->file);
+			return (-1);
 		}
 		tmp = tmp->next;
 	}
@@ -46,7 +46,7 @@ void	clear_argso(char **args)
 	start = 0;
 	while (args[i])
 	{
-		if (!ft_strcmp(args[i], ">"))
+		if (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<"))
 		{
 			free(args[i]);
 			args[i] = NULL;
@@ -63,40 +63,40 @@ void	clear_argso(char **args)
 	}
 }
 
-void	check_redout(t_cmd *cmd)
-{
-	int			i;
-	t_redirect	*tmp;
+// void	check_redout(t_cmd *cmd)
+// {
+// 	int			i;
+// 	t_redirect	*tmp;
 
-	i = 0;
-	while (cmd->args[i])
-	{
-		if (!ft_strcmp(cmd->args[i], ">"))
-		{
-			if (!cmd->redir)
-			{
-				cmd->redir = init_redir();
-				if (cmd->args[i + 1])
-				{
-					cmd->redir->in = 0;
-					cmd->redir->file = ft_strdup(cmd->args[i + 1]);
-					i += 1;
-					tmp = cmd->redir;
-				}
-			}
-			else
-			{
-				tmp->next = init_redir();
-				if (cmd->args[i + 1])
-				{
-					tmp->next->in = 0;
-					tmp->next->file = ft_strdup(cmd->args[i + 1]);
-					i += 1;
-					tmp = tmp->next;
-				}
-			}
-		}
-		i++;
-	}
-	clear_argso(cmd->args);
-}
+// 	i = 0;
+// 	while (cmd->args[i])
+// 	{
+// 		if (!ft_strcmp(cmd->args[i], ">"))
+// 		{
+// 			if (!cmd->redir)
+// 			{
+// 				cmd->redir = init_redir();
+// 				if (cmd->args[i + 1])
+// 				{
+// 					cmd->redir->in = 0;
+// 					cmd->redir->file = ft_strdup(cmd->args[i + 1]);
+// 					i += 1;
+// 					tmp = cmd->redir;
+// 				}
+// 			}
+// 			else
+// 			{
+// 				tmp->next = init_redir();
+// 				if (cmd->args[i + 1])
+// 				{
+// 					tmp->next->in = 0;
+// 					tmp->next->file = ft_strdup(cmd->args[i + 1]);
+// 					i += 1;
+// 					tmp = tmp->next;
+// 				}
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	clear_argso(cmd->args);
+// }

@@ -6,10 +6,11 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 22:34:52 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 12:02:23 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:59:14 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// cat < README.md > 2
 #include "../inc/minishell.h"
 
 void	free_redirect(t_redirect *redir)
@@ -31,7 +32,7 @@ void	built_exit(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	if (cmd->in != 0 && cmd->in != -1)
-		close(cmd->in);
+		ft_close(cmd->in);
 	while (cmd)
 	{
 		tmp = cmd->next;
@@ -54,7 +55,7 @@ void	clean_exit(t_cmd *cmd, int i)
 	t_cmd	*tmp;
 
 	if (cmd && cmd->in != 0 && cmd->in != -1)
-		close(cmd->in);
+		ft_close(cmd->in);
 	while (cmd)
 	{
 		tmp = cmd->next;

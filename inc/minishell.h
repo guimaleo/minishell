@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 13:51:19 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:56:13 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@
 typedef struct s_redirect
 {
 	char	*file;
-	bool	in;
+	int		flag;
+	bool	heredoc;
 	struct s_redirect *next;
 }		t_redirect;
 
@@ -118,6 +119,7 @@ void	expansions(t_cmd *cmd);
 char	*check_variable(t_cmd *cmd, int *i, int *pos);
 char	*inject_expansion(char *input, char *key, char *value);
 void	quote_analysis(t_cmd *cmd);
+typedef void	(*redir_func)(t_cmd *cmd, char *s, int flag);
 t_cmd   *new_cmd(char **args);
 
 /*Terminal emulator*/
@@ -126,6 +128,7 @@ t_terminal		*terminal(void);
 char	*ft_getenv(char *str);
 void    env_injection(t_cmd *cmd, char *tmp);
 void	free_prealloc(void);
+void	ft_close(int fd);
 
 
 /*Strings Utils*/

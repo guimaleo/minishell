@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:44:54 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 12:44:34 by lede-gui         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:52:24 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	quote_analysis(t_cmd *cmd)
 			while (cmd->args[i][j] && cmd->args[i][j] != to_rm)
 				j++;
 			if (!cmd->args[i][j])
-				printf("Syntax error: unquoted string\n");
+				write(2, "Syntax error: unquoted string\n", 30);
 			tmp = ft_substr(cmd->args[i], 1, (j - 1));
 			terminal()->cmd->args[i] = ft_strdup(tmp);
 			free(tmp);
@@ -101,6 +101,7 @@ static char	*tokenization(char *str, char *input)
 		if (!(flag == 0 && redirections(str, &input, &i)))
 			str[i++] = *input++;
 	}
+	printf("%s\n", str);
 	return (str);
 }
 
@@ -124,7 +125,6 @@ void	lexer(char *input)
 	{
 		tmp = new_cmd(ft_split(pipes[i], '\2'));
 		check_redir(tmp);
-		check_redout(tmp);
 		if (terminal()->cmd == NULL)
 			terminal()->cmd = tmp;
 		else

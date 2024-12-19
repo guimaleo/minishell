@@ -6,7 +6,7 @@
 #    By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 22:38:45 by lede-gui          #+#    #+#              #
-#    Updated: 2024/12/19 12:01:21 by lede-gui         ###   ########.fr        #
+#    Updated: 2024/12/19 18:53:50 by lede-gui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ SRC_SIG= $(addprefix $(SIG_DIR)/, $(SIG_FILES))
 
 SRC_FILES= main.c
 
-SRC= $(SRC_FILES) $(SRC_MEM) $(SRC_STR) $(SRC_LEX) $(SRC_CMD) $(SRC_SIG)
+SRC= $(SRC_FILES) $(SRC_MEM) $(SRC_STR) $(SRC_LEX) $(SRC_CMD) $(SRC_SIG) $(SRC_FDS)
 
 OBJ= $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
