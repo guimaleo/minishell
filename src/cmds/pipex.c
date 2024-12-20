@@ -87,7 +87,7 @@ int	pipex(t_cmd *cmd)
 	{
 		if ((open_redir(cmd, &fd_in)))
 		{
-				if (cmd->next)
+				if (cmd->next || !check_builtin(cmd))
 				{
 					printf("HERE\n");
 					if (pipe(fd) == -1)
@@ -112,33 +112,33 @@ int	pipex(t_cmd *cmd)
 						parent_process(fd, &fd_in, cmd);
 					}
 				}
-				else
-				{
-					if (!check_builtin(cmd))
-					{
-							if (pipe(fd) == -1)
-						{
-							perror("pipe");
-							exit(EXIT_FAILURE);
-						}
-						pid = fork();
-						if (pid == -1)
-						{
-							perror("fork");
-							exit(EXIT_FAILURE);
-						}
-						if (pid == 0)
-						{
-							ft_close(fd[0]); // Close the read end of the pipe in the child process
-							child_process(cmd, fd, &fd_in);
-						}
-						else
-						{
-							ft_close(fd[1]); // Close the write end of the pipe in the parent process
-							parent_process(fd, &fd_in, cmd);
-						}
-					}
-				}
+				// else
+				// {
+				// 	if (!check_builtin(cmd))
+				// 	{
+				// 			if (pipe(fd) == -1)
+				// 		{
+				// 			perror("pipe");
+				// 			exit(EXIT_FAILURE);
+				// 		}
+				// 		pid = fork();
+				// 		if (pid == -1)
+				// 		{
+				// 			perror("fork");
+				// 			exit(EXIT_FAILURE);
+				// 		}
+				// 		if (pid == 0)
+				// 		{
+				// 			ft_close(fd[0]); // Close the read end of the pipe in the child process
+				// 			child_process(cmd, fd, &fd_in);
+				// 		}
+				// 		else
+				// 		{
+				// 			ft_close(fd[1]); // Close the write end of the pipe in the parent process
+				// 			parent_process(fd, &fd_in, cmd);
+				// 		}
+				// 	}
+				// }
 		}
 		cmd = cmd->next;
 	}
