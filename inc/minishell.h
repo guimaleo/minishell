@@ -111,6 +111,7 @@ void	clean_exit(t_cmd *cmd, int	i);
 void	built_exit(t_cmd *cmd);
 void    export_f(t_cmd *cmd);
 void	args_exit(t_cmd *cmd);
+int	check_built(t_cmd *cmd);
 
 
 /*Lexical functions*/

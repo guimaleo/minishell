@@ -41,7 +41,6 @@ void	child_process(t_cmd *cmd, int *fd, int *fd_in)
 	int	tmp;
 
 	tmp = -1;
-	(void)fd_in;
 	dup2(*fd_in, STDIN_FILENO);
 	tmp = open_redout(cmd);
 	printf("IN%d\nOUT%d\n", *fd_in, tmp);
@@ -54,11 +53,15 @@ void	child_process(t_cmd *cmd, int *fd, int *fd_in)
 	}
 	else if (tmp != -1)
 	{
-		fd[1] = tmp;
-		dup2(fd[1], STDOUT_FILENO);
+		dup2(tmp, STDOUT_FILENO);
 	}
 	ft_close(fd[0]);
-	ft_close(fd[1]);
+	if (tmp == -1)
+		ft_close(fd[1]);
+	else
+	{
+		ft_close(tmp);
+	}
 	check_acess(cmd);
 	clean_exit(cmd, 1);
 }
@@ -84,36 +87,61 @@ int	pipex(t_cmd *cmd)
 	{
 		if ((open_redir(cmd, &fd_in)))
 		{
-			if (cmd->next || !check_builtin(cmd))
-			{
-				if (pipe(fd) == -1)
+				if (cmd->next)
 				{
-					perror("pipe");
-					exit(EXIT_FAILURE);
-				}
-				pid = fork();
-				if (pid == -1)
-				{
-					perror("fork");
-					exit(EXIT_FAILURE);
-				}
-				if (pid == 0)
-				{
-					ft_close(fd[0]); // Close the read end of the pipe in the child process
-					child_process(cmd, fd, &fd_in);
+					printf("HERE\n");
+					if (pipe(fd) == -1)
+					{
+						perror("pipe");
+						exit(EXIT_FAILURE);
+					}
+					pid = fork();
+					if (pid == -1)
+					{
+						perror("fork");
+						exit(EXIT_FAILURE);
+					}
+					if (pid == 0)
+					{
+						ft_close(fd[0]); // Close the read end of the pipe in the child process
+						child_process(cmd, fd, &fd_in);
+					}
+					else
+					{
+						ft_close(fd[1]); // Close the write end of the pipe in the parent process
+						parent_process(fd, &fd_in, cmd);
+					}
 				}
 				else
 				{
-					ft_close(fd[1]); // Close the write end of the pipe in the parent process
-					parent_process(fd, &fd_in, cmd);
-					ft_close(fd[0]);
+					if (!check_builtin(cmd))
+					{
+							if (pipe(fd) == -1)
+						{
+							perror("pipe");
+							exit(EXIT_FAILURE);
+						}
+						pid = fork();
+						if (pid == -1)
+						{
+							perror("fork");
+							exit(EXIT_FAILURE);
+						}
+						if (pid == 0)
+						{
+							ft_close(fd[0]); // Close the read end of the pipe in the child process
+							child_process(cmd, fd, &fd_in);
+						}
+						else
+						{
+							ft_close(fd[1]); // Close the write end of the pipe in the parent process
+							parent_process(fd, &fd_in, cmd);
+						}
+					}
 				}
-			}
 		}
 		cmd = cmd->next;
 	}
-	if (fd_in != 0)
-		ft_close(fd_in);
-	ft_close_pipe(fd);
+	ft_close(fd_in);
 	return (1);
 }

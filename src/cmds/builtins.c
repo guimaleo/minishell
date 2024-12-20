@@ -12,6 +12,29 @@
 
 #include "minishell.h"
 
+int	check_built(t_cmd *cmd)
+{
+	int		i;
+	int		j;
+	char	*tmp[8] = BUILTIN;
+
+	if (!cmd)
+		return (-1);
+	i = 0;
+	while (cmd->args[i])
+	{
+		j = 0;
+		while (tmp[j])
+		{
+			if (!ft_strcmp(cmd->args[i], tmp[j]))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	check_builtin(t_cmd *cmd)
 {
 	int		i;
@@ -75,10 +98,10 @@ int	exec_builtin(t_cmd *cmd)
 	else if (!ft_strcmp(cmd->args[0], "exit") && !cmd->args[1])
 		f = built_exit;
 	else if (!ft_strcmp(cmd->args[0], "exit") && cmd->args[1])
-		args_exit(cmd);
+		args_exit(terminal()->cmd);
 	else
 		return (0);
-	f(cmd);
+	f(terminal()->cmd);
 	return (1);
 }
 
