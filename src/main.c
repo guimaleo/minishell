@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 14:44:59 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:39:56 by framador         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@ t_terminal	*terminal(void)
 void	free_prealloc(void)
 {
 	if (terminal()->cwd)
-    {
-        free(terminal()->cwd);
-        terminal()->cwd = NULL;
-    }
-    if (terminal()->old_cwd)
-    {
-        free(terminal()->old_cwd);
-        terminal()->old_cwd = NULL;
-    }
-    if (terminal()->home)
-    {
-        free(terminal()->home);
-        terminal()->home = NULL;
-    }
+	{
+		free(terminal()->cwd);
+		terminal()->cwd = NULL;
+	}
+	if (terminal()->old_cwd)
+	{
+		free(terminal()->old_cwd);
+		terminal()->old_cwd = NULL;
+	}
+	if (terminal()->home)
+	{
+		free(terminal()->home);
+		terminal()->home = NULL;
+	}
 }
 
 char	*ft_getenv(char *str)
@@ -51,7 +51,7 @@ char	*ft_getenv(char *str)
 	len = ft_strlen(str);
 	while (terminal()->env && terminal()->env[i])
 	{
-		if (!ft_strncmp(terminal()->env[i], str, len) 
+		if (!ft_strncmp(terminal()->env[i], str, len)
 			&& terminal()->env[i][len] == '=')
 			break ;
 		i++;
@@ -71,13 +71,13 @@ void	set_bash_min_env(void)
 	char	*path;
 	char	*lvl;
 	char	**min;
-	
+
 	printf("No env case\n");
 	terminal()->no_env = true;
 	terminal()->cwd = getcwd(NULL, 0);
 	path = MIN_PATH;
 	lvl = getenv("SHLVL");
-	if(!lvl)
+	if (!lvl)
 		lvl = "1";
 	min = ft_calloc(4, sizeof(char *));
 	if (!min)

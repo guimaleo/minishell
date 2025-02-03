@@ -14,9 +14,9 @@
 
 int	check_built(t_cmd *cmd)
 {
-	int		i;
-	int		j;
-	char	*tmp[8] = BUILTIN;
+	int			i;
+	int			j;
+	static char	*tmp[8] = BUILTIN;
 
 	if (!cmd)
 		return (-1);
@@ -37,10 +37,10 @@ int	check_built(t_cmd *cmd)
 
 int	check_builtin(t_cmd *cmd)
 {
-	int		i;
-	int		j;
-	char	*tmp[8] = BUILTIN;
-	int		check;
+	int			i;
+	int			j;
+	int			check;
+	static char	*tmp[8] = BUILTIN;
 
 	if (!cmd)
 		return (-1);

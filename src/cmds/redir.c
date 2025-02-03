@@ -41,7 +41,6 @@ int	open_redir(t_cmd *cmd, int *fd_in)
 
 	tmp = cmd->redir;
 	fd = -1;
-	tmp = cmd->redir;
 	while (tmp)
 	{
 		if (tmp->flag == 3)
@@ -51,8 +50,7 @@ int	open_redir(t_cmd *cmd, int *fd_in)
 			if (fd == -1)
 			{
 				printf("Can't open file or directory %s\n", tmp->file);
-				terminal()->stat = 126;
-				return (0);
+				return ((terminal()->stat = 126), 0);
 			}
 			else
 			{
@@ -91,22 +89,19 @@ void	clear_args(char **args)
 	}
 }
 
-
 void	redir_out(t_cmd *cmd, char *str, int flag)
 {
-	t_redirect *tmp;
-	printf("oi\n");
+	t_redirect	*tmp;
+
 	tmp = cmd->redir;
 	if (!tmp)
 	{
-		printf("IF\n");
 		cmd->redir = init_redir();
 		cmd->redir->file = ft_strdup(str);
 		cmd->redir->flag = flag;
 	}
 	else
 	{
-		printf("ELSE\n");
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = init_redir();
@@ -114,28 +109,19 @@ void	redir_out(t_cmd *cmd, char *str, int flag)
 		tmp->next->next = NULL;
 		tmp->next->flag = flag;
 	}
-	// tmp->file = str;
-	tmp = cmd->redir;
-	while (tmp)
-	{
-		printf("%s\n", tmp->file);
-		tmp = tmp->next;
-	}
 }
-
 
 void	check_redir(t_cmd *cmd)
 {
-	redir_func f;
-	int		i;
-	int flag;
+	int			i;
+	int			flag;
+	redir_func	f;
 
 	i = 1;
-	f = NULL;
 	flag = 0;
 	while (cmd->args[i])
 	{
-		//printf("ARG1:%s\nARG2:%s\n", cmd->args[i], cmd->args[i+1]);
+		f = NULL;
 		if (!ft_strcmp(cmd->args[i], ">") && cmd->args[i + 1])
 			flag = 1;
 		else if (!ft_strcmp(cmd->args[i], ">>") && cmd->args[i + 1])
@@ -148,53 +134,8 @@ void	check_redir(t_cmd *cmd)
 		{
 			f(cmd, cmd->args[i + 1], flag);
 		}
-		f = NULL;
 		flag = 0;
 		i++;
 	}
 	clear_argso(cmd->args);
-	i = 0;
-	while (cmd->args[i])
-	{
-		// printf("%s\n", cmd->args[i]);
-		i++;
-	}
 }
-	// int			i;
-	// t_redirect	*tmp;
-
-	// i = 0;
-	// if (!cmd->redir)
-	// {
-	// 	while (cmd->args[i])
-	// 	{
-	// 		if (!ft_strcmp(cmd->args[i], "<"))
-	// 		{
-	// 			if (!cmd->redir)
-	// 			{
-	// 				cmd->redir = init_redir();
-	// 				if (cmd->args[i + 1])
-	// 				{
-	// 					cmd->redir->in = 1;
-	// 					cmd->redir->file = ft_strdup(cmd->args[i + 1]);
-	// 					i += 1;
-	// 					tmp = cmd->redir;
-	// 				}
-	// 			}
-	// 			else
-	// 			{
-	// 				tmp->next = init_redir();
-	// 				if (cmd->args[i + 1])
-	// 				{
-	// 					tmp->next->in = 1;
-	// 					tmp->next->file = ft_strdup(cmd->args[i + 1]);
-	// 					i += 1;
-	// 					tmp = tmp->next;
-	// 				}
-	// 			}
-	// 		}
-	// 		i++;
-	// 	}
-	// 	clear_args(cmd->args);
-	// }
-// }

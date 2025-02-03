@@ -36,6 +36,7 @@ void	check_acess(t_cmd *cmd)
 	terminal()->stat = 127;
 	clean_exit(terminal()->cmd, 1);
 }
+
 void	child_process(t_cmd *cmd, int *fd, int *fd_in)
 {
 	int	tmp;
@@ -43,7 +44,6 @@ void	child_process(t_cmd *cmd, int *fd, int *fd_in)
 	tmp = -1;
 	dup2(*fd_in, STDIN_FILENO);
 	tmp = open_redout(cmd);
-	printf("IN%d\nOUT%d\n", *fd_in, tmp);
 	if (cmd->next)
 	{
 		if (tmp != -1)
@@ -80,65 +80,39 @@ void	parent_process(int *fd, int *fd_in, t_cmd *cmd)
 int	pipex(t_cmd *cmd)
 {
 	int		fd[2];
+	int		fd_in;
 	pid_t	pid;
-	int		fd_in = 0;
 
+	fd_in = 0;
 	while (cmd)
 	{
 		if ((open_redir(cmd, &fd_in)))
 		{
-				if (cmd->next || !check_builtin(cmd))
+			if (cmd->next || !check_builtin(cmd))
+			{
+				printf("HERE\n");
+				if (pipe(fd) == -1)
 				{
-					printf("HERE\n");
-					if (pipe(fd) == -1)
-					{
-						perror("pipe");
-						exit(EXIT_FAILURE);
-					}
-					pid = fork();
-					if (pid == -1)
-					{
-						perror("fork");
-						exit(EXIT_FAILURE);
-					}
-					if (pid == 0)
-					{
-						ft_close(fd[0]); // Close the read end of the pipe in the child process
-						child_process(cmd, fd, &fd_in);
-					}
-					else
-					{
-						ft_close(fd[1]); // Close the write end of the pipe in the parent process
-						parent_process(fd, &fd_in, cmd);
-					}
+					perror("pipe");
+					exit(EXIT_FAILURE);
 				}
-				// else
-				// {
-				// 	if (!check_builtin(cmd))
-				// 	{
-				// 			if (pipe(fd) == -1)
-				// 		{
-				// 			perror("pipe");
-				// 			exit(EXIT_FAILURE);
-				// 		}
-				// 		pid = fork();
-				// 		if (pid == -1)
-				// 		{
-				// 			perror("fork");
-				// 			exit(EXIT_FAILURE);
-				// 		}
-				// 		if (pid == 0)
-				// 		{
-				// 			ft_close(fd[0]); // Close the read end of the pipe in the child process
-				// 			child_process(cmd, fd, &fd_in);
-				// 		}
-				// 		else
-				// 		{
-				// 			ft_close(fd[1]); // Close the write end of the pipe in the parent process
-				// 			parent_process(fd, &fd_in, cmd);
-				// 		}
-				// 	}
-				// }
+				pid = fork();
+				if (pid == -1)
+				{
+					perror("fork");
+					exit(EXIT_FAILURE);
+				}
+				if (pid == 0)
+				{
+					ft_close(fd[0]);
+					child_process(cmd, fd, &fd_in);
+				}
+				else
+				{
+					ft_close(fd[1]);
+					parent_process(fd, &fd_in, cmd);
+				}
+			}
 		}
 		cmd = cmd->next;
 	}

@@ -42,7 +42,7 @@ typedef struct s_redirect
 	char	*file;
 	int		flag;
 	bool	heredoc;
-	struct s_redirect *next;
+	struct	s_redirect	*next;
 }		t_redirect;
 
 typedef struct s_cmd
@@ -58,7 +58,6 @@ typedef struct s_cmd
 	t_redirect		*redir;
 	struct s_cmd	*next;
 }		t_cmd;
-
 
 typedef struct s_tty
 {
@@ -78,60 +77,58 @@ typedef struct s_tty
 
 }		t_terminal;
 
-
 /*Signaling*/
-void    sig_handle(void);
+void	sig_handle(void);
 
 /*Execution*/
 void	exeggutor(t_cmd *cmd);
-int    pipex(t_cmd *cmd);
-void    check_acess(t_cmd *cmd);
+int		pipex(t_cmd *cmd);
+void	check_acess(t_cmd *cmd);
 void	check_redir(t_cmd *cmd);
 int		open_redir(t_cmd *cmd, int *fd_in);
-int	open_redout(t_cmd *cmd);
+int		open_redout(t_cmd *cmd);
 void	clear_argso(char **args);
 void	check_redout(t_cmd *cmd);
-t_redirect	*init_redir(void);
 void	clean_redir(t_redirect *redir);
-void wait_children(int *all_stat);
-void check_here(t_cmd *cmd);
+void	wait_children(int *all_stat);
+void	check_here(t_cmd *cmd);
 
 /*Built-ins*/
 
 typedef void	(*builtin_func)(t_cmd *cmd);
 
-int    check_builtin(t_cmd *cmd);
-int 	exec_builtin(t_cmd *cmd);
-void    cd_f(t_cmd *cmd);
-void    echo_f(t_cmd *cmd);
-void    env_f(t_cmd *cmd);
+int		check_builtin(t_cmd *cmd);
+int		exec_builtin(t_cmd *cmd);
+void	cd_f(t_cmd *cmd);
+void	echo_f(t_cmd *cmd);
+void	env_f(t_cmd *cmd);
 void	pwd_f(t_cmd *cmd);
 void	unset_f(t_cmd *cmd);
-void	clean_exit(t_cmd *cmd, int	i);
+void	clean_exit(t_cmd *cmd, int i);
 void	built_exit(t_cmd *cmd);
-void    export_f(t_cmd *cmd);
+void	export_f(t_cmd *cmd);
 void	args_exit(t_cmd *cmd);
-int	check_built(t_cmd *cmd);
-
+int		check_built(t_cmd *cmd);
 
 /*Lexical functions*/
-void    lexer(char *input);
+void	lexer(char *input);
 void	expansions(t_cmd *cmd);
 char	*check_variable(t_cmd *cmd, int *i, int *pos);
 char	*inject_expansion(char *input, char *key, char *value);
 void	quote_analysis(t_cmd *cmd);
 typedef void	(*redir_func)(t_cmd *cmd, char *s, int flag);
-t_cmd   *new_cmd(char **args);
+t_cmd	*new_cmd(char **args);
 
 /*Terminal emulator*/
 int		open_tty(t_terminal *term);
-t_terminal		*terminal(void);
 char	*ft_getenv(char *str);
-void    env_injection(t_cmd *cmd, char *tmp);
+void	env_injection(t_cmd *cmd, char *tmp);
 void	free_prealloc(void);
 void	ft_close(int fd);
 void	ft_close_pipe(int *fd);
 
+t_terminal	*terminal(void);
+t_redirect	*init_redir(void);
 
 /*Strings Utils*/
 void	ft_putstrfd(char *str, int fd);
@@ -144,12 +141,12 @@ int		check_char(char *s, char c);
 char	*ft_strdup(char *str);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strjoin_char(char *s1, char *s2);
-char	*ft_strndup(char *str, int  n);
+char	*ft_strndup(char *str, int n);
 char	**ft_split(char *str, char c);
 size_t	ft_strlen(char *str);
 int		ft_atoi(char *s);
-char	*ft_substr(char * s, int start, int size);
-int     ft_isupper(char c);
+char	*ft_substr(char *s, int start, int size);
+int		ft_isupper(char c);
 char	*ft_itoa(int nb);
 
 /*Memory Functions*/

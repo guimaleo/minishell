@@ -46,7 +46,7 @@ static char	*key_extractor(char *arg, int *pos)
 	int		start;
 	int		len;
 	char	*key;
-    char    *tmp;
+	char	*tmp;
 
 	start = *pos;
 	while (arg[*pos] && ft_isupper(arg[*pos]))
@@ -56,30 +56,30 @@ static char	*key_extractor(char *arg, int *pos)
 		(*pos)++;
 	len = *pos - start;
 	key = ft_substr(arg, start, len);
-    tmp = ft_getenv(key);
-    if (key && tmp)
-	    return (free(tmp), key);
-    free(key);
-    return (NULL);
+	tmp = ft_getenv(key);
+	if (key && tmp)
+		return (free(tmp), key);
+	free(key);
+	return (NULL);
 }
 
 static char	*find_value(char *key, int len)
 {
-    char	*env_value;
-    char	*value;
-    char    *copy;
+	char	*env_value;
+	char	*value;
+	char	*copy;
 
-    copy = ft_strndup(key, len);
-    if (!copy)
-        return (NULL);
-    env_value = ft_getenv(copy);
-    free(copy);
-    if (env_value)
-    {
-        value = ft_strdup(env_value);
-        return (free(env_value), value);
-    }
-    return (NULL);
+	copy = ft_strndup(key, len);
+	if (!copy)
+		return (NULL);
+	env_value = ft_getenv(copy);
+	free(copy);
+	if (env_value)
+	{
+		value = ft_strdup(env_value);
+		return (free(env_value), value);
+	}
+	return (NULL);
 }
 
 char	*check_variable(t_cmd *cmd, int *i, int *pos)

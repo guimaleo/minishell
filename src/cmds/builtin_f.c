@@ -33,14 +33,14 @@ void	cd_completion(t_cmd *cmd, char *tmp)
 	if (chdir(tmp) == -1)
 	{
 		printf("%s%s\n", CD_ERR, tmp);
-		return;
+		return ;
 	}
 	terminal()->old_cwd = terminal()->cwd;
 	terminal()->cwd = getcwd(NULL, 0);
 	if (!terminal()->cwd)
 	{
 		printf("%s%s\n", CD_ERR, tmp);
-		return;
+		return ;
 	}
 }
 
@@ -57,7 +57,7 @@ void	cd_f(t_cmd *cmd)
 		if (chdir(tmp) == -1)
 		{
 			printf("%s%s\n", CD_ERR, tmp);
-			return;
+			return ;
 		}
 		free(terminal()->old_cwd);
 		terminal()->old_cwd = terminal()->cwd;
@@ -66,7 +66,7 @@ void	cd_f(t_cmd *cmd)
 		if (!terminal()->cwd)
 		{
 			printf("%s%s\n", CD_ERR, tmp);
-			return;
+			return ;
 		}
 	}
 	else
