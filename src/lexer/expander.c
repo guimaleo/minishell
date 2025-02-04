@@ -108,24 +108,29 @@ void	expansions(t_cmd *cmd)
 	int		pos;
 	char	*tmp;
 
-	i = -1;
-	while (cmd->args[++i])
+
+	while (cmd)
 	{
-		if (!ft_strcmp(cmd->args[i], "$?"))
+		i = -1;
+		while (cmd->args[++i])
 		{
-			tmp = ft_itoa(terminal()->stat);
-			free(cmd->args[i]);
-			cmd->args[i] = tmp;
-		}
-		else if ((check_char(cmd->args[i], '$') > -1 && *cmd->args[i] != '\''))
-		{
-			while (check_char(cmd->args[i], '$') != -1)
+			if (!ft_strcmp(cmd->args[i], "$?"))
 			{
-				pos = check_char(cmd->args[i], '$');
-				pos++;
-				tmp = check_variable(cmd, &i, &pos);
-				terminal()->cmd->args[i] = tmp;
+				tmp = ft_itoa(terminal()->stat);
+				free(cmd->args[i]);
+				cmd->args[i] = tmp;
+			}
+			else if ((check_char(cmd->args[i], '$') > -1 && *cmd->args[i] != '\''))
+			{
+				while (check_char(cmd->args[i], '$') != -1)
+				{
+					pos = check_char(cmd->args[i], '$');
+					pos++;
+					tmp = check_variable(cmd, &i, &pos);
+					cmd->args[i] = tmp;
+				}
 			}
 		}
+		cmd = cmd->next;
 	}
 }

@@ -12,29 +12,53 @@
 
 #include "minishell.h"
 
+char	*cleanup_quotes(char *input)
+{
+    int		i;
+    int		j;
+    char	quote;
+    char	*result;
+
+    result = (char *)ft_calloc(ft_strlen(input) + 1, 1);
+    if (!result)
+        return (NULL);
+    i = 0;
+    j = 0;
+    while (input[i])
+    {
+        if (input[i] == '\'' || input[i] == '\"')
+        {
+            quote = input[i++];
+            while (input[i] && input[i] != quote)
+                result[j++] = input[i++];
+            if (input[i] == quote)
+                i++;
+        }
+        else
+            result[j++] = input[i++];
+    }
+    return (result);
+}
+
 void	quote_analysis(t_cmd *cmd)
 {
-	int		i;
-	int		j;
-	int		to_rm;
-	char	*tmp;
+    int		i;
+    char	*cleaned_arg;
 
-	i = 0;
-	while (cmd->args[i])
+	while (cmd)
 	{
-		if (cmd->args[i][0] == '\'' || cmd->args[i][0] == '\"')
-		{
-			j = 1;
-			to_rm = cmd->args[i][0];
-			while (cmd->args[i][j] && cmd->args[i][j] != to_rm)
-				j++;
-			if (!cmd->args[i][j])
-				write(2, "Syntax error: unquoted string\n", 30);
-			tmp = ft_substr(cmd->args[i], 1, (j - 1));
-			terminal()->cmd->args[i] = ft_strdup(tmp);
-			free(tmp);
-		}
-		i++;
+    	i = 0;
+	    while (cmd->args[i])
+	    {
+	        cleaned_arg = cleanup_quotes(cmd->args[i]);
+	        if (cleaned_arg)
+	        {
+	            free(cmd->args[i]);
+	            cmd->args[i] = cleaned_arg;
+	        }
+	        i++;
+	    }
+		cmd = cmd->next;
 	}
 }
 
