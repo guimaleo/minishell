@@ -24,7 +24,6 @@ void	check_acess(t_cmd *cmd)
 			execve(cmd->args[0], cmd->args, terminal()->env);
 		while (cmd->abs_build && cmd->abs_build[i])
 		{
-			printf("HERE!\n");
 			tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
 			if (!access(tmp, F_OK))
 				execve(tmp, cmd->args, terminal()->env);
@@ -42,6 +41,8 @@ void	child_process(t_cmd *cmd, int *fd, int *fd_in)
 	int	tmp;
 
 	tmp = -1;
+	if (cmd->heredoc != 0)
+		*fd_in = cmd->heredoc;
 	dup2(*fd_in, STDIN_FILENO);
 	tmp = open_redout(cmd);
 	if (cmd->next)
@@ -90,7 +91,6 @@ int	pipex(t_cmd *cmd)
 		{
 			if (cmd->next || !check_builtin(cmd))
 			{
-				printf("HERE\n");
 				if (pipe(fd) == -1)
 				{
 					perror("pipe");

@@ -95,9 +95,9 @@ void	set_bash_min_env(void)
 static void	input_looking(void)
 {
 	sig_handle();
-	terminal()->prompt = "minishell $> ";
 	while (1)
 	{
+		terminal()->prompt = "minishell $> ";
 		terminal()->input = readline(terminal()->prompt);
 		if (!terminal()->input)
 		{

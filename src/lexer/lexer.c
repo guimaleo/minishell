@@ -101,7 +101,6 @@ static char	*tokenization(char *str, char *input)
 		if (!(flag == 0 && redirections(str, &input, &i)))
 			str[i++] = *input++;
 	}
-	printf("%s\n", str);
 	return (str);
 }
 

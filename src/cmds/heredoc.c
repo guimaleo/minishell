@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-void	here_doc(t_cmd *cmd, char *del)
+void	here_doc(t_cmd *cmd, char *del, t_cmd *head)
 {
 	int		fd[2];
 	pid_t	pid;
-
+	
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
@@ -27,33 +27,38 @@ void	here_doc(t_cmd *cmd, char *del)
 			free(terminal()->input);
 		}
 		ft_close(fd[1]);
-		exit(terminal()->stat);
+		clean_exit(head, 1);
 	}
 	else
 	{
 		ft_close(fd[1]);
 		waitpid(pid, NULL, 0);
-		printf("HERE\n");
-		cmd->in = fd[0];
+		cmd->heredoc = fd[0];
 	}
 }
 
 void	check_here(t_cmd *cmd)
 {
 	int		i;
+	t_cmd *head;
 
-	i = 0;
-	while (cmd->args[i])
+	head = cmd;
+	while (cmd)
 	{
-		if (!ft_strncmp(cmd->args[i], "<<", 2))
+		i = 0;
+		while (cmd->args[i])
 		{
-			terminal()->prompt = "heredoc> ";
-			here_doc(cmd, cmd->args[i + 1]);
-			free(cmd->args[i]);
-			free(cmd->args[i + 1]);
-			cmd->args[i] = NULL;
-			break ;
+			if (!ft_strncmp(cmd->args[i], "<<", 2))
+			{
+				terminal()->prompt = "heredoc> ";
+				here_doc(cmd, cmd->args[i + 1], head);
+				free(cmd->args[i]);
+				free(cmd->args[i + 1]);
+				cmd->args[i] = NULL;
+				break ;
+			}
+			i++;
 		}
-		i++;
+		cmd = cmd->next;
 	}
 }

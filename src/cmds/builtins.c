@@ -101,7 +101,7 @@ int	exec_builtin(t_cmd *cmd)
 		args_exit(terminal()->cmd);
 	else
 		return (0);
-	f(terminal()->cmd);
+	f(cmd);
 	return (1);
 }
 
@@ -123,7 +123,6 @@ void	replace_n_erase(t_cmd *cmd, char *input, size_t len)
 			break ;
 		}
 		cmd->env[i] = swap;
-		printf("swap: %s\n", swap);
 		i++;
 	}
 }

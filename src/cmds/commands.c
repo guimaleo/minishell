@@ -18,6 +18,7 @@ void	exeggutor(t_cmd *cmd)
 {
 	expansions(terminal()->cmd);
 	quote_analysis(terminal()->cmd);
+	check_here(cmd);
 	pipex(cmd);
 	clean_exit(terminal()->cmd, 0);
 }

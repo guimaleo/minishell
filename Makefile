@@ -102,7 +102,7 @@ san: CFLAGS += -fsanitize=address
 san: re
 
 val: fclean all
-	valgrind $(VAL) ./$(NAME)
+	valgrind -s $(VAL) ./$(NAME)
 
 show: VAL += -s
 show: val

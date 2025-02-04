@@ -37,7 +37,6 @@ void	wait_children(int *all_stat)
 		{
 			terminal()->stat = WEXITSTATUS(wstat);
 			(void)all_stat;
-			printf("Process %d exited with status %d\n", pid, terminal()->stat);
 			break ;
 		}
 	}

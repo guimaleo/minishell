@@ -46,7 +46,6 @@ void	built_exit(t_cmd *cmd)
 	free(terminal()->input);
 	terminal()->input = NULL;
 	free_prealloc();
-	printf("exit\n");
 	exit(terminal()->stat);
 }
 
@@ -63,15 +62,14 @@ void	clean_exit(t_cmd *cmd, int i)
 		free_doubles((void **)cmd->abs_build);
 		if (cmd->redir)
 			clean_redir(cmd->redir);
+		if (cmd->heredoc != 0)
+			close(cmd->heredoc);
 		free(cmd);
 		cmd = tmp;
 	}
-	free(terminal()->input);
 	terminal()->input = NULL;
 	if (i)
 	{
-		if (i == 2)
-			printf("exit\n");
 		free_prealloc();
 		exit(terminal()->stat);
 	}

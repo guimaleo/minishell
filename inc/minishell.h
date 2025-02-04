@@ -55,6 +55,7 @@ typedef struct s_cmd
 	int				out;
 	int				*all_stat;
 	int				ret;
+	int				heredoc;
 	t_redirect		*redir;
 	struct s_cmd	*next;
 }		t_cmd;
