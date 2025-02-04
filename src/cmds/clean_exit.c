@@ -6,11 +6,10 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 22:34:52 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 18:59:14 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/04 21:59:32 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// cat < README.md > 2
 #include "../inc/minishell.h"
 
 void	free_redirect(t_redirect *redir)
@@ -46,6 +45,7 @@ void	built_exit(t_cmd *cmd)
 	free(terminal()->input);
 	terminal()->input = NULL;
 	free_prealloc();
+	printf("exit\n");
 	exit(terminal()->stat);
 }
 
@@ -81,6 +81,8 @@ void	args_exit(t_cmd *cmd)
 	int	i;
 
 	i = 0;
+	if (cmd->args[1][i] != '-' || cmd->args[1][i] != '+' )
+		i++;
 	while (cmd->args[1][i])
 	{
 		if (!ft_isdigit(cmd->args[1][i]))
@@ -92,7 +94,7 @@ void	args_exit(t_cmd *cmd)
 		i++;
 	}
 	ret = ft_atoi(cmd->args[1]);
-	printf("%i\n", ret);
+	printf("exit\n");
 	clean_exit(cmd, 0);
 	exit(ret);
 }

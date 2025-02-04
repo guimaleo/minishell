@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:34:05 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 19:51:30 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:03:52 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,33 +109,4 @@ void	redir_out(t_cmd *cmd, char *str, int flag)
 		tmp->next->next = NULL;
 		tmp->next->flag = flag;
 	}
-}
-
-void	check_redir(t_cmd *cmd)
-{
-	int			i;
-	int			flag;
-	redir_func	f;
-
-	i = 1;
-	flag = 0;
-	while (cmd->args[i])
-	{
-		f = NULL;
-		if (!ft_strcmp(cmd->args[i], ">") && cmd->args[i + 1])
-			flag = 1;
-		else if (!ft_strcmp(cmd->args[i], ">>") && cmd->args[i + 1])
-			flag = 2;
-		else if (!ft_strcmp(cmd->args[i], "<") && cmd->args[i + 1])
-			flag = 3;
-		if (flag)
-			f = redir_out;
-		if (f)
-		{
-			f(cmd, cmd->args[i + 1], flag);
-		}
-		flag = 0;
-		i++;
-	}
-	clear_argso(cmd->args);
 }

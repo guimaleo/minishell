@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:36:31 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 12:33:14 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:34:03 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,24 +108,19 @@ void	expansions(t_cmd *cmd)
 	int		pos;
 	char	*tmp;
 
-
 	while (cmd)
 	{
 		i = -1;
 		while (cmd->args[++i])
 		{
 			if (!ft_strcmp(cmd->args[i], "$?"))
-			{
-				tmp = ft_itoa(terminal()->stat);
-				free(cmd->args[i]);
-				cmd->args[i] = tmp;
-			}
-			else if ((check_char(cmd->args[i], '$') > -1 && *cmd->args[i] != '\''))
+				cmd->args[i] = cut_line(cmd->args[i]);
+			else if ((check_char(cmd->args[i], '$') > -1 \
+				&& *cmd->args[i] != '\''))
 			{
 				while (check_char(cmd->args[i], '$') != -1)
 				{
-					pos = check_char(cmd->args[i], '$');
-					pos++;
+					pos = check_char(cmd->args[i], '$') + 1;
 					tmp = check_variable(cmd, &i, &pos);
 					cmd->args[i] = tmp;
 				}

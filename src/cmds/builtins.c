@@ -6,27 +6,43 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:17:35 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/17 23:22:30 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:02:01 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char	**take_bt(void)
+{
+	static char	*bt[8];
+
+	bt[0] = "cd";
+	bt[1] = "echo";
+	bt[2] = "exit";
+	bt[3] = "export";
+	bt[4] = "unset";
+	bt[5] = "pwd";
+	bt[6] = "env";
+	bt[7] = 0;
+	return (bt);
+}
+
 int	check_built(t_cmd *cmd)
 {
 	int			i;
 	int			j;
-	static char	*tmp[8] = BUILTIN;
+	char		**bt;
 
 	if (!cmd)
 		return (-1);
 	i = 0;
+	bt = take_bt();
 	while (cmd->args[i])
 	{
 		j = 0;
-		while (tmp[j])
+		while (bt[j])
 		{
-			if (!ft_strcmp(cmd->args[i], tmp[j]))
+			if (!ft_strcmp(cmd->args[i], bt[j]))
 				return (1);
 			j++;
 		}
@@ -40,8 +56,9 @@ int	check_builtin(t_cmd *cmd)
 	int			i;
 	int			j;
 	int			check;
-	static char	*tmp[8] = BUILTIN;
+	char		**tmp;
 
+	tmp = take_bt();
 	if (!cmd)
 		return (-1);
 	i = 0;
@@ -80,7 +97,7 @@ void	echo_f(t_cmd *cmd)
 
 int	exec_builtin(t_cmd *cmd)
 {
-	builtin_func	f;
+	t_builtin_func	f;
 
 	f = NULL;
 	if (!ft_strcmp(cmd->args[0], "cd"))
@@ -103,50 +120,4 @@ int	exec_builtin(t_cmd *cmd)
 		return (0);
 	f(cmd);
 	return (1);
-}
-
-void	replace_n_erase(t_cmd *cmd, char *input, size_t len)
-{
-	int		i;
-	char	*swap;
-
-	swap = NULL;
-	i = 0;
-	while (cmd->env[i] && ft_strncmp(cmd->env[i], input, len))
-		i++;
-	while (cmd->env[i])
-	{
-		swap = cmd->env[i + 1];
-		if (swap == NULL)
-		{
-			cmd->env[i] = NULL;
-			break ;
-		}
-		cmd->env[i] = swap;
-		i++;
-	}
-}
-
-void	unset_f(t_cmd *cmd)
-{
-	int		i;
-	bool	flag;
-	size_t	len;
-	char	*to_unset;
-
-	flag = false;
-	to_unset = ft_strdup(cmd->args[1]);
-	if (!to_unset)
-		return ;
-	len = ft_strlen(to_unset);
-	i = 0;
-	while (cmd->env[i])
-	{
-		if (!ft_strncmp(cmd->env[i], to_unset, len))
-			flag = true;
-		i++;
-	}
-	if (flag)
-		replace_n_erase(cmd, to_unset, len);
-	free(to_unset);
 }

@@ -6,23 +6,11 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:13:05 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 14:46:44 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/04 21:58:36 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	pwd_f(t_cmd *cmd)
-{
-	char	*cwd;
-
-	(void)cmd;
-	cwd = getcwd(NULL, 0);
-	if (cwd)
-		printf("%s\n", cwd);
-	free(cwd);
-	return ;
-}
 
 void	cd_completion(t_cmd *cmd, char *tmp)
 {
@@ -64,10 +52,7 @@ void	cd_f(t_cmd *cmd)
 		free(terminal()->cwd);
 		terminal()->cwd = getcwd(NULL, 0);
 		if (!terminal()->cwd)
-		{
-			printf("%s%s\n", CD_ERR, tmp);
-			return ;
-		}
+			return ((void)printf("%s%s\n", CD_ERR, tmp));
 	}
 	else
 		cd_completion(cmd, tmp);

@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:37:05 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 19:06:07 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:18:47 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	clear_argso(char **args)
 	start = 0;
 	while (args[i])
 	{
-		if (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<"))
+		if (!ft_strcmp(args[i], ">") || !ft_strcmp(args[i], ">>")
+			|| !ft_strcmp(args[i], "<"))
 		{
 			free(args[i]);
 			args[i] = NULL;

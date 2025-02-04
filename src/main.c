@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:38:27 by lede-gui          #+#    #+#             */
-/*   Updated: 2025/02/03 18:39:56 by framador         ###   ########.fr       */
+/*   Updated: 2025/02/04 21:53:44 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,6 @@ void	free_prealloc(void)
 		free(terminal()->home);
 		terminal()->home = NULL;
 	}
-}
-
-char	*ft_getenv(char *str)
-{
-	int		i;
-	size_t	len;
-	char	*ret;
-	char	**split;
-
-	ret = NULL;
-	split = NULL;
-	i = 0;
-	len = ft_strlen(str);
-	while (terminal()->env && terminal()->env[i])
-	{
-		if (!ft_strncmp(terminal()->env[i], str, len)
-			&& terminal()->env[i][len] == '=')
-			break ;
-		i++;
-	}
-	if (terminal()->env && terminal()->env[i])
-	{
-		split = ft_split(terminal()->env[i], '=');
-		if (split && split[1])
-			ret = ft_strdup(split[1]);
-		free_doubles((void **)split);
-	}
-	return (ret);
 }
 
 void	set_bash_min_env(void)

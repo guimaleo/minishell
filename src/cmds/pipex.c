@@ -6,35 +6,11 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:31:32 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 19:57:22 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:38:20 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	check_acess(t_cmd *cmd)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	if (!check_builtin(cmd))
-	{
-		if (!access(cmd->args[0], F_OK))
-			execve(cmd->args[0], cmd->args, terminal()->env);
-		while (cmd->abs_build && cmd->abs_build[i])
-		{
-			tmp = ft_strjoin_char(cmd->abs_build[i], cmd->args[0]);
-			if (!access(tmp, F_OK))
-				execve(tmp, cmd->args, terminal()->env);
-			free(tmp);
-			i++;
-		}
-	}
-	printf(CMD"%s\n", cmd->args[0]);
-	terminal()->stat = 127;
-	clean_exit(terminal()->cmd, 1);
-}
 
 void	child_process(t_cmd *cmd, int *fd, int *fd_in)
 {
@@ -53,16 +29,12 @@ void	child_process(t_cmd *cmd, int *fd, int *fd_in)
 			dup2(fd[1], STDOUT_FILENO);
 	}
 	else if (tmp != -1)
-	{
 		dup2(tmp, STDOUT_FILENO);
-	}
 	ft_close(fd[0]);
 	if (tmp == -1)
 		ft_close(fd[1]);
 	else
-	{
 		ft_close(tmp);
-	}
 	check_acess(cmd);
 	clean_exit(cmd, 1);
 }
@@ -76,6 +48,26 @@ void	parent_process(int *fd, int *fd_in, t_cmd *cmd)
 	if (cmd->in > 0 && cmd->in != -1)
 		ft_close(cmd->in);
 	*fd_in = fd[0];
+}
+
+void	error_handle(char *msg)
+{
+	perror(msg);
+	exit(EXIT_FAILURE);
+}
+
+void	ft_pipeaux(int *fd, int *fd_in, t_cmd *cmd, int flag)
+{
+	if (flag)
+	{
+		close(fd[0]);
+		child_process(cmd, fd, fd_in);
+	}
+	else
+	{
+		close(fd[1]);
+		parent_process(fd, fd_in, cmd);
+	}
 }
 
 int	pipex(t_cmd *cmd)
@@ -92,30 +84,17 @@ int	pipex(t_cmd *cmd)
 			if (cmd->next || !check_builtin(cmd))
 			{
 				if (pipe(fd) == -1)
-				{
-					perror("pipe");
-					exit(EXIT_FAILURE);
-				}
+					error_handle("pipe");
 				pid = fork();
 				if (pid == -1)
-				{
-					perror("fork");
-					exit(EXIT_FAILURE);
-				}
+					error_handle("fork");
 				if (pid == 0)
-				{
-					ft_close(fd[0]);
-					child_process(cmd, fd, &fd_in);
-				}
+					ft_pipeaux(fd, &fd_in, cmd, 1);
 				else
-				{
-					ft_close(fd[1]);
-					parent_process(fd, &fd_in, cmd);
-				}
+					ft_pipeaux(fd, &fd_in, cmd, 0);
 			}
 		}
 		cmd = cmd->next;
 	}
-	ft_close(fd_in);
-	return (1);
+	return (ft_close(fd_in), 1);
 }

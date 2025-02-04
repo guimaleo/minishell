@@ -6,7 +6,7 @@
 #    By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 22:38:45 by lede-gui          #+#    #+#              #
-#    Updated: 2024/12/19 18:53:50 by lede-gui         ###   ########.fr        #
+#    Updated: 2025/02/04 22:35:04 by lede-gui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,12 +40,12 @@ SRC_STR= $(addprefix $(STR_DIR)/, $(STR_FILES))
 
 ## Lexer functions directory and build
 LEX_DIR= src/lexer
-LEX_FILES= lexer.c expander.c
+LEX_FILES= lexer.c expander.c expander_utils.c
 SRC_LEX= $(addprefix $(LEX_DIR)/, $(LEX_FILES))
 
 ## Command functions directory and build
 CMD_DIR= src/cmds
-CMD_FILES= commands.c builtins.c pipex.c clean_exit.c redir.c builtin_f.c redout.c wait.c heredoc.c
+CMD_FILES= commands.c builtins.c pipex.c clean_exit.c redir.c builtin_f.c redout.c wait.c heredoc.c builtin_utils.c
 SRC_CMD= $(addprefix $(CMD_DIR)/, $(CMD_FILES))
 
 ## FDS functions directory and build
@@ -53,7 +53,7 @@ SIG_DIR= src/signals
 SIG_FILES= sig_handler.c
 SRC_SIG= $(addprefix $(SIG_DIR)/, $(SIG_FILES))
 
-SRC_FILES= main.c
+SRC_FILES= main.c utils.c
 
 SRC= $(SRC_FILES) $(SRC_MEM) $(SRC_STR) $(SRC_LEX) $(SRC_CMD) $(SRC_SIG) $(SRC_FDS)
 

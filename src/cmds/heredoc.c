@@ -1,10 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 22:02:26 by lede-gui          #+#    #+#             */
+/*   Updated: 2025/02/04 22:21:50 by lede-gui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+void	loop(int fd, char *del)
+{
+	while (1)
+	{
+		terminal()->input = readline(terminal()->prompt);
+		if (!terminal()->input || !ft_strcmp(terminal()->input, del))
+		{
+			free(terminal()->input);
+			break ;
+		}
+		write(fd, terminal()->input, ft_strlen(terminal()->input));
+		write(fd, "\n", 1);
+		free(terminal()->input);
+	}
+}
 
 void	here_doc(t_cmd *cmd, char *del, t_cmd *head)
 {
 	int		fd[2];
 	pid_t	pid;
-	
+
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
@@ -14,18 +42,7 @@ void	here_doc(t_cmd *cmd, char *del, t_cmd *head)
 	if (pid == 0)
 	{
 		ft_close(fd[0]);
-		while (1)
-		{
-			terminal()->input = readline(terminal()->prompt);
-			if (!terminal()->input || !ft_strcmp(terminal()->input, del))
-			{
-				free(terminal()->input);
-				break ;
-			}
-			write(fd[1], terminal()->input, ft_strlen(terminal()->input));
-			write(fd[1], "\n", 1);
-			free(terminal()->input);
-		}
+		loop(fd[1], del);
 		ft_close(fd[1]);
 		clean_exit(head, 1);
 	}
@@ -40,7 +57,7 @@ void	here_doc(t_cmd *cmd, char *del, t_cmd *head)
 void	check_here(t_cmd *cmd)
 {
 	int		i;
-	t_cmd *head;
+	t_cmd	*head;
 
 	head = cmd;
 	while (cmd)

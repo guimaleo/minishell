@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:44:54 by lede-gui          #+#    #+#             */
-/*   Updated: 2024/12/19 17:52:24 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/04 21:29:02 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,50 @@
 
 char	*cleanup_quotes(char *input)
 {
-    int		i;
-    int		j;
-    char	quote;
-    char	*result;
+	int		i;
+	int		j;
+	char	quote;
+	char	*result;
 
-    result = (char *)ft_calloc(ft_strlen(input) + 1, 1);
-    if (!result)
-        return (NULL);
-    i = 0;
-    j = 0;
-    while (input[i])
-    {
-        if (input[i] == '\'' || input[i] == '\"')
-        {
-            quote = input[i++];
-            while (input[i] && input[i] != quote)
-                result[j++] = input[i++];
-            if (input[i] == quote)
-                i++;
-        }
-        else
-            result[j++] = input[i++];
-    }
-    return (result);
+	result = (char *)ft_calloc(ft_strlen(input) + 1, 1);
+	if (!result)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (input[i])
+	{
+		if (input[i] == '\'' || input[i] == '\"')
+		{
+			quote = input[i++];
+			while (input[i] && input[i] != quote)
+				result[j++] = input[i++];
+			if (input[i] == quote)
+				i++;
+		}
+		else
+			result[j++] = input[i++];
+	}
+	return (result);
 }
 
 void	quote_analysis(t_cmd *cmd)
 {
-    int		i;
-    char	*cleaned_arg;
+	int		i;
+	char	*cleaned_arg;
 
 	while (cmd)
 	{
-    	i = 0;
-	    while (cmd->args[i])
-	    {
-	        cleaned_arg = cleanup_quotes(cmd->args[i]);
-	        if (cleaned_arg)
-	        {
-	            free(cmd->args[i]);
-	            cmd->args[i] = cleaned_arg;
-	        }
-	        i++;
-	    }
+		i = 0;
+		while (cmd->args[i])
+		{
+			cleaned_arg = cleanup_quotes(cmd->args[i]);
+			if (cleaned_arg)
+			{
+				free(cmd->args[i]);
+				cmd->args[i] = cleaned_arg;
+			}
+			i++;
+		}
 		cmd = cmd->next;
 	}
 }
@@ -72,7 +72,7 @@ void	quote_analysis(t_cmd *cmd)
 static int	redirections(char *str, char **input, size_t *i)
 {
 	if ((input[0][0] == '<' && input[0][1] == '<') || ((input[0][0] == '>' \
-	&& input[0][1] == '>')))
+					&& input[0][1] == '>')))
 	{
 		str[(*i)++] = '\2';
 		str[(*i)++] = (**input);
