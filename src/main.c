@@ -36,6 +36,11 @@ void	free_prealloc(void)
 		free(terminal()->home);
 		terminal()->home = NULL;
 	}
+	if (terminal()->env)
+	{
+		free_doubles((void **)terminal()->env);
+		terminal()->env = NULL;
+	}
 }
 
 void	set_bash_min_env(void)
@@ -89,9 +94,7 @@ int	main(int ac, char **av, char **env)
 	if (!*env)
 		set_bash_min_env();
 	else
-	{
-		terminal()->env = env;
-	}
+		ft_copyenv(env);
 	terminal()->cwd = getcwd(NULL, 0);
 	terminal()->old_cwd = ft_getenv("OLDPWD");
 	terminal()->home = ft_getenv("HOME");

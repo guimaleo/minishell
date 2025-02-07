@@ -150,6 +150,7 @@ char		*ft_itoa(int nb);
 void		*ft_calloc(size_t len, size_t size);
 void		free_doubles(void **ptr);
 void		free_list(t_cmd **list);
+void		ft_copyenv(char **env);
 
 // /*Trees functions*/
 // t_tree	*new_node(int value);

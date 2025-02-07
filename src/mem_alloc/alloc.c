@@ -67,3 +67,25 @@ void	*ft_calloc(size_t len, size_t size)
 		byte[i++] = 0;
 	return (ptr);
 }
+
+void	ft_copyenv(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	terminal()->env = (char **)ft_calloc((i + 1) * sizeof(char *), 1);
+	if (!terminal()->env)
+		exit(1);
+	i = 0;
+	while (env[i])
+	{
+		terminal()->env[i] = ft_strdup(env[i]);
+		if (!terminal()->env[i])
+			free_doubles((void **)terminal()->env);
+		i++;
+	}
+	terminal()->env[i] = NULL;
+	return ;
+}

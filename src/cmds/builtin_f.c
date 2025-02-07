@@ -68,7 +68,8 @@ void	env_injection(t_cmd *cmd, char *tmp)
 	(void)cmd;
 	while (terminal()->env && terminal()->env[i])
 		i++;
-	new_env = ft_calloc(i + 2, sizeof(char **));
+	if (tmp)
+		new_env = ft_calloc(i + 2, sizeof(char *));
 	if (!new_env)
 		return ;
 	i = 0;
@@ -121,7 +122,9 @@ void	export_f(t_cmd *cmd)
 	{
 		if (!ft_strncmp(cmd->env[i], to_exp[0], len))
 		{
+			free(cmd->env[i]);
 			cmd->env[i] = tmp;
+			free_doubles((void **)to_exp);
 			return ;
 		}
 		i++;
