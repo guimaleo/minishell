@@ -28,11 +28,13 @@ void	replace_n_erase(t_cmd *cmd, char *input, size_t len)
 {
 	int		i;
 	char	*swap;
+	char	*tmp;
 
 	swap = NULL;
 	i = 0;
 	while (cmd->env[i] && ft_strncmp(cmd->env[i], input, len))
 		i++;
+	tmp = cmd->env[i];
 	while (cmd->env[i])
 	{
 		swap = cmd->env[i + 1];
@@ -44,6 +46,7 @@ void	replace_n_erase(t_cmd *cmd, char *input, size_t len)
 		cmd->env[i] = swap;
 		i++;
 	}
+	free(tmp);
 }
 
 void	unset_f(t_cmd *cmd)

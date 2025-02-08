@@ -66,6 +66,7 @@ void	env_injection(t_cmd *cmd, char *tmp)
 
 	i = 0;
 	(void)cmd;
+	new_env = NULL;
 	while (terminal()->env && terminal()->env[i])
 		i++;
 	if (tmp)
