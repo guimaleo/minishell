@@ -96,5 +96,6 @@ void	args_exit(t_cmd *cmd)
 	ret = ft_atoi(cmd->args[1]);
 	printf("exit\n");
 	clean_exit(cmd, 0);
+	free_prealloc();
 	exit(ret);
 }
