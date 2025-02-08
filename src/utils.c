@@ -39,3 +39,39 @@ char	*ft_getenv(char *str)
 	}
 	return (ret);
 }
+
+void	ft_check(void)
+{
+	int	i;
+
+	i = 0;
+	while (terminal()->input[i])
+	{
+		if (terminal()->input[i] == '|')
+		{
+			i++;
+			while (ft_isspace(terminal()->input[i]))
+				i++;
+			if (terminal()->input[i] == '|')
+				return ((void)ft_checkerror());
+		}
+		else
+			i++;
+	}
+	i = 0;
+	while (terminal()->input[i])
+		i++;
+	--i;
+	while (ft_isspace(terminal()->input[i]))
+		--i;
+	if (terminal()->input[i] == '|')
+		ft_checkerror();
+}
+
+void	ft_checkerror(void)
+{
+	printf("syntax error near unexpected token '|'\n");
+	terminal()->stat = 2;
+	free(terminal()->input);
+	terminal()->input = NULL;
+}

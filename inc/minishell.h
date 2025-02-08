@@ -91,6 +91,8 @@ void		clean_redir(t_redirect *redir);
 void		wait_children(int *all_stat);
 void		check_here(t_cmd *cmd);
 void		redir_out(t_cmd *cmd, char *str, int flag);
+void		ft_checkerror(void);
+void		ft_check(void);
 
 /*Built-ins*/
 

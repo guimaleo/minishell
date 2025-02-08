@@ -89,6 +89,7 @@ void	args_exit(t_cmd *cmd)
 		{
 			printf(EXIT_ERR);
 			clean_exit(cmd, 0);
+			free_prealloc();
 			exit(2);
 		}
 		i++;

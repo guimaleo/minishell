@@ -69,45 +69,6 @@ void	set_bash_min_env(void)
 	terminal()->env = min;
 }
 
-void	ft_check(void)
-{
-	int i;
-
-	i = 0;
-	while (terminal()->input[i])
-	{
-		if (terminal()->input[i] == '|')
-		{
-			i++;
-			while (ft_isspace(terminal()->input[i]))
-				i++;
-			if (terminal()->input[i] == '|')
-			{
-				printf("syntax error near unexpected token '|'\n");
-				terminal()->stat = 2;
-				free(terminal()->input);
-				terminal()->input = NULL;
-				return ;
-			}
-		}
-		else
-			i++;
-	}
-	i = 0;
-	while (terminal()->input[i])
-		i++;
-	--i;
-	while (ft_isspace(terminal()->input[i]))
-		--i;
-	if (terminal()->input[i] == '|')
-	{
-		printf("syntax error near unexpected token '|'\n");
-		terminal()->stat = 2;
-		free(terminal()->input);
-		terminal()->input = NULL;
-		return ;
-	}
-}
 static void	input_looking(void)
 {
 	sig_handle();
