@@ -81,7 +81,7 @@ void		sig_handle(void);
 /*Execution*/
 void		exeggutor(t_cmd *cmd);
 int			pipex(t_cmd *cmd);
-void		check_acess(t_cmd *cmd);
+void		check_acess(t_cmd *cmd, int fd_in);
 void		check_redir(t_cmd *cmd);
 int			open_redir(t_cmd *cmd, int *fd_in);
 int			open_redout(t_cmd *cmd);

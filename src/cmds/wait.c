@@ -66,7 +66,7 @@ void	wait_children(int *all_stat)
 	}
 }
 
-void	check_acess(t_cmd *cmd)
+void	check_acess(t_cmd *cmd, int fd_in)
 {
 	int		i;
 	char	*tmp;
@@ -86,6 +86,9 @@ void	check_acess(t_cmd *cmd)
 		}
 	}
 	printf(CMD"%s\n", cmd->args[0]);
+	if (fd_in > 2)
+		close(fd_in);
+	close(0);
 	terminal()->stat = 127;
 	clean_exit(terminal()->cmd, 1);
 }

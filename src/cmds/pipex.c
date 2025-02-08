@@ -35,7 +35,7 @@ void	child_process(t_cmd *cmd, int *fd, int *fd_in)
 		ft_close(fd[1]);
 	else
 		ft_close(tmp);
-	check_acess(cmd);
+	check_acess(cmd, *fd_in);
 	clean_exit(cmd, 1);
 }
 
