@@ -64,6 +64,7 @@ void	clean_exit(t_cmd *cmd, int i)
 			clean_redir(cmd->redir);
 		if (cmd->heredoc != 0)
 			close(cmd->heredoc);
+		ft_close(cmd->out);
 		free(cmd);
 		cmd = tmp;
 	}

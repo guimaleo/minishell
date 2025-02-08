@@ -12,13 +12,13 @@
 
 #include "../inc/minishell.h"
 
-void	check_redir(t_cmd *cmd)
+void	redir_loop(t_cmd *cmd)
 {
 	int				i;
 	int				flag;
 	t_redir_func	f;
 
-	i = 1;
+	i = 0;
 	flag = 0;
 	while (cmd->args[i])
 	{
@@ -38,7 +38,17 @@ void	check_redir(t_cmd *cmd)
 		flag = 0;
 		i++;
 	}
+}
+
+void	check_redir(t_cmd *cmd)
+{
+	redir_loop(cmd);
 	clear_argso(cmd->args);
+	if (!cmd->args[0])
+	{
+		open_redout(cmd);
+		open_redir(cmd, &cmd->in);
+	}
 }
 
 void	wait_children(int *all_stat)

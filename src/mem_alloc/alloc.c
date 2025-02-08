@@ -36,7 +36,7 @@ void	free_doubles(void **ptr)
 	size_t	i;
 
 	i = 0;
-	if (!ptr || !*ptr)
+	if (!ptr)
 		return ;
 	while (ptr[i])
 		free(ptr[i++]);

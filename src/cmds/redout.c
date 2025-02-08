@@ -34,6 +34,7 @@ int	open_redout(t_cmd *cmd)
 		}
 		tmp = tmp->next;
 	}
+	cmd->out = fd;
 	return (fd);
 }
 
