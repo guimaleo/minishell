@@ -65,6 +65,7 @@ void	env_injection(t_cmd *cmd, char *tmp)
 		new_env[i] = ft_strdup(terminal()->env[i]);
 		i++;
 	}
+	printf("HERE:%s\n", tmp);
 	new_env[i] = ft_strdup(tmp);
 	free_doubles((void **)terminal()->env);
 	terminal()->env = new_env;

@@ -48,6 +48,7 @@ typedef struct s_cmd
 	char			**abs_build;
 	char			*path;
 	char			**env;
+	int				fd[2];
 	int				in;
 	int				out;
 	int				*all_stat;
@@ -86,7 +87,6 @@ void		check_redir(t_cmd *cmd);
 int			open_redir(t_cmd *cmd, int *fd_in);
 int			open_redout(t_cmd *cmd);
 void		clear_argso(char **args);
-void		check_redout(t_cmd *cmd);
 void		clean_redir(t_redirect *redir);
 void		wait_children(int *all_stat);
 void		check_here(t_cmd *cmd);

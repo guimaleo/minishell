@@ -80,9 +80,11 @@ void	check_acess(t_cmd *cmd, int fd_in)
 {
 	int		i;
 	char	*tmp;
+	int		t;
 
+	t = check_builtin(cmd);
 	i = 0;
-	if (!check_builtin(cmd))
+	if (!t)
 	{
 		if (!access(cmd->args[0], F_OK))
 			execve(cmd->args[0], cmd->args, terminal()->env);
@@ -95,10 +97,10 @@ void	check_acess(t_cmd *cmd, int fd_in)
 			i++;
 		}
 	}
-	printf(CMD"%s\n", cmd->args[0]);
-	if (fd_in > 2)
-		close(fd_in);
-	close(0);
+	if (!t)
+		printf(CMD"%s\n", cmd->args[0]);
+	ft_close(fd_in);
+	ft_close(cmd->out);
 	terminal()->stat = 127;
 	clean_exit(terminal()->cmd, 1);
 }

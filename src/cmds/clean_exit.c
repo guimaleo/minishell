@@ -39,6 +39,8 @@ void	built_exit(t_cmd *cmd)
 		free_doubles((void **)cmd->abs_build);
 		if (cmd->redir)
 			clean_redir(cmd->redir);
+		ft_close(cmd->out);
+		ft_close(cmd->in);
 		free(cmd);
 		cmd = tmp;
 	}
@@ -65,6 +67,8 @@ void	clean_exit(t_cmd *cmd, int i)
 		if (cmd->heredoc != 0)
 			close(cmd->heredoc);
 		ft_close(cmd->out);
+		ft_close(cmd->fd[0]);
+		ft_close(cmd->fd[1]);
 		free(cmd);
 		cmd = tmp;
 	}
@@ -76,23 +80,28 @@ void	clean_exit(t_cmd *cmd, int i)
 	}
 }
 
+void	print_exit(t_cmd *cmd)
+{
+	printf(EXIT_ERR);
+	clean_exit(cmd, 0);
+	free_prealloc();
+	exit(2);
+}
+
 void	args_exit(t_cmd *cmd)
 {
 	int	ret;
 	int	i;
 
 	i = 0;
-	if (cmd->args[1][i] != '-' || cmd->args[1][i] != '+' )
+	if (cmd->args[1][i] == '-' || cmd->args[1][i] == '+' )
 		i++;
+	if (!cmd->args[1][i])
+		print_exit(cmd);
 	while (cmd->args[1][i])
 	{
 		if (!ft_isdigit(cmd->args[1][i]))
-		{
-			printf(EXIT_ERR);
-			clean_exit(cmd, 0);
-			free_prealloc();
-			exit(2);
-		}
+			print_exit(cmd);
 		i++;
 	}
 	ret = ft_atoi(cmd->args[1]);

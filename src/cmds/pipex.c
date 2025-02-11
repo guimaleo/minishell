@@ -36,6 +36,8 @@ void	child_process(t_cmd *cmd, int *fd, int *fd_in)
 	else
 		ft_close(tmp);
 	check_acess(cmd, *fd_in);
+	ft_close(fd[0]);
+	ft_close(fd[1]);
 	clean_exit(cmd, 1);
 }
 
@@ -43,10 +45,8 @@ void	parent_process(int *fd, int *fd_in, t_cmd *cmd)
 {
 	wait_children(&terminal()->stat);
 	ft_close(fd[1]);
-	if (*fd_in > 0)
-		ft_close(*fd_in);
-	if (cmd->in > 0 && cmd->in != -1)
-		ft_close(cmd->in);
+	ft_close(*fd_in);
+	ft_close(cmd->in);
 	*fd_in = fd[0];
 }
 
@@ -60,19 +60,18 @@ void	ft_pipeaux(int *fd, int *fd_in, t_cmd *cmd, int flag)
 {
 	if (flag)
 	{
-		close(fd[0]);
+		ft_close(fd[0]);
 		child_process(cmd, fd, fd_in);
 	}
 	else
 	{
-		close(fd[1]);
+		ft_close(fd[1]);
 		parent_process(fd, fd_in, cmd);
 	}
 }
 
 int	pipex(t_cmd *cmd)
 {
-	int		fd[2];
 	int		fd_in;
 	pid_t	pid;
 
@@ -83,15 +82,15 @@ int	pipex(t_cmd *cmd)
 		{
 			if (cmd->next || !check_builtin(cmd))
 			{
-				if (pipe(fd) == -1)
+				if (pipe(cmd->fd) == -1)
 					error_handle("pipe");
 				pid = fork();
 				if (pid == -1)
 					error_handle("fork");
 				if (pid == 0)
-					ft_pipeaux(fd, &fd_in, cmd, 1);
+					ft_pipeaux(cmd->fd, &fd_in, cmd, 1);
 				else
-					ft_pipeaux(fd, &fd_in, cmd, 0);
+					ft_pipeaux(cmd->fd, &fd_in, cmd, 0);
 			}
 		}
 		cmd = cmd->next;

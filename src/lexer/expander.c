@@ -90,12 +90,17 @@ char	*check_variable(t_cmd *cmd, int *i, int *pos)
 
 	key = key_extractor(cmd->args[*i], pos);
 	if (!key)
-		return (NULL);
+	{
+		free(cmd->args[*i]);
+		return (ft_strdup(""));
+	}
 	value = find_value(key, ft_strlen(key));
 	if (!value)
 	{
 		if (key)
 			free(key);
+		free(value);
+		free(cmd->args[*i]);
 		return (NULL);
 	}
 	expanded = inject_expansion(cmd->args[*i], key, value);
@@ -120,6 +125,7 @@ void	expansions(t_cmd *cmd)
 			{
 				while (check_char(cmd->args[i], '$') != -1)
 				{
+					printf("HERE\n");
 					pos = check_char(cmd->args[i], '$') + 1;
 					tmp = check_variable(cmd, &i, &pos);
 					cmd->args[i] = tmp;
