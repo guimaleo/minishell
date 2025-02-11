@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:29:24 by lede-gui          #+#    #+#             */
-/*   Updated: 2025/02/04 22:37:25 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:39:17 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,12 @@ void	check_acess(t_cmd *cmd, int fd_in)
 	ft_close(cmd->out);
 	terminal()->stat = 127;
 	clean_exit(terminal()->cmd, 1);
+}
+
+void	printerror(t_cmd *cmd, char *s)
+{
+	perror(s);
+	if (!ft_strcmp(s, "fork"))
+		return ;
+	clean_exit(cmd, 1);
 }

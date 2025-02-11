@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 21:59:36 by lede-gui          #+#    #+#             */
-/*   Updated: 2025/02/04 22:17:33 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:38:06 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,47 @@ void	unset_f(t_cmd *cmd)
 	if (flag)
 		replace_n_erase(cmd, to_unset, len);
 	free(to_unset);
+}
+
+void	redir_aux(t_cmd *cmd)
+{
+	if (cmd->in > 2)
+	{
+		if (dup2(cmd->in, STDIN_FILENO) == -1)
+			printerror(cmd, "dup2");
+	}
+	if (cmd->out > 2)
+	{
+		if (dup2(cmd->out, STDOUT_FILENO) == -1)
+			printerror(cmd, "dup2");
+	}
+}
+
+void	builtin_redir(t_cmd *cmd, t_builtin_func f)
+{
+	int	pid;
+
+	if (!cmd->next)
+	{
+		open_redout(cmd);
+		open_redir(cmd, &cmd->in);
+		pid = fork();
+		if (pid == -1)
+			return (printerror(cmd, "fork"));
+		if (pid == 0)
+		{
+			redir_aux(cmd);
+			if (f)
+				f(cmd);
+			ft_close(cmd->in);
+			ft_close(cmd->out);
+			clean_exit(terminal()->cmd, 1);
+		}
+		else
+			waitpid(pid, &terminal()->stat, 0);
+		ft_close(cmd->out);
+		ft_close(cmd->in);
+	}
+	else
+		f(cmd);
 }

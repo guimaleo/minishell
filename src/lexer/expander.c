@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:36:31 by lede-gui          #+#    #+#             */
-/*   Updated: 2025/02/04 22:34:03 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:44:48 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void	expansions(t_cmd *cmd)
 			{
 				while (check_char(cmd->args[i], '$') != -1)
 				{
-					printf("HERE\n");
 					pos = check_char(cmd->args[i], '$') + 1;
 					tmp = check_variable(cmd, &i, &pos);
 					cmd->args[i] = tmp;

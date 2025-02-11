@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:13:05 by lede-gui          #+#    #+#             */
-/*   Updated: 2025/02/04 21:58:36 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:40:12 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	env_injection(t_cmd *cmd, char *tmp)
 		new_env[i] = ft_strdup(terminal()->env[i]);
 		i++;
 	}
-	printf("HERE:%s\n", tmp);
 	new_env[i] = ft_strdup(tmp);
 	free_doubles((void **)terminal()->env);
 	terminal()->env = new_env;

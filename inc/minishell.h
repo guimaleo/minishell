@@ -6,7 +6,7 @@
 /*   By: lede-gui <lede-gui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 22:53:44 by lede-gui          #+#    #+#             */
-/*   Updated: 2025/02/04 22:34:31 by lede-gui         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:39:40 by lede-gui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void		check_here(t_cmd *cmd);
 void		redir_out(t_cmd *cmd, char *str, int flag);
 void		ft_checkerror(void);
 void		ft_check(void);
+void		printerror(t_cmd *cmd, char *s);
 
 /*Built-ins*/
 
@@ -111,6 +112,7 @@ void		export_f(t_cmd *cmd);
 void		args_exit(t_cmd *cmd);
 int			check_built(t_cmd *cmd);
 char		*cut_line(char *str);
+void		builtin_redir(t_cmd *cmd, t_builtin_func f);
 
 /*Lexical functions*/
 void		lexer(char *input);
